@@ -11,19 +11,9 @@ import { useEffect, useState } from "react";
 import ImagePicker from "./components/image-picker";
 import { CgAdd } from "react-icons/cg";
 // import spinner from "@root/assets/loaders/spinner-indigo.svg";
-// import Image from "next/image";
 import { v4 as uuidv4 } from 'uuid';
 import Queue from "./components/queue";
 
-// const Queue = dynamic(() => import("./components/queue"), {
-//   ssr: false,
-//   loading: () => (
-//     <div className="w-full h-full flex flex-col gap-1 items-center justify-center pb-16">
-//       {/* <Image src={spinner} alt="loading-spinner" height={30} width={30} /> */}
-//       <p className="text-xs">Loading queue</p>
-//     </div>
-//   ),
-// });
 export default function CreatePage() {
   const isFirstRender = useIsFirstRender()
   const { queuedItems, setQueuedItems } = useQueue();
@@ -100,7 +90,7 @@ export default function CreatePage() {
               emptyQueue ? "absolute block z-50" : "hidden z-0"
             )}
           />
-          <div className="w-full flex flex-col gap-2 mb-1">
+          <div className="w-full flex flex-col gap-2 mb-1 py-2">
             <InputField
               placeholder="Article Title"
               value={localFields.title}

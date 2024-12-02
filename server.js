@@ -20,7 +20,7 @@ connectDB();
 app.use("/api/test", testRoutes);
 app.use("/api/rss", rssRoutes);
 app.use("/api/article", articleRoutes);
-// app.use("/api/upload", uploadRoutes);
+app.use("/api/upload", uploadRoutes);
 
 // Serve static files from the React app's build folder
 app.use(express.static(path.join(__dirname, 'client/build')));
