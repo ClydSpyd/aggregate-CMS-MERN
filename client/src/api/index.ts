@@ -14,12 +14,13 @@ export const baseClient = axios.create({
   headers: {
     ...baseHeaders,
   },
-  baseURL: `/api`,
+  baseURL: `http://localhost:6969/api`,
+  
 });
 
 export const uploadClient = axios.create({
   headers: { "Content-Type": "multipart/form-data" },
-  baseURL: `/api`,
+  baseURL: `http://localhost:6969/api`,
 });
 
 const API = {
