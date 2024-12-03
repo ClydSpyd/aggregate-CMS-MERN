@@ -2,6 +2,8 @@ import { cn } from "../../lib/utilities";
 import { InputFieldProps } from "./types";
 import { useRef, useState } from "react";
 import { TiDelete } from "react-icons/ti";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+
 
 export default function InputField({
   value,
@@ -13,7 +15,7 @@ export default function InputField({
 //   validityCheck,
 }: InputFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
-
+  const [showValue, setShowValue] = useState(!secure);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -42,17 +44,20 @@ export default function InputField({
         {placeholder}
       </p>
       {isFocused && (
-        <div className="absolute rounded-sm inset-0 z-10 shadow-[inset_0_0_0_2px_black]" />
+        <div className="absolute rounded-sm inset-0 z-10 shadow-[inset_0_0_0_2px_black] pointer-events-none" />
       )}
       <input
         className="w-full h-[30px] bg-transparent px-[10px] relative z-0 top-[8px]"
-        type={secure ? "password" : "text"}
+        type={!showValue ? "password" : "text"}
         ref={inputRef}
         value={value}
         onChange={handleInput}
         data-testid="input-field"
         onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        onBlur={() => {
+          setIsFocused(false);
+          setShowValue(!secure);
+        }}
       />
       {!!value && withDeleteBtn && (
         <TiDelete
@@ -60,6 +65,18 @@ export default function InputField({
           size={23}
           className="absolute z-20 text-slate-400 hover:text-slate-600 cursor-pointer right-[5px]"
         />
+      )}
+
+      {secure && (
+        <div
+          onClick={() => setShowValue(!showValue)}
+          className={cn(
+            "absolute right-1 h-[40px] w-[40px] flex items-center justify-center text-[25px] cursor-pointer z-50",
+            showValue ? "text-black" : "text-slate-500"
+          )}
+        >
+          {!showValue ? <IoMdEye /> : <IoMdEyeOff />}
+        </div>
       )}
     </div>
   );
