@@ -8,7 +8,8 @@ export default function InputField({
   placeholder,
   onChange,
   additionalClass,
-  withDeleteBtn
+  withDeleteBtn,
+  secure,
 //   validityCheck,
 }: InputFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
@@ -45,7 +46,7 @@ export default function InputField({
       )}
       <input
         className="w-full h-[30px] bg-transparent px-[10px] relative z-0 top-[8px]"
-        type="text"
+        type={secure ? "password" : "text"}
         ref={inputRef}
         value={value}
         onChange={handleInput}

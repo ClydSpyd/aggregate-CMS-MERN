@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 
 export default function ConfirmModal({
   handleDismiss,
@@ -10,9 +11,9 @@ export default function ConfirmModal({
         <h4 className="font-regular">Article saved to database</h4>
         <p className="text-sm text-gray-400">
           In order to preview or edit the article, head over to the{" "}
-          <a onClick={handleDismiss} className="text-indigo-600 font-semibold" href={"/browse"}>
+          <Link onClick={handleDismiss} className="text-indigo-600 font-semibold" to={"/browse"}>
             browse
-          </a>{" "}
+          </Link>{" "}
           tab
         </p>
         <div

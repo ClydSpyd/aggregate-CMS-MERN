@@ -10,3 +10,9 @@ export const generateUID = (input: string) => {
   }
   return hash >>> 0; // Ensure a positive 32-bit integer
 };
+
+export const delay = async (ms: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+};

@@ -4,6 +4,7 @@ import { cn } from "../../lib/utilities";
 import { useQueue } from "../../contexts/queue-context";
 // import Image from "next/image";
 import StaggerContainer from "../../components/stagger-container";
+import { Link } from "react-router";
 
 export default function ListItem({
   item,
@@ -49,11 +50,11 @@ export default function ListItem({
         {buttons && (
           <div className="h-full gap-2 flex items-center justify-evenly">
             {buttons.open && (
-              <a href={item.url} target="_blank" rel="noreferrer">
+              <Link to={item.url} target="_blank" rel="noreferrer">
                 <div className="h-[40px] w-[40px] flex items-center justify-center border rounded-md cursor-pointer hover:border-indigo-600 transition-colors duration-200">
                   <MdOutlineOpenInNew size={18} />
                 </div>
-              </a>
+              </Link>
             )}
             {buttons.add && (
               <div
@@ -79,7 +80,7 @@ export default function ListItem({
             )}
           </div>
         )}
-      </div>  
+      </div>
     </StaggerContainer>
   );
 }

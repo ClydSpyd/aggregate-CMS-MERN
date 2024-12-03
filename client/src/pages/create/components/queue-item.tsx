@@ -4,6 +4,7 @@ import { cn } from "../../../lib/utilities";
 import { RxCross2 } from "react-icons/rx";
 import { useQueue } from "../../../contexts/queue-context";
 import StaggerContainer from "../../../components/stagger-container";
+import { Link } from "react-router";
 
 export default function QueueItem({
   item,
@@ -45,11 +46,11 @@ export default function QueueItem({
         </div>
 
         {!isCustom && (
-          <a
+          <Link
             className={cn(
               selected ? "pointer-events-auto" : "pointer-events-none"
             )}
-            href={item.url}
+            to={item.url}
             target="_blank"
             rel="noreferrer"
           >
@@ -66,7 +67,7 @@ export default function QueueItem({
                 className="text-indigo-600 group-hover/open:text-white"
               />
             </div>
-          </a>
+          </Link>
         )}
       </div>
     </StaggerContainer>

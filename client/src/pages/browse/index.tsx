@@ -29,6 +29,6 @@ export default function BrowsePage() {
       />
     </div>
   ) : (
-    <h1>loading...</h1>
+    <h1>Ö</h1>
   );
 }

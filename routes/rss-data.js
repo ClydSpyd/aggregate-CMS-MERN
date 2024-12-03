@@ -2,9 +2,10 @@
 const express = require('express');
 const fetchRSSFeed = require('../utilities/rssParser');
 const router = express.Router();
+const verifyToken = require("../middleware/verify-token");
 
 // Define the /api/rss route
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
     const rssUrl = req.query.feed;
 
     try {

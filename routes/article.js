@@ -4,13 +4,13 @@ const Article = require("../schema/article");
 const { body, validationResult } = require("express-validator");
 const { handleTags } = require("./route-utils/article-utils");
 const filteringRoutes = require("./article_filtering");
+const verifyToken = require("../middleware/verify-token");
 
 // filtering routes
 router.use("/", filteringRoutes);
 
-
 // GET all articles
-router.get("/all", async (req, res) => {
+router.get("/all", verifyToken, async (req, res) => {
   try {
     const articles = await Article.find();
     res.json(articles);
@@ -20,7 +20,7 @@ router.get("/all", async (req, res) => {
 });
 
 // GET article by ID
-router.get("/id/:id", async (req, res) => {
+router.get("/id/:id", verifyToken, async (req, res) => {
   try {
     const article = await Article.findById(req.params.id);
     if (article) {
@@ -48,6 +48,7 @@ router.post(
     body("sourceUrl").notEmpty().withMessage("sourceUrl is required"),
     body("blocks").notEmpty().withMessage("blocks is required"),
   ],
+  verifyToken,
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -74,7 +75,6 @@ router.post(
       const tags = req.body.tags;
       handleTags(tags);
 
-
       const savedArticle = await newArticle.save();
 
       res.status(200).json(savedArticle);
@@ -85,7 +85,7 @@ router.post(
 );
 
 // PATCH update article by ID
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id", verifyToken, async (req, res) => {
   try {
     // Use findByIdAndUpdate to update the article with the new payload
     const updatedArticle = await Article.findByIdAndUpdate(

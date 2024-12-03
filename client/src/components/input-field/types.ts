@@ -5,4 +5,5 @@ export interface InputFieldProps {
   validityCheck?: (value: string) => boolean;
   additionalClass?: string;
   withDeleteBtn?: boolean;
+  secure?: boolean; 
 }

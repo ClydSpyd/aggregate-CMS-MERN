@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Article = require("../schema/article");
 const { articlesByText } = require("./route-utils/article-utils");
+const verifyToken = require("../middleware/verify-token");
 
 // GET all articles with given tags
-router.post("/search/tags", async (req, res) => {
+router.post("/search/tags", verifyToken, async (req, res) => {
   try {
     const tags = req.body.tags;
 
@@ -21,7 +22,7 @@ router.post("/search/tags", async (req, res) => {
 });
 
 // GET all articles containing text in title/caption
-router.post("/search/text", async (req, res) => {
+router.post("/search/text", verifyToken, async (req, res) => {
   try {
     const text = req.body.text;
     let articles = await articlesByText(text);
@@ -34,7 +35,7 @@ router.post("/search/text", async (req, res) => {
 });
 
 // GET search articles text + tags
-router.post("/search/filters", async (req, res) => {
+router.post("/search/filters", verifyToken, async (req, res) => {
   try {
     const { text, tags } = req.body;
     let articles = await articlesByText(text);
@@ -58,7 +59,7 @@ router.post("/search/filters", async (req, res) => {
 
 //GET most recent articles,
 // :num variable defines how many articles are returned
-router.get("/recent", async (req, res) => {
+router.get("/recent", verifyToken, async (req, res) => {
   try {
     const num = req.query.num ?? 10;
     const articles = await Article.find().sort({ _id: -1 }).limit(num);
