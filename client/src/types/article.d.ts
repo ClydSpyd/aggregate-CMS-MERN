@@ -39,4 +39,6 @@ declare interface Article {
   source: string;
   sourceUrl: string;
   blocks: Block[];
+  createdAt: string;
+  updatedAt: string;
 }

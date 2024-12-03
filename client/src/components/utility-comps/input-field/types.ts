@@ -5,5 +5,6 @@ export interface InputFieldProps {
   validityCheck?: (value: string) => boolean;
   additionalClass?: string;
   withDeleteBtn?: boolean;
-  secure?: boolean; 
+  secure?: boolean;
+  refProp?: React.RefObject<HTMLInputElement>;
 }

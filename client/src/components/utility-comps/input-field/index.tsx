@@ -1,9 +1,8 @@
-import { cn } from "../../lib/utilities";
+import { cn } from "../../../lib/utilities";
 import { InputFieldProps } from "./types";
 import { useRef, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-
 
 export default function InputField({
   value,
@@ -12,18 +11,21 @@ export default function InputField({
   additionalClass,
   withDeleteBtn,
   secure,
-//   validityCheck,
-}: InputFieldProps) {
+  refProp,
+}: //   validityCheck,
+InputFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [showValue, setShowValue] = useState(!secure);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const hanldleContainerClick = () => inputRef.current?.focus();
+  const ref = refProp ?? inputRef;
+
+  const hanldleContainerClick = () => ref.current?.focus();
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
-  }
+  };
 
   const handleClear = () => onChange("");
 
@@ -35,6 +37,14 @@ export default function InputField({
         additionalClass ? `${additionalClass}` : ""
       )}
     >
+      {/* hidden input to prevent autofill */}
+        <input
+          type={!showValue ? "password" : "text"}
+          placeholder={placeholder}
+          className="absolute opacity-0 pointer-events-none"
+          tabIndex={-1}
+        />
+      {/* hidden input to prevent autofill */}
       <p
         className={cn(
           "absolute left-[10px] transition-all duration-300 m-0 text-[#a0a0a0] z-50",
@@ -47,9 +57,10 @@ export default function InputField({
         <div className="absolute rounded-sm inset-0 z-10 shadow-[inset_0_0_0_2px_black] pointer-events-none" />
       )}
       <input
-        className="w-full h-[30px] bg-transparent px-[10px] relative z-0 top-[8px]"
+        autoComplete="off"
+        className="w-full h-[30px] bg-transparent px-[10px] relative z-0 top-[8px] selection:bg-indigo-300"
         type={!showValue ? "password" : "text"}
-        ref={inputRef}
+        ref={ref}
         value={value}
         onChange={handleInput}
         data-testid="input-field"

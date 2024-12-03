@@ -63,6 +63,12 @@ input:focus {
   transform: translate(-50%, -50%);
 }
 
+.absolute-vert {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .absolute-horiz {
   position: absolute;
   left: 50%;

@@ -29,7 +29,7 @@ export const articleFunctions = {
   },
   getArticle: async (id: string): Promise<ApiResponse<Article>> => {
     try {
-      const { data, status } = await baseClient.get(`/article/${id}`);
+      const { data, status } = await baseClient.get(`/article/id/${id}`);
       return { status, data };
     } catch (error) {
       console.error(`Error fetching article:`, error);

@@ -3,7 +3,7 @@ import { CgPlayListAdd, CgPlayListCheck } from "react-icons/cg";
 import { cn } from "../../lib/utilities";
 import { useQueue } from "../../contexts/queue-context";
 // import Image from "next/image";
-import StaggerContainer from "../../components/stagger-container";
+import StaggerContainer from "../../components/utility-comps/stagger-container";
 import { Link } from "react-router";
 
 export default function ListItem({

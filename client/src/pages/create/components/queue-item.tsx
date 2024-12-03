@@ -3,7 +3,7 @@ import { MdOutlineOpenInNew } from "react-icons/md";
 import { cn } from "../../../lib/utilities";
 import { RxCross2 } from "react-icons/rx";
 import { useQueue } from "../../../contexts/queue-context";
-import StaggerContainer from "../../../components/stagger-container";
+import StaggerContainer from "../../../components/utility-comps/stagger-container";
 import { Link } from "react-router";
 
 export default function QueueItem({

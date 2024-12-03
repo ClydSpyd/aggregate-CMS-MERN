@@ -1,4 +1,4 @@
-import InputField from "../../components/input-field";
+import InputField from "../../components/utility-comps/input-field";
 import { useAuth } from "../../contexts/auth-context";
 import { useEffect, useState } from "react";
 import spinner from "../../assets/loaders/spinner-white.svg";

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import InputField from "../../../components/input-field";
+import InputField from "../../../components/utility-comps/input-field";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { CgAdd } from "react-icons/cg";

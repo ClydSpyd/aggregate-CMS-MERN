@@ -6,7 +6,7 @@ import { useIsFirstRender } from "../../hooks/isFirstRender";
 import ConfirmModal from "./components/confirm-modal";
 import useCreate from "./_hooks/useCreate";
 import { cn } from "../../lib/utilities";
-import InputField from "../../components/input-field";
+import InputField from "../../components/utility-comps/input-field";
 import { useEffect, useState } from "react";
 import ImagePicker from "./components/image-picker";
 import { CgAdd } from "react-icons/cg";
