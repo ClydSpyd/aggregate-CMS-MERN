@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt")
 const User = require("../schema/user")
 const jwt = require('jsonwebtoken');
+const { TOKEN_LIFESPAN } = require("../constants");
 
 // create new user
 const createNewUser = async ({ username, email, password }) => {
@@ -46,7 +47,7 @@ const generateAccessToken = (user) => {
   return jwt.sign(
     { id: user.id, username: user.username },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: '3m' } // Token valid for 3 minutes
+    { expiresIn: TOKEN_LIFESPAN }
   );
 };
 

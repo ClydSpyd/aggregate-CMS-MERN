@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useState, useEffect, useContext } from "react";
-import axios from "axios";
 import API from "../../api";
 import { defaultAuthContextData } from "./types";
 import { delay } from "../../lib/utilities";
@@ -29,8 +28,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     delay(800).then(() => {
       setSubmitting(false);
-      setLoading(false)}
-    );
+      setLoading(false);
+    });
   };
 
   const logout = async () => {
@@ -45,18 +44,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (!token) {
       console.log("No token found in browser storage");
-      setLoading(false); // No token, stop loading
+      setLoading(false);
       return;
     }
 
-    try {
-      const { data } = await axios.post("/auth/verify-token", { token });
+    const { data, error } = await API.auth.verifyToken(token);
+    if (data) {
       setUser(data);
-    } catch {
+    } else if (error) {
       logout();
-    } finally {
-      delay(800).then(() => setLoading(false));
     }
+    delay(800).then(() => setLoading(false));
   };
 
   useEffect(() => {

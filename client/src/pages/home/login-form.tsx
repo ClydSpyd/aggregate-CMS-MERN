@@ -69,21 +69,23 @@ export default function LoginForm() {
         onChange={(val: string) => handleInputChange(val, "password")}
         secure
       />
-      <button
-        className={cn(
-          formIncomplete ? "opacity-85 pointer-events-none" : "",
-          "w-full h-[55px] flex items-center justify-center border-2 border-indigo-500 rounded-md font-semibold text-white bg-indigo-500 hover:text-indigo-500 hover:bg-white transition-all duration-200",
-          submitting ? "!bg-indigo-500 !text-white" : ""
-        )}
-      >
-        {!submitting ? (
-          "LOGIN"
-        ) : (
-          <img src={spinner} className="h-[35px] w-[35px]" alt="spiner" />
-        )}
-      </button>
+      <div className={cn(formIncomplete ? "cursor-not-allowed" : "")}>
+        <button
+          className={cn(
+            formIncomplete ? "opacity-85 pointer-events-none" : "",
+            "w-full h-[55px] flex items-center justify-center border-2 border-indigo-500 rounded-md font-semibold text-white bg-indigo-500 hover:text-indigo-500 hover:bg-white transition-all duration-200",
+            submitting ? "!bg-indigo-500 !text-white" : ""
+          )}
+        >
+          {!submitting ? (
+            "LOGIN"
+          ) : (
+            <img src={spinner} className="h-[35px] w-[35px]" alt="spiner" />
+          )}
+        </button>
+      </div>
       {error && !submitting && (
-        <p className="absolute-horiz bottom-[8px] h-fit text-sm text-red-500">
+        <p className="absolute-horiz bottom-[8px] h-fit text-sm text-red-500 whitespace-nowrap w-full mx-auto text-center">
           {error}
         </p>
       )}

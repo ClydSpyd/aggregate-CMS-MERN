@@ -20,4 +20,15 @@ export const authFunctions = {
   logout: async (): Promise<void> => {
     await baseClient.post("/auth/logout");
   },
+  verifyToken: async (token: string): Promise<ApiResponse<User>> => {
+    try {
+      const { data, status } = await baseClient.post("/auth/verify-token", {
+        token,
+      });
+      return { status, data };
+    } catch (error) {
+      const err = error as ErrorResponse;
+      return { error: err.response?.data.message, status: 500 };
+    }
+  }
 };

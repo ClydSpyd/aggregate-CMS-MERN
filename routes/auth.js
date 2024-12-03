@@ -8,6 +8,7 @@ const {
   findUserByEmailWithPassword,
   generateAccessToken,
 } = require("../services/user-service");
+const { TOKEN_LIFESPAN } = require("../constants");
 
 // @post
 // LOGIN USER
@@ -22,7 +23,7 @@ router.post("/signin", async (req, res) => {
   user = await findUserByUsername(username.toLowerCase());
 
   if (user == null) {
-    return res.status(404).json({ message: "User or password incorrect" });
+    return res.status(404).json({ message: "Username or password incorrect" });
   }
 
   // validate password
@@ -36,11 +37,11 @@ router.post("/signin", async (req, res) => {
           // httpOnly: true, // Prevent JavaScript access
           secure: process.env.NODE_ENV === "production", // Send only over HTTPS in production
           sameSite: "strict", // CSRF protection
-          maxAge: 3 * 60 * 1000, // 15 minutes
+          maxAge: TOKEN_LIFESPAN,
         })
         .json({ token, user: { id: user.id, username: user.username } });
     } else {
-      res.status(400).json({ message: "User or password incorrect" });
+      res.status(400).json({ message: "Username or password incorrect" });
     }
   } catch (error) {
     console.error(error);
