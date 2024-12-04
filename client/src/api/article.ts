@@ -39,7 +39,7 @@ export const articleFunctions = {
   },
   getRecentArticles: async () => {
     try {
-      const { data, status } = await baseClient.get("/article/recent");
+      const { data, status } = await baseClient.get("/article/recent?num=15");
       return { status, data };
     } catch (error) {
       const err = error as AxiosError;
@@ -53,6 +53,15 @@ export const articleFunctions = {
         text: filters.text,
       });
       return { status, data };
+    } catch (error) {
+      const err = error as AxiosError;
+      return { error: err.message, status: 500 };
+    }
+  },
+  deleteArticle: async (id: string) => {
+    try {
+      const { status } = await baseClient.delete(`/article/delete/${id}`);
+      return { status };
     } catch (error) {
       const err = error as AxiosError;
       return { error: err.message, status: 500 };

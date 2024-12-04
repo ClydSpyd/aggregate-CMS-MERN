@@ -30,7 +30,7 @@ declare interface FeedItem {
 }
 
 declare interface Article {
-  _id?: string;
+  _id: string;
   title: string;
   caption: string;
   content: string;

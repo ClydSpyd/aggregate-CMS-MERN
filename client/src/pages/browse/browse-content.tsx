@@ -1,22 +1,47 @@
-import { Dispatch, SetStateAction, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import BrowseItem from "./_components/browse-item";
 import BrowseFilters from "./_components/browse-filters";
 import { ImWarning } from "react-icons/im";
+import API from "../../api";
+import { delay } from "../../lib/utilities";
 
 interface BrowseProps {
   recentArticles: Article[];
   error: string | null;
   setError: Dispatch<SetStateAction<string | null>>;
+  refetchRecent: () => void;
 }
 
 export default function BrowseContent({
   recentArticles,
   error,
   setError,
+  refetchRecent,
 }: BrowseProps) {
   const [filteredArticles, setFilteredArticles] = useState<Article[] | null>(
     null
   );
+  
+  const [displayedArticles, setDisplayedArticles] = useState<Article[]>(
+    filteredArticles ?? recentArticles
+  );
+
+  useEffect(() => {
+    setDisplayedArticles(filteredArticles ?? recentArticles);
+  }, [filteredArticles]);
+
+  const handleDelete = async (id: string) => {
+    const { status, error } = await API.article.deleteArticle(id);
+    setDisplayedArticles((prev) => prev?.filter((article) => article._id !== id));
+    delay(1000).then(() => refetchRecent());
+    if (status === 200) {
+      refetchRecent();
+    } else if (error) {
+      setError(error);
+    }
+  };
+
   console.log({ filteredArticles });
 
   return (
@@ -46,8 +71,12 @@ export default function BrowseContent({
           {filteredArticles?.length === 0 ? (
             <p>No items matching filters</p>
           ) : (
-            (filteredArticles ?? recentArticles).map((article: Article) => (
-              <BrowseItem key={article._id} article={article} />
+            displayedArticles.map((article: Article) => (
+              <BrowseItem
+                key={article._id}
+                article={article}
+                handleDelete={handleDelete}
+              />
             ))
           )}
         </div>

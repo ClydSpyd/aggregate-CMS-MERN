@@ -29,7 +29,7 @@ export default function ArticleDrawer({
   const [secondary, setSecondary] = useState<boolean>(false);
   const [published, setPublished] = useState<boolean>(true);
   return (
-    <div className="h-[calc(100%-30px)] w-[440px] absolute right-4 top-4 flex flex-col no-bar-scroll-container">
+    <div className="h-[calc(100%-30px)] w-[430px] absolute right-4 top-4 flex flex-col no-bar-scroll-container">
       <div className="flex flex-col gap-2 grow">
         <InputField
           refProp={titleRef}
@@ -46,25 +46,25 @@ export default function ArticleDrawer({
         <TagSelector tags={articleData.tags} setTags={handleTags} />
         <div
           onClick={() => setPublished((prev) => !prev)}
-          className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer"
+          className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
         >
-          <p className={"text-[#a0a0a0]"}>Published</p>
+          <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>Published</p>
           <Checkbox checked={published} />
         </div>
         <div className="rounded-md border bg-white p-4 pt-3 flex flex-col gap-2">
           <p className="text-xs text-[#a0a0a0]">Feature article:</p>
           <div
             onClick={() => setPrimary((prev) => !prev)}
-            className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer"
+            className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
           >
-            <p className={"text-[#a0a0a0]"}>Primary carousel</p>
+            <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>Primary carousel</p>
             <Checkbox checked={primary} />
           </div>
           <div
             onClick={() => setSecondary((prev) => !prev)}
-            className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer"
+            className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
           >
-            <p className={"text-[#a0a0a0]"}>Secondary carousel</p>
+            <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>Secondary carousel</p>
             <Checkbox checked={secondary} />
           </div>
         </div>

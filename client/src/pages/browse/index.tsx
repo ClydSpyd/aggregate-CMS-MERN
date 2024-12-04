@@ -24,6 +24,7 @@ export default function BrowsePage() {
     <div className="w-full h-full">
       <BrowseContent
         recentArticles={recentArticles}
+        refetchRecent={getRecentArticles}
         error={error}
         setError={setError}
       />

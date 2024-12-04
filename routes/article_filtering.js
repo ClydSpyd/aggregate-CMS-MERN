@@ -44,14 +44,7 @@ router.post("/search/filters", verifyToken, async (req, res) => {
         tags.every((tag) => article.tags.includes(tag))
       );
     }
-    res.status(200).json(
-      articles.map((article) => ({
-        id: article._id,
-        title: article.title,
-        caption: article.caption,
-        tags: article.tags,
-      }))
-    );
+    res.status(200).json(articles);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

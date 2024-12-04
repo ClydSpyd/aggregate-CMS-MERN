@@ -105,4 +105,19 @@ router.patch("/update/:id", verifyToken, async (req, res) => {
   }
 });
 
+// DELETE article by ID
+router.delete("/delete/:id", verifyToken, async (req, res) => {
+  try {
+    const deletedArticle = await Article.findByIdAndDelete(req.params.id);
+
+    if (deletedArticle) {
+      res.json(deletedArticle);
+    } else {
+      res.status(404).json({ message: "Article not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
