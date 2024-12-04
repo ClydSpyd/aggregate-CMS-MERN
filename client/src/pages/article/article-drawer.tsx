@@ -29,73 +29,75 @@ export default function ArticleDrawer({
   const [secondary, setSecondary] = useState<boolean>(false);
   const [published, setPublished] = useState<boolean>(true);
   return (
-    <div className="h-[calc(100%-30px)] w-[440px] absolute right-4 top-4 flex flex-col">
-        <div className="flex flex-col gap-2 grow">
+    <div className="h-[calc(100%-30px)] w-[440px] absolute right-4 top-4 flex flex-col no-bar-scroll-container">
+      <div className="flex flex-col gap-2 grow">
+        <InputField
+          refProp={titleRef}
+          placeholder="Article Title"
+          value={articleData.title}
+          onChange={(val: string) => handleInputChange(val, "title")}
+        />
+        <InputField
+          refProp={captionRef}
+          placeholder="Caption"
+          value={articleData.caption}
+          onChange={(val: string) => handleInputChange(val, "caption")}
+        />
+        <TagSelector tags={articleData.tags} setTags={handleTags} />
+        <div
+          onClick={() => setPublished((prev) => !prev)}
+          className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer"
+        >
+          <p className={"text-[#a0a0a0]"}>Published</p>
+          <Checkbox checked={published} />
+        </div>
+        <div className="rounded-md border bg-white p-4 pt-3 flex flex-col gap-2">
+          <p className="text-xs text-[#a0a0a0]">Feature article:</p>
+          <div
+            onClick={() => setPrimary((prev) => !prev)}
+            className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer"
+          >
+            <p className={"text-[#a0a0a0]"}>Primary carousel</p>
+            <Checkbox checked={primary} />
+          </div>
+          <div
+            onClick={() => setSecondary((prev) => !prev)}
+            className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer"
+          >
+            <p className={"text-[#a0a0a0]"}>Secondary carousel</p>
+            <Checkbox checked={secondary} />
+          </div>
+        </div>
+        <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
+          <p className={"text-[#a0a0a0]"}>Created at:</p>
+          <p>{formatDate(new Date(articleData.createdAt))}</p>
+        </div>
+        {articleData.createdAt !== articleData.updatedAt && (
+          <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
+            <p className={"text-[#a0a0a0]"}>Update at:</p>
+            <p>{formatDate(new Date(articleData.updatedAt))}</p>
+          </div>
+        )}
+        <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
+          <p className="text-[#a0a0a0]">Source:</p>
+          <div className="flex gap-2 items-center">
+            <p>{extractDomain(articleData.sourceUrl)}</p>
 
-            <InputField
-                refProp={titleRef}
-                placeholder="Article Title"
-                value={articleData.title}
-                onChange={(val: string) => handleInputChange(val, "title")}
-            />
-            <InputField
-                refProp={captionRef}
-                placeholder="Caption"
-                value={articleData.caption}
-                onChange={(val: string) => handleInputChange(val, "caption")}
-            />
-            <TagSelector tags={articleData.tags} setTags={handleTags} />
-            <div
-                onClick={() => setPublished((prev) => !prev)}
-                className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer"
-            >
-                <p className={"text-[#a0a0a0]"}>Published</p>
-                <Checkbox checked={published} />
-            </div>
-            <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
-                <p className={"text-[#a0a0a0]"}>Created at:</p>
-                <p>{formatDate(new Date(articleData.createdAt))}</p>
-            </div>
-            {articleData.createdAt !== articleData.updatedAt && (
-                <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
-                <p className={"text-[#a0a0a0]"}>Update at:</p>
-                <p>{formatDate(new Date(articleData.updatedAt))}</p>
-                </div>
-            )}
-            <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
-                <p className="text-[#a0a0a0]">Source:</p>
-                <div className="flex gap-2 items-center">
-                <p>{extractDomain(articleData.sourceUrl)}</p>
-
-                <Link to={articleData.sourceUrl} target="_blank" rel="noreferrer">
-                    <div
-                    className={
-                        "h-[35px] w-[35px] flex items-center justify-center bg-white border border-white rounded-md cursor-pointer hover:bg-indigo-500 hover:border-white transition-all duration-300 group/open"
-                    }
-                    >
-                    <MdOutlineOpenInNew
-                        size={20}
-                        className="text-indigo-600 group-hover/open:text-white"
-                    />
-                    </div>
-                </Link>
-                </div>
-            </div>
-            <div
-                onClick={() => setPrimary((prev) => !prev)}
-                className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer"
-            >
-                <p className={"text-[#a0a0a0]"}>Primary carousel</p>
-                <Checkbox checked={primary} />
-            </div>
-            <div
-                onClick={() => setSecondary((prev) => !prev)}
-                className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer"
-            >
-                <p className={"text-[#a0a0a0]"}>Secondary carousel</p>
-                <Checkbox checked={secondary} />
-            </div>
-            {/* <div className="flex justify-between gap-2 px-4 h-[60px] w-full bg-white border rounded-sm relative cursor-pointe">
+            <Link to={articleData.sourceUrl} target="_blank" rel="noreferrer">
+              <div
+                className={
+                  "h-[35px] w-[35px] flex items-center justify-center bg-white border border-white rounded-md cursor-pointer hover:bg-indigo-500 hover:border-white transition-all duration-300 group/open"
+                }
+              >
+                <MdOutlineOpenInNew
+                  size={20}
+                  className="text-indigo-600 group-hover/open:text-white"
+                />
+              </div>
+            </Link>
+          </div>
+        </div>
+        {/* <div className="flex justify-between gap-2 px-4 h-[60px] w-full bg-white border rounded-sm relative cursor-pointe">
                 <div
                 onClick={() => setPrimary((prev) => !prev)}
                 className="cursor-pointer flex items-center gap-4"
@@ -111,7 +113,7 @@ export default function ArticleDrawer({
                 <Checkbox checked={secondary} />
                 </div>
             </div> */}
-        </div>
+      </div>
       <div className="w-full h-[60px] relative right-[2px]"></div>
     </div>
   );

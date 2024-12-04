@@ -74,3 +74,13 @@ input:focus {
   left: 50%;
   transform: translateX(-50%);
 }
+
+.no-bar-scroll-container {
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-bar-scroll-container::-webkit-scrollbar {
+  display: none;
+}
