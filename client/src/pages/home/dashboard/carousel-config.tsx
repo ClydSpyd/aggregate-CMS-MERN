@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { dummyHighlights } from "./dummy-data";
-import { CgAdd } from "react-icons/cg";
 import { MdAddBox } from "react-icons/md";
 
 
 export default function CarouselConfig() {
-  const [items, setItems] = useState<Article[]>(dummyHighlights);
+  const [items] = useState<Article[]>(dummyHighlights);
 
   return (
     <div className="w-full rounded-lg bg-slate-100/50 border shadow-md p-4 py-3 flex flex-col gap-3">
