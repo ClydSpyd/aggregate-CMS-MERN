@@ -71,6 +71,14 @@ const articleSchema = new mongoose.Schema(
       required: true,
     },
     blocks: [BlockSchema], // Array of block objects
+    published: {
+      type: Boolean,
+      default: true,
+    },
+    highlight: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,

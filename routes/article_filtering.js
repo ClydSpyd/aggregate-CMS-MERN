@@ -62,4 +62,15 @@ router.get("/recent", verifyToken, async (req, res) => {
   }
 });
 
+// GET highlighted articles
+// :string variable defines highlight variety
+router.get("/highlight/:string", verifyToken, async (req, res) => {
+  try {
+    const articles = await Article.find({ highlight: req.params.string });
+    res.json(articles);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;

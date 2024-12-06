@@ -87,6 +87,8 @@ router.post(
 // PATCH update article by ID
 router.patch("/update/:id", verifyToken, async (req, res) => {
   try {
+    console.log("UPDATE ARTICLE");
+    console.log(req.params);
     // Use findByIdAndUpdate to update the article with the new payload
     const updatedArticle = await Article.findByIdAndUpdate(
       req.params.id,

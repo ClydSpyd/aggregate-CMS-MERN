@@ -41,4 +41,6 @@ declare interface Article {
   blocks: Block[];
   createdAt: string;
   updatedAt: string;
+  published: boolean;
+  highlight: string[];
 }

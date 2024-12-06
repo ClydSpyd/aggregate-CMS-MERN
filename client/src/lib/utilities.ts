@@ -16,3 +16,11 @@ export const delay = async (ms: number) => {
     setTimeout(resolve, ms);
   });
 };
+
+export const randomS3Avatar = () => {
+  const s3Available = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  ];
+  const imgNumber = s3Available[Math.floor(Math.random() * s3Available.length)];
+  return `https://aggregate-imgs.s3.eu-north-1.amazonaws.com/avatars/abstract_${imgNumber}.png`;
+};

@@ -1,4 +1,5 @@
 const express = require("express");
+const { body, validationResult } = require("express-validator");
 const router = express.Router();
 
 const {
@@ -9,20 +10,27 @@ const {
 
 // @post
 // REGISTER NEW USER
-router.post("/register", async (req, res) => {
+router.post("/register",[
+  body("username").notEmpty().withMessage("Username is required"),
+  body("email").notEmpty().withMessage("Email is required"),
+  body("password").notEmpty().withMessage("Password is required"),
+  body("role").notEmpty().withMessage("Role is required"),
+  body("avatarUrl").notEmpty().withMessage("AvatarURL is required"),
+], async (req, res) => {
+
+  console.log("ADD USER");
+  console.log(req.body);
+  const errors = validationResult(req);
+
+  console.log({ errors });
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array().map((err) => err.msg),
+    });
+  }
+
   // email + password + validate repeat pass + username + avatar
-  const { username, email, password } = req.body;
-
-  const messages = [];
-  // check username not null
-  if (!username) {
-    messages.push("Username not provided");
-  }
-
-  // check if email and password are not null TODO: check if email with regex
-  if (!email || !password) {
-    messages.push("Email or password not provided");
-  }
+  const { username, email, password, role, avatarUrl } = req.body;
 
   // check username or email do not already exists
   const users = await getUsers();
@@ -34,20 +42,17 @@ router.post("/register", async (req, res) => {
     messages.push(`Email '${email.toLowerCase()}' already exists`);
   }
 
-  // return error if any
-  if (messages.length > 0) {
-    return res.status(400).json({ message: messages[0] });
-  }
-
   // create new user
   const { newUser, error } = await createNewUser({
     username: username.toLowerCase(),
     email: email.toLowerCase(),
     password,
+    role,
+    avatarUrl,
   });
 
   // return error is any
-  if (error) return res.status(500).json({error});
+  if (error) return res.status(500).json({ helloworld: error });
 
   const token = generateAccessToken(newUser);
 

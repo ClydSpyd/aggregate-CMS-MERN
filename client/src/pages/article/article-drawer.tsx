@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import InputField from "../../components/utility-comps/input-field";
 import TagSelector from "../../components/tag-selector";
 import { ArticleDrawerProps } from "./types";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import { MdOutlineOpenInNew } from "react-icons/md";
 import { useState } from "react";
 import Checkbox from "../../components/utility-comps/checkbox";
+import API from "../../api";
 
 const formatDate = (date: Date) => {
   return format(date, "do MMM yyyy");
@@ -25,9 +26,36 @@ export default function ArticleDrawer({
   handleTags,
   articleData,
 }: ArticleDrawerProps) {
-  const [primary, setPrimary] = useState<boolean>(false);
-  const [secondary, setSecondary] = useState<boolean>(false);
-  const [published, setPublished] = useState<boolean>(true);
+  const [primary, setPrimary] = useState<boolean>(articleData.highlight.includes("primary"));
+  const [secondary, setSecondary] = useState<boolean>(
+    articleData.highlight.includes("secondary")
+  );
+  const [published, setPublished] = useState<boolean>(articleData.published);
+
+  const handlePublished = () => {
+    API.article.updateArticle(articleData._id, {
+      published: !published,
+    });
+    setPublished((prev) => !prev);
+  };
+  const handleHighlight = (type: "primary" | "secondary") => {
+    if(type === "primary") {
+      setPrimary((prev) => !prev);
+    } else {
+      setSecondary((prev) => !prev);
+    }
+    const arr = articleData.highlight;
+    const index = arr.indexOf(type);
+    if (index !== -1) {
+      arr.splice(index, 1);
+    } else {
+      arr.push(type);
+    }
+    API.article.updateArticle(articleData._id, {
+      highlight: arr,
+    });
+  };
+
   return (
     <div className="h-[calc(100%-30px)] w-[430px] absolute right-4 top-4 flex flex-col no-bar-scroll-container">
       <div className="flex flex-col gap-2 grow">
@@ -45,7 +73,7 @@ export default function ArticleDrawer({
         />
         <TagSelector tags={articleData.tags} setTags={handleTags} />
         <div
-          onClick={() => setPublished((prev) => !prev)}
+          onClick={handlePublished}
           className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
         >
           <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>Published</p>
@@ -54,14 +82,14 @@ export default function ArticleDrawer({
         <div className="rounded-md border bg-white p-4 pt-3 flex flex-col gap-2">
           <p className="text-xs text-[#a0a0a0]">Feature article:</p>
           <div
-            onClick={() => setPrimary((prev) => !prev)}
+            onClick={() => handleHighlight("primary")}
             className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
           >
             <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>Primary carousel</p>
             <Checkbox checked={primary} />
           </div>
           <div
-            onClick={() => setSecondary((prev) => !prev)}
+            onClick={() => handleHighlight("secondary")}
             className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
           >
             <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>Secondary carousel</p>

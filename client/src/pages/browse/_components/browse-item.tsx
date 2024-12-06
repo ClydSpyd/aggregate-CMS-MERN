@@ -3,20 +3,30 @@ import StaggerContainer from "../../../components/utility-comps/stagger-containe
 import { HiDotsVertical } from "react-icons/hi";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { cn } from "../../../lib/utilities";
-import { MdDeleteForever } from "react-icons/md";
+import { MdDeleteForever, MdFileUpload, MdFileUploadOff } from "react-icons/md";
 import useOutsideClick from "../../../hooks/useOutsideClick";
+import API from "../../../api";
 
 const ContextMenu = ({
   setConfirmState,
+  article,
+  setLocalState,
 }: {
+  setLocalState: Dispatch<SetStateAction<Article>>;
   setConfirmState: Dispatch<SetStateAction<boolean>>;
+  article: Article;
 }) => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+
+  const handlePublish = () => {
+    API.article.updateArticle(article._id, { published: !article.published });
+    setLocalState((prev) => ({ ...prev, published: !prev.published }));
+  };
   return (
     <div
       onMouseLeave={() => setMenuOpen(false)}
       onClick={() => setMenuOpen(!menuOpen)}
-      className="h-[25px] w-[25px] rounded-sm border cursor-pointer absolute top-2 right-2 duration-300 transition-all ease-out opacity-0 group-hover/container:opacity-100 z-40 flex items-center justify-center bg-white text-slate-400 hover:text-indigo-500 hover:border-indigo-500"
+      className="h-[25px] w-[25px] rounded-sm border cursor-pointer absolute top-2 right-2 duration-300 transition-all ease-out opacity-0 group-hover/container:opacity-100 z-40 flex items-center justify-center bg-white text-slate-400 hover hover:border-indigo-500"
     >
       <HiDotsVertical size={16} />
       <div
@@ -32,8 +42,19 @@ const ContextMenu = ({
             onClick={() => setConfirmState(true)}
             className="w-full p-2 flex items-center justify-between hover:bg-slate-50"
           >
-            Delete Article
+            Delete
             <MdDeleteForever size={22} />
+          </div>
+          <div
+            onClick={handlePublish}
+            className="w-full p-2 flex items-center justify-between hover:bg-slate-50"
+          >
+            {article.published ? "Unpublish" : "Publish"}
+            {article.published ? (
+              <MdFileUploadOff size={22} />
+            ) : (
+              <MdFileUpload size={22} />
+            )}
           </div>
         </div>
       </div>
@@ -49,29 +70,44 @@ export default function BrowseItem({
   handleDelete: (id: string) => void;
 }) {
   const [confirmState, setConfirmState] = useState<boolean>(false);
+  const [localState, setLocalState] = useState<Article>(article);
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   useOutsideClick(containerRef, () => setConfirmState(false));
+  const published = localState.published;
+
   return (
     <StaggerContainer>
-      <ContextMenu setConfirmState={setConfirmState} />
+      <ContextMenu
+        setConfirmState={setConfirmState}
+        article={localState}
+        setLocalState={setLocalState}
+      />
       <div
         ref={containerRef}
         key={article._id}
         onClick={() => navigate(`/article/${article._id}`)}
-        className="bg-white shadow-sm p-2 pb-3 border flex flex-col justify-between gap-2 rounded-lg h-full min-h-[100px] relative cursor-pointer overflow-hidden"
+        className={cn(
+          "bg-white shadow-sm p-2 pb-3 border flex flex-col justify-between gap-2 rounded-lg h-full min-h-[100px] relative cursor-pointer overflow-hidden",
+          published ? "text-indigo-500" : "text-slate-300"
+        )}
       >
-        <p className="clamp-2-lines text-md text-indigo-500 font-semibold">
+        <p
+          className={cn(
+            "clamp-2-lines text-md",
+            published ? "font-semibold" : ""
+          )}
+        >
           {article.title}
         </p>
-        {/* <p className="clamp-1-line text-sm text-slate-500 font-light">
-          {article.caption}
-        </p> */}
         <div className="flex gap-1 flex-wrap">
           {article.tags.map((tag: string, idx: number) => (
             <div
               key={idx}
-              className="h-fit bg-indigo-500 text-white px-2 text-xs rounded-2xl flex items-center gap-1"
+              className={cn(
+                "h-fit text-white px-2 text-xs rounded-2xl flex items-center gap-1",
+                published ? "bg-indigo-500" : "bg-slate-300"
+              )}
             >
               {tag}
             </div>
@@ -90,7 +126,7 @@ export default function BrowseItem({
           <div className="flex gap-1">
             <button
               onClick={() => setConfirmState(false)}
-              className="w-[120px] flex justify-center border-2 border-indigo-500 bg-white text-indigo-500 p-1 rounded-md"
+              className="w-[120px] flex justify-center border-2 border-indigo-500 text-indigo-500 bg-white p-1 rounded-md"
             >
               Cancel
             </button>

@@ -4,7 +4,6 @@ import { MdExitToApp } from "react-icons/md";
 import { Link, NavLink } from "react-router";
 
 const NavItem = ({ text, route }: { text: string; route: string }) => {
-  const pathname = window?.location.pathname;
   return (
     <NavLink
       className={({ isActive }) =>
@@ -33,6 +32,7 @@ export default function Navbar() {
           />
         </Link>
         <div className="flex gap-8 absolute-center text-base font-[500]">
+          <NavItem text="Dashboard" route="/" />
           <NavItem text="Discover" route="/discover" />
           <NavItem text="Create" route="/create" />
           <NavItem text="Browse" route="/browse" />

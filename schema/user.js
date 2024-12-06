@@ -15,6 +15,15 @@ const UserSchema = new mongoose.Schema(
       required: true,
       select: false,
     },
+    avatarUrl: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ['admin', 'contributor', 'readonly'],
+      required: true,
+    },
   },
   { timestamps: true }
 )

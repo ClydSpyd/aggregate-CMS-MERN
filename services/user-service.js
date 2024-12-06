@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { TOKEN_LIFESPAN } = require("../constants");
 
 // create new user
-const createNewUser = async ({ username, email, password }) => {
+const createNewUser = async ({ username, email, password, role, avatarUrl }) => {
   try {
     // generate hashed password
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -14,6 +14,8 @@ const createNewUser = async ({ username, email, password }) => {
       username,
       email,
       password: hashedPassword,
+      role,
+      avatarUrl,
     })
 
     // save user
@@ -45,7 +47,12 @@ const findUserByEmailWithPassword = async (user) => {
 
 const generateAccessToken = (user) => {
   return jwt.sign(
-    { id: user.id, username: user.username },
+    {
+      id: user.id,
+      username: user.username,
+      role: user.role,
+      avatarUrl: user.avatarUrl,
+    },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: TOKEN_LIFESPAN }
   );

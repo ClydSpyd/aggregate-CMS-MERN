@@ -39,7 +39,15 @@ router.post("/signin", async (req, res) => {
           sameSite: "strict", // CSRF protection
           maxAge: TOKEN_LIFESPAN,
         })
-        .json({ token, user: { id: user.id, username: user.username } });
+        .json({
+          token,
+          user: {
+            id: user.id,
+            username: user.username,
+            role: user.role,
+            avatarUrl: user.avatarUrl,
+          },
+        });
     } else {
       res.status(400).json({ message: "Username or password incorrect" });
     }
@@ -71,7 +79,14 @@ router.post("/verify-token", async (req, res) => {
     console.log(`NOW: ${new Date().toISOString()}`);
     console.log(`Token expires at: ${expiryDate.toISOString()}`);
 
-    res.status(200).json({ id: decoded.id, username: decoded.username });
+    res
+      .status(200)
+      .json({
+        id: decoded.id,
+        username: decoded.username,
+        role: decoded.role,
+        avatarUrl: decoded.avatarUrl,
+      });
   });
 });
 

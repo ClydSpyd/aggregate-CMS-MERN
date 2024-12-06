@@ -39,7 +39,7 @@ export default function ArticlePreview({
         <img
           src={articleData.imgUrl}
           alt={articleData.title + "_img"}
-          className="w-full min-h-[600px] object-cover object-center"
+          className="w-full h-[600px] object-cover object-center"
         />
         <div className="w-full flex flex-col items-center">
           <HoverWrapper onClick={focusTitle} additionalClass="my-4">

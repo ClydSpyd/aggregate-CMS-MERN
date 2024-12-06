@@ -58,7 +58,21 @@ export const articleFunctions = {
       return { error: err.message, status: 500 };
     }
   },
-  deleteArticle: async (id: string) => {
+  updateArticle: async (id: string, payload: Partial<Article>) => {
+    try {
+      const { data, status } = await baseClient.patch(
+        `/article/update/${id}`,
+        payload
+      );
+      console.log(`Updated article:`, data);
+      return { status, data };
+    } catch (error) {
+      const err = error as AxiosError;
+      console.log(`Error updating article:`, err.message);
+      return { error: err.message, status: 500 };
+    }
+  }
+  ,deleteArticle: async (id: string) => {
     try {
       const { status } = await baseClient.delete(`/article/delete/${id}`);
       return { status };

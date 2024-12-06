@@ -53,7 +53,7 @@ export default function LoginForm() {
     <form
       onSubmit={handleLogin}
       className={cn(
-        "flex flex-col gap-2 w-[600px] p-6 pb-8 pt-4 border rounded-lg relative shadow-md",
+        "flex flex-col gap-2 w-[600px] h-fit my-auto p-6 pb-8 pt-4 border rounded-lg relative shadow-md",
         error && !submitting ? "animate-shakeOnce" : ""
       )}
     >
