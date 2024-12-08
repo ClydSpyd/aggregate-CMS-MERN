@@ -6,7 +6,7 @@ export default function ConfirmModal({
   handleDismiss: () => void;
 }) {
   return (
-    <div className="absolute h-full w-full bg-gray-400/10 backdrop-blur-sm z-50 flex items-center justify-center">
+    <div className="absolute top-0 right-0 bottom-0 left-0 bg-gray-400/10 backdrop-blur-sm z-50 flex items-center justify-center">
       <div className="w-[350px] py-4 px-6 bg-white rounded-md flex items-center justify-center flex-col gap-3 shadow-lg text-center">
         <h4 className="font-regular">Article saved to database</h4>
         <p className="text-sm text-gray-400">

@@ -7,4 +7,5 @@ export interface InputFieldProps {
   withDeleteBtn?: boolean;
   secure?: boolean;
   refProp?: React.RefObject<HTMLInputElement>;
+  autofocus?: boolean;
 }

@@ -7,6 +7,9 @@ import TagSelector from "../../../../components/tag-selector";
 import { cn } from "../../../../lib/utilities";
 import spinner from ".././../../../assets/loaders/spinner-indigo.svg";
 import Checkbox from "../../../../components/utility-comps/checkbox";
+import { MdDeleteForever } from "react-icons/md";
+import { FaListAlt } from "react-icons/fa";
+import InputField from "../../../../components/utility-comps/input-field";
 
 const defaultVals: ConfigBlockData = {
   name: "",
@@ -113,36 +116,41 @@ export default function NavItemModal({
         <h1 className="text-2xl font-semibold text-indigo-500">
           {valuesProp ? "Edit" : "New"} nav item
         </h1>
-        <div className="">
-          <p className="text-xs text-[#a0a0a0] mb-1">name:</p>
-          <div className="!border w-full p-2 relative h-[50px] flex items-center">
-            <input
-              autoFocus={true}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setConfigVals((prev) => ({ ...prev, name: e.target.value }))
-              }
-              value={configVals.name}
-            />
-          </div>
-        </div>
+        <InputField
+          autofocus
+          placeholder="name"
+          onChange={(val: string) =>
+            setConfigVals((prev) => ({ ...prev, name: val }))
+          }
+          value={configVals.name}
+        />
         <TagSelector
           tags={configVals.tags}
           setTags={(tags) => setConfigVals({ ...configVals, tags })}
         />
+        <div />
+
         {valuesProp && (
-          <div
-            onClick={() =>
-              setConfigVals((prev) => ({ ...prev, active: !prev.active }))
-            }
-            className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
-          >
-            <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>
-              Active
-            </p>
-            <Checkbox checked={configVals.active} />
+          <div className="w-full flex items-center gap-2 mb-2">
+            <div
+              onClick={() =>
+                setConfigVals((prev) => ({ ...prev, active: !prev.active }))
+              }
+              className="grow px-4 h-[50px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
+            >
+              <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>
+                Active
+              </p>
+              <Checkbox checked={configVals.active} />
+            </div>
+            <div className="opacity-40 cursor-not-allowed flex items-center justify-center min-h-[50px] min-w-[50px] max-h-[50px] max-w-[50px] border rounded-sm text-slate-400">
+              <MdDeleteForever size={25} />
+            </div>
+            <div className="opacity-40 cursor-not-allowed flex items-center justify-center min-h-[50px] min-w-[50px] max-h-[50px] max-w-[50px] border rounded-sm text-slate-400">
+              <FaListAlt size={20} />
+            </div>
           </div>
         )}
-        <div className="mt-2" />
         {configVals?.tags?.length > 0 && (
           <div className="w-full justify-center flex gap-2 p-2 text-md">
             <p className="text-[#a0a0a0] mb-1">Matching articles:</p>

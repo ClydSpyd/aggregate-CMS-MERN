@@ -56,8 +56,8 @@ export default function CreatePage() {
 
   return (
     queuedItems && (
-      <div className="w-screen h-full flex">
-        <div className="min-w-[500px] max-w-[500px] h-full py-1 rounded-sm">
+      <div className="w-screen h-full flex overflow-hidden">
+        <div className="min-w-[500px] max-w-[500px] h-full py-1 rounded-sm overflow-y-auto">
           <div className="w-full flex items-center justify-between mb-1 px-2 pr-4">
             <h4 className="font-semibold text-sm text-indigo-600 mb-1">
               Queued items:
@@ -124,6 +124,7 @@ export default function CreatePage() {
               canSubmit={formFilled}
             />
           )}
+          {/* { <ConfirmModal handleDismiss={handleDismiss} />} */}
           {confirmSaved && <ConfirmModal handleDismiss={handleDismiss} />}
         </div>
       </div>

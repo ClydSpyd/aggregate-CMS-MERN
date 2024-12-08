@@ -1,8 +1,8 @@
-import { cn } from "../../../lib/utilities";
 import { InputFieldProps } from "./types";
 import { useRef, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { cn } from "../../../lib/utilities";
 
 export default function InputField({
   value,
@@ -12,6 +12,7 @@ export default function InputField({
   withDeleteBtn,
   secure,
   refProp,
+  autofocus,
 }: //   validityCheck,
 InputFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
@@ -57,6 +58,7 @@ InputFieldProps) {
         <div className="absolute rounded-sm inset-0 z-10 shadow-[inset_0_0_0_2px_black] pointer-events-none" />
       )}
       <input
+        autoFocus={!!autofocus}
         autoComplete="off"
         className="w-full h-[30px] bg-transparent px-[10px] relative z-0 top-[8px] selection:bg-indigo-300"
         type={!showValue ? "password" : "text"}
