@@ -117,6 +117,7 @@ router.post("/dashboard/carousel-items", async (req, res) => {
 
     const carouselItems = await Article.find({
       highlight: { $in: ["primary"] },
+      published: true,
     });
 
     res.json(carouselItems);
@@ -135,6 +136,7 @@ router.delete("/dashboard/carousel-items/:id", async (req, res) => {
 
     const carouselItems = await Article.find({
       highlight: { $in: ["primary"] },
+      published: true,
     });
 
     res.json(carouselItems);
