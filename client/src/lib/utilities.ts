@@ -24,3 +24,20 @@ export const randomS3Avatar = () => {
   const imgNumber = s3Available[Math.floor(Math.random() * s3Available.length)];
   return `https://aggregate-imgs.s3.eu-north-1.amazonaws.com/avatars/abstract_${imgNumber}.png`;
 };
+
+export const debounce = <T extends FunctionGeneric>(
+  callback: T,
+  delay: number
+): ((...args: Parameters<T>) => void) => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+  return (...args: Parameters<T>) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => {
+      callback(...args);
+    }, delay);
+  };
+};

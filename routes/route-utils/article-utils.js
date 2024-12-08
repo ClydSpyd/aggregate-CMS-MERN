@@ -19,14 +19,18 @@ const handleTags = async (tags) => {
   });
 };
 
-const articlesByText = async (text) => {
-  const articles = await Article.find({
+const articlesByText = async (text, caption) => {
+  const query = {
     $or: [
       { title: { $regex: text, $options: "i" } },
-      { caption: { $regex: text, $options: "i" } },
     ],
-  });
+  };
 
+  if (caption) {
+    query.$or.push({ caption: { $regex: caption, $options: "i" } });
+  }
+
+  const articles = await Article.find(query);
   return articles;
 };
 

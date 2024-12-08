@@ -6,6 +6,7 @@ import { cn } from "../../../lib/utilities";
 import { MdDeleteForever, MdFileUpload, MdFileUploadOff } from "react-icons/md";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import API from "../../../api";
+import ContextMenuWrapper from "../../../components/context-menu-wrapper";
 
 const ContextMenu = ({
   setConfirmState,
@@ -16,49 +17,33 @@ const ContextMenu = ({
   setConfirmState: Dispatch<SetStateAction<boolean>>;
   article: Article;
 }) => {
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
-
   const handlePublish = () => {
     API.article.updateArticle(article._id, { published: !article.published });
     setLocalState((prev) => ({ ...prev, published: !prev.published }));
   };
   return (
-    <div
-      onMouseLeave={() => setMenuOpen(false)}
-      onClick={() => setMenuOpen(!menuOpen)}
-      className="h-[25px] w-[25px] rounded-sm border cursor-pointer absolute top-2 right-2 duration-300 transition-all ease-out opacity-0 group-hover/container:opacity-100 z-40 flex items-center justify-center bg-white text-slate-400 hover hover:border-indigo-500"
-    >
-      <HiDotsVertical size={16} />
-      <div
-        className={cn(
-          "absolute transition-all duration-100 ease-out right-[-0px] py-1 w-[150px]",
-          menuOpen
-            ? "opacity-100 top-[100%] pointer-events-auto"
-            : "opacity-0 top-1/2 pointer-events-none"
-        )}
-      >
-        <div className="bg-white rounded-sm shadow-md border flex flex-col gap-1 p-1">
-          <div
-            onClick={() => setConfirmState(true)}
-            className="w-full p-2 flex items-center justify-between hover:bg-slate-50"
-          >
-            Delete
-            <MdDeleteForever size={22} />
-          </div>
-          <div
-            onClick={handlePublish}
-            className="w-full p-2 flex items-center justify-between hover:bg-slate-50"
-          >
-            {article.published ? "Unpublish" : "Publish"}
-            {article.published ? (
-              <MdFileUploadOff size={22} />
-            ) : (
-              <MdFileUpload size={22} />
-            )}
-          </div>
+    <ContextMenuWrapper>
+      <div className="bg-white rounded-sm shadow-md border flex flex-col gap-1 p-1">
+        <div
+          onClick={() => setConfirmState(true)}
+          className="w-full p-2 flex items-center justify-between hover:bg-slate-50"
+        >
+          Delete
+          <MdDeleteForever size={22} />
+        </div>
+        <div
+          onClick={handlePublish}
+          className="w-full p-2 flex items-center justify-between hover:bg-slate-50"
+        >
+          {article.published ? "Unpublish" : "Publish"}
+          {article.published ? (
+            <MdFileUploadOff size={22} />
+          ) : (
+            <MdFileUpload size={22} />
+          )}
         </div>
       </div>
-    </div>
+    </ContextMenuWrapper>
   );
 };
 

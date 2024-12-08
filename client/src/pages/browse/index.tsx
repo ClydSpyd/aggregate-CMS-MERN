@@ -6,7 +6,6 @@ export default function BrowsePage() {
   const [recentArticles, setRecentArticles] = useState<Article[]|null>(null)
   const [error, setError] = useState<string | null>(null);
 
-
   const getRecentArticles = async () => {
     const { data, error } = await API.article.getRecentArticles();
     if (data) {

@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import InputField from "../../../components/utility-comps/input-field";
 import TagSelector from "../../../components/tag-selector";
-import InputDate from "../../../components/input-date";
+// import InputDate from "../../../components/input-date";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { InputData } from "../types";
 import { cn } from "../../../lib/utilities";
@@ -19,23 +20,58 @@ export default function BrowseFilters({
     text: "",
     tags: [],
   });
-  const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
-  const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
-  const noFilters = searchValues.text === "" &&
-  searchValues.tags.length === 0 &&
-  !selectedStartDate &&
-  !selectedEndDate
-  
+  const [localChange, setLocalChange] = useState(false);
+
+  // const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
+  // const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
+  // const noFilters = searchValues.text === "" &&
+  // searchValues.tags.length === 0 &&
+  // !selectedStartDate &&
+  // !selectedEndDate
+
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const titleParam = urlParams.get("title");
+    const tagsParam = urlParams.get("tags");
+    const hasQueryParams = !!titleParam || (tagsParam && tagsParam.split(",").length > 0);
+    if(!hasQueryParams) return;
+    const payload: InputData = {
+      text: titleParam || "",
+      tags: tagsParam ? tagsParam.split(",") : [],
+    };
+    setSearchValues(payload);
+    getFilteredArticles(payload);
+  },[]);
+  
+
+  useEffect(() => {
+    const noFilters =
+      searchValues.text === "" && searchValues.tags.length === 0;
     if (noFilters) {
       setFilteredArticles(null);
+      window.history.replaceState({}, "", `${window.location.pathname}`);
     }
-  }, [noFilters, setFilteredArticles]);
+    setLocalChange(!noFilters);
+  }, [searchValues]);
 
-  const getFilteredArticles = async () => {
-    const { data, error } = await API.article.getFilteredArticles(searchValues);
-    if (data) setFilteredArticles(data);
-    else if (error) setError(error);
+  const getFilteredArticles = async (payload: InputData) => {
+    const { data, error } = await API.article.getFilteredArticles(payload);
+    if (data) {
+      setFilteredArticles(data);
+      const urlParams = new URLSearchParams();
+      !!payload.text && urlParams.set("title", payload.text);
+      payload.tags.length > 0 && urlParams.set("tags", payload.tags.join(","));
+      window.history.replaceState(
+        {},
+        "",
+        `${window.location.pathname}?${urlParams}`
+      );
+    }
+    else if (error) {
+      setError(error);
+      setSearchValues({ text: "", tags: [] });
+    };
+    setLocalChange(false);
   };
 
   const handleInputChange = (value: string, key: keyof typeof searchValues) => {
@@ -76,7 +112,7 @@ export default function BrowseFilters({
           additionalClass="border-gray-300"
         />
       </div>
-      <div className="grid grid-cols-2 border p-2 pb-4 gap-2 bg-white shadow-sm pointer-events-none opacity-40">
+      {/* <div className="grid grid-cols-2 border p-2 pb-4 gap-2 bg-white shadow-sm pointer-events-none opacity-40">
         <p className="text-xs text-[#a0a0a0] col-span-2">Date created:</p>
         <InputDate
           maxValue={selectedEndDate}
@@ -92,11 +128,11 @@ export default function BrowseFilters({
           value={selectedEndDate}
           onChange={(e: Date | null) => setSelectedEndDate(e)}
         />
-      </div>
+      </div> */}
       <div className="grow" />
       <div
-        onClick={getFilteredArticles}
-        className={cn("h-[60px] flex items-center justify-center text-white font-semibold transition-all duration-300 ease-in-out bg-indigo-500 hover:bg-indigo-600 cursor-pointer rounded-md", noFilters ? "opacity-40 pointer-events-none" : " opacity-100")}
+        onClick={() => getFilteredArticles(searchValues)}
+        className={cn("h-[60px] flex items-center justify-center text-white font-semibold transition-all duration-300 ease-in-out bg-indigo-500 hover:bg-indigo-600 cursor-pointer rounded-md", !localChange ? "opacity-40 pointer-events-none" : " opacity-100")}
       >
         APPLY FILTERS
       </div>

@@ -92,7 +92,7 @@ router.patch("/update/:id", verifyToken, async (req, res) => {
     // Use findByIdAndUpdate to update the article with the new payload
     const updatedArticle = await Article.findByIdAndUpdate(
       req.params.id,
-      { $set: req.body }, // Use $set to update only the provided fields
+      { $set: req.body }, // update only the provided fields
       { new: true, runValidators: true } // new: true returns the updated document
     );
 

@@ -1,0 +1,1 @@
+declare type FunctionGeneric = (...args: any[]) => any;

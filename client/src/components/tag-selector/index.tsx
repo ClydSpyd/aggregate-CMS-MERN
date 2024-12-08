@@ -6,10 +6,12 @@ export default function TagSelector({
   tags,
   setTags,
   additionalClass,
+  noBorder,
 }: {
   tags: string[];
   setTags: (tags: string[]) => void;
   additionalClass?: string;
+  noBorder?:boolean;
 }) {
   const [localTags, setLocalTags] = useState<string[]>(tags);
   const [inputValue, setInputValue] = useState<string>("");
@@ -34,13 +36,15 @@ export default function TagSelector({
   };
 
   useEffect(() => {
-    if (tags.length === 0) {
+    if (tags.length > 0) {
       setLocalTags(tags);
     }
   }, [tags]);
 
   return (
-    <div className="w-full border p-2 bg-white">
+    <div
+      className={cn("w-full bg-white", !noBorder ? "border p-2" : "")}
+    >
       <p className="text-xs text-[#a0a0a0] mb-1">Tags:</p>
       <form onSubmit={handlelNewTag}>
         <div

@@ -3,12 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const { connectDB } = require('./db');
-const testRoutes = require('./routes/test');
-const rssRoutes = require('./routes/rss-data');
-const articleRoutes = require('./routes/article');
-const uploadRoutes = require('./routes/upload');
-const userRoutes = require('./routes/user');
-const authRoutes = require('./routes/auth');
+require('dotenv').config();
 
 const app = express();
 app.use(cookieParser());
@@ -21,12 +16,14 @@ console.log("starting server...");
 
 connectDB();
 
-app.use("/api/test", testRoutes);
-app.use("/api/rss", rssRoutes);
-app.use("/api/article", articleRoutes);
-app.use("/api/upload", uploadRoutes);
-app.use("/api/user", userRoutes);
-app.use("/api/auth", authRoutes);
+app.use("/api/test", require('./routes/test'));
+app.use("/api/rss", require('./routes/rss-data'));
+app.use("/api/article", require('./routes/article'));
+app.use("/api/upload", require('./routes/upload'));
+app.use("/api/user", require('./routes/user'));
+app.use("/api/auth", require('./routes/auth'));
+app.use("/api/utility", require('./routes/utility'));
+app.use("/api/config", require('./routes/config'));
 
 // Serve static files from the React app's build folder
 app.use(express.static(path.join(__dirname, 'client/build')));

@@ -1,13 +1,9 @@
 import { CgAdd } from "react-icons/cg";
-
-interface NavConfigItem {
-    name: string;
-    tags: string[];
-};
+import ConfigBlock, { ConfigBlockData } from "./dash-config-block";
 
 export default function TracksConfig() {
 
-    const dummyItems: NavConfigItem[] = [
+    const dummyItems: ConfigBlockData[] = [
       {
         name: "Classical",
         tags: ["classical", "orchestra", "symphony"],
@@ -53,22 +49,7 @@ export default function TracksConfig() {
       </div>
       <div className="flex gap-2 flex-wrap">
         {dummyItems.map((item, index) => (
-          <div
-            key={index}
-            className="flex flex-col gap-1 rounded-lg p-2 bg-white border shadow-sm"
-          >
-            <p>{item.name}</p>
-            <div className="flex gap-1">
-              {item.tags.map((tag, index) => (
-                <p
-                  key={index}
-                  className="px-2 rounded-[20px] border-2 border-indigo-500 text-indigo-500 bg-white text-xs w-fit"
-                >
-                  {tag}
-                </p>
-              ))}
-            </div>
-          </div>
+          <ConfigBlock key={index} blockData={item} />
         ))}
       </div>
     </div>

@@ -3,6 +3,7 @@ import { feedFunctions } from "./feeds";
 import { articleFunctions } from "./article";
 import { uploadFumctions } from "./uploads";
 import { authFunctions } from "./auth";
+import { configFunctions } from "./config";
 
 const baseHeaders = {
   common: {
@@ -41,6 +42,7 @@ const API = {
   article: articleFunctions,
   upload: uploadFumctions,
   auth: authFunctions,
+  config: configFunctions,
 };
 
 export default API;

@@ -54,7 +54,7 @@ router.post("/search/filters", verifyToken, async (req, res) => {
 // :num variable defines how many articles are returned
 router.get("/recent", verifyToken, async (req, res) => {
   try {
-    const num = req.query.num ?? 10;
+    const num = req.query.num ?? 20;
     const articles = await Article.find().sort({ _id: -1 }).limit(num);
     res.json(articles);
   } catch (error) {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { dummyHighlights } from "./dummy-data";
 import { MdAddBox } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 
 export default function CarouselConfig() {
@@ -13,9 +14,10 @@ export default function CarouselConfig() {
       </div>
       <div className="w-full flex gap-4 flex-wrap">
         {items.map((item, index) => (
-          <div
+          <Link
+            to={`/article/${item._id}`}
             key={index}
-            className="flex flex-col w-[32%] items-center text-center gap-2 rounded-lg p-2 pb-4 bg-white border shadow-sm"
+            className="flex flex-col w-[32%] items-center text-center gap-2 rounded-lg p-2 pb-4 transition-all duration-300 ease-out bg-white border shadow-sm hover:border-indigo-500 hover:shadow-sm"
           >
             <img
               src={item.imgUrl}
@@ -25,11 +27,11 @@ export default function CarouselConfig() {
             <p className="text-sm font-semibold text-indigo-500">
               {item.title}
             </p>
-          </div>
+          </Link>
         ))}
         <div className="cursor-pointer flex flex-col items-center justify-center w-[32%] text-center gap-2 rounded-lg p-2 pb-4 border-2 border-indigo-500 text-indigo-500 shadow-sm">
-            <MdAddBox size={40} />
-            <h1 className="font-semibold">ADD ITEM</h1>
+          <MdAddBox size={40} />
+          <h1 className="font-semibold">ADD ITEM</h1>
         </div>
       </div>
     </div>
