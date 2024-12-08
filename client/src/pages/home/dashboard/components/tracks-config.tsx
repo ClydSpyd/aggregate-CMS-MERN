@@ -1,5 +1,5 @@
 import { CgAdd } from "react-icons/cg";
-import ConfigBlock, { ConfigBlockData } from "./dash-config-block";
+import ConfigBlock from "./dash-config-block";
 
 export default function TracksConfig() {
 
@@ -36,10 +36,10 @@ export default function TracksConfig() {
         name: "crunk",
         tags: ["crunk", "crunkcore", "crunk-core"],
       },
-    ];
+    ] as ConfigBlockData[];
 
   return (
-    <div className="w-full rounded-lg bg-slate-100/50 border shadow-md p-4 py-3 flex flex-col gap-3">
+    <div className="w-full rounded-lg bg-slate-100/50 border shadow-md p-4 py-3 pb-6 flex flex-col gap-3">
       <div className="flex w-full items-center gap-4">
         <p className="text-indigo-500 font-semibold">Homepage tracks</p>
         <div className="h-[25px] w-[90px] flex gap-1 items-center justify-center text-xs text-white bg-indigo-500 hover:bg-indigo-600 font-semibold rounded-[4px] cursor-pointer">
@@ -47,10 +47,11 @@ export default function TracksConfig() {
           add item
         </div>
       </div>
-      <div className="flex gap-2 flex-wrap">
-        {dummyItems.map((item, index) => (
+      <div className="flex gap-2 flex-wrap pointer-events-none">
+        {/* {dummyItems.map((item, index) => (
           <ConfigBlock key={index} blockData={item} />
-        ))}
+        ))} */}
+        <h1 className="w-full text-sm text-center my-2">NO TRACKS FOUND</h1>
       </div>
     </div>
   );

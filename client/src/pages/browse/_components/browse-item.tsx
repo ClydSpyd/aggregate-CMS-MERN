@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import StaggerContainer from "../../../components/utility-comps/stagger-container";
-import { HiDotsVertical } from "react-icons/hi";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { cn } from "../../../lib/utilities";
 import { MdDeleteForever, MdFileUpload, MdFileUploadOff } from "react-icons/md";

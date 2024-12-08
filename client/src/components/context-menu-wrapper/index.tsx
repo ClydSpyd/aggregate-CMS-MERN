@@ -12,7 +12,7 @@ export default function ContextMenuWrapper({
     <div
       onMouseLeave={() => setMenuOpen(false)}
       onClick={() => setMenuOpen(!menuOpen)}
-      className="h-[25px] w-[25px] rounded-sm border cursor-pointer absolute top-2 right-2 duration-300 transition-all ease-out opacity-0 group-hover/container:opacity-100 z-40 flex items-center justify-center bg-white text-slate-400 hover hover:border-indigo-500"
+      className="h-[25px] w-[25px] rounded-sm border border-slate-300 shadow-sm cursor-pointer absolute top-2 right-2 duration-300 transition-all ease-out opacity-0 group-hover/container:opacity-100 z-40 flex items-center justify-center bg-white text-slate-400 hover hover:border-indigo-500"
     >
       <HiDotsVertical size={16} />
       <div

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import InputField from "../../components/utility-comps/input-field";
 import TagSelector from "../../components/tag-selector";
 import { ArticleDrawerProps } from "./types";
-import { format, set } from "date-fns";
+import { format } from "date-fns";
 import { MdOutlineOpenInNew } from "react-icons/md";
 import { useState } from "react";
 import Checkbox from "../../components/utility-comps/checkbox";

@@ -1,4 +1,5 @@
 declare interface ConfigBlockData {
+  _id: string
   name: string;
   tags: string[];
   active:boolean;

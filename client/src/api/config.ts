@@ -28,14 +28,42 @@ export const configFunctions = {
     item: ConfigBlockData
   ): Promise<ApiResponse<NavItemConfig>> => {
     try {
-      const { data, status } = await baseClient.post("/config/dashboard/nav-item", {
-        name: item.name,
-        tags: item.tags,
-      });
+      const { data, status } = await baseClient.post(
+        "/config/dashboard/nav-item",
+        {
+          name: item.name,
+          tags: item.tags,
+        }
+      );
       return { status, data };
     } catch (error) {
       const err = error as ErrorResponse;
       return { error: err.response?.data.message, status: 500 };
     }
   },
+  deleteNavItem: async (id: string): Promise<ApiResponse<NavItemConfig[]>> => {
+    try {
+      const { data, status } = await baseClient.delete(
+        `/config/dashboard/nav-item/${id}`
+      );
+      return { status, data };
+    } catch (error) {
+      const err = error as ErrorResponse;
+      return { error: err.response?.data.message, status: 500 };
+    }
+  },
+  updateNavItem: async (
+    item: ConfigBlockData
+  ): Promise<ApiResponse<NavItemConfig[]>> => {
+    try {
+      const { data, status } = await baseClient.patch(
+        `/config/dashboard/nav-item/${item._id}`,
+        item
+      );
+      return { status, data };
+    } catch (error) {
+      const err = error as ErrorResponse;
+      return { error: err.response?.data.message, status: 500 };
+    }
+  }
 };

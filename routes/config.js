@@ -65,15 +65,36 @@ router.post(
   }
 );
 
+router.delete("/dashboard/nav-item/:id", async (req, res) => {
+  try {
+    await NavItem.findByIdAndDelete(req.params.id);
+    const navItems = await NavItem.find();
+    res.json(navItems);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 router.patch("/dashboard/nav-item/:id", async (req, res) => {
   try {
     console.log("UPDATE NAVITEM");
-    const updatedItem = await NavItem.findByIdAndUpdate(
+
+    // check if name is unique non case-sensitive
+    const navItem = await NavItem.findOne({
+      name: { $regex: new RegExp(`^${req.body.name}$`, "i") },
+      _id: { $ne: req.params.id },
+    });
+    if (navItem) {
+      return res.status(400).json({ message: "Item name already exists" });
+    }
+
+    await NavItem.findByIdAndUpdate(
       req.params.id,
       { $set: req.body }, // update only the provided fields
       { new: true }
     );
-    res.json(updatedItem);
+    const navItems = await NavItem.find();
+    res.json(navItems);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
