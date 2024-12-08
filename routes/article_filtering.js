@@ -41,7 +41,8 @@ router.post("/search/filters", verifyToken, async (req, res) => {
     let articles = await articlesByText(text);
     if (tags.length > 0) {
       articles = articles.filter((article) =>
-        tags.every((tag) => article.tags.includes(tag))
+        tags.some((tag) => article.tags.includes(tag))
+        // tags.every((tag) => article.tags.includes(tag))
       );
     }
     res.status(200).json(articles);
