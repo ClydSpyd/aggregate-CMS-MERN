@@ -14,7 +14,7 @@ export default function CarouselConfig() {
       <div className="w-full rounded-lg bg-slate-100/50 border shadow-md p-4 py-3 flex flex-col gap-3">
         <div className="flex w-full items-center gap-4">
           <p className="text-indigo-500 font-semibold">
-            Primary carousel items
+            Primary Carousel Items
           </p>
         </div>
         <div className="w-full flex gap-4 flex-wrap items-stretch">
@@ -23,7 +23,7 @@ export default function CarouselConfig() {
           ))}
           <div
             onClick={() => setModalOpen(true)}
-            className="min-h-[180px] cursor-pointer flex flex-col items-center justify-center w-[32%] text-center gap-2 rounded-lg p-2 pb-4 border-2 border-indigo-500 text-indigo-500 shadow-sm transition-all duration-300 ease-out hover:bg-indigo-100/50"
+            className="min-h-[180px] cursor-pointer flex flex-col items-center justify-center w-[23%] text-center gap-2 rounded-lg p-2 pb-4 border-2 border-indigo-500 text-indigo-500 shadow-sm transition-all duration-300 ease-out hover:bg-indigo-100/50"
           >
             <MdAddBox size={40} />
             <h1 className="font-semibold">ADD ITEM</h1>

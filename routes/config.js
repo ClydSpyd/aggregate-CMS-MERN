@@ -15,6 +15,7 @@ router.get("/dashboard", async (req, res) => {
     const navItems = await navItemsWithCount();
     const carouselItems = await Article.find({
       highlight: { $in: ["primary"] },
+      published: true,
     });
 
     res.json({

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import StaggerContainer from "../../../../../components/utility-comps/stagger-container";
 import { StateConfirmDelete } from "./state-delete";
 import { StateHover } from "./state-hover";
+import useOutsideClick from "../../../../../hooks/useOutsideClick";
 
 export default function CarouselConfigBlock({
   item,
@@ -9,9 +10,16 @@ export default function CarouselConfigBlock({
   item: Article;
 }) {
     const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
+    const contRef = useRef<HTMLDivElement>(null);
+    useOutsideClick(contRef, () => {
+      setConfirmDelete(false);
+    });
 
   return (
-    <div className="w-[32%] h-auto flex flex-col overflow-visible">
+    <div
+      ref={contRef}
+      className="w-[23%] h-auto flex flex-col overflow-visible"
+    >
       <StaggerContainer>
         <div
           key={item._id}
@@ -22,7 +30,11 @@ export default function CarouselConfigBlock({
             alt={item.title}
             className="w-full h-[150px] object-cover rounded-lg"
           />
-          <p className="text-sm font-semibold text-indigo-500">{item.title}</p>
+          <div className="grow flex flex-col justify-center">
+            <p className="text-sm font-semibold text-indigo-500">
+              {item.title}
+            </p>
+          </div>
           {!confirmDelete && (
             <StateHover
               articleId={item._id}
