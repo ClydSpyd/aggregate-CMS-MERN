@@ -73,7 +73,7 @@ export default function Content() {
           <p className="text-sm text-indigo-500">{fetchError}</p>
         </div>
       ) : (
-        <div className="grow h-full p-4 py-0 flex flex-col gap-1 overflow-y-scroll">
+        <div className="grow h-full w-full p-4 py-0 flex flex-col gap-1 overflow-y-scroll">
           {loading ? (
             <div className="h-full w-full flex flex-col items-center justify-center gap-1">
               {/* <Image

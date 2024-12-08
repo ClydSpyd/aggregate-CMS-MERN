@@ -33,8 +33,8 @@ export default function Navbar() {
         </Link>
         <div className="flex gap-8 absolute-center text-base font-[500]">
           <NavItem text="Dashboard" route="/" />
-          <NavItem text="Discover" route="/discover" />
-          <NavItem text="Create" route="/create" />
+          <NavItem text="Feeds" route="/discover" />
+          <NavItem text="Queue" route="/create" />
           <NavItem text="Browse" route="/browse" />
         </div>
         <div

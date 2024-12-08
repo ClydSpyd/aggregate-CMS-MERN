@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { dummyHighlights } from "./dummy-data";
+import { dummyHighlights } from "../dummy-data";
 import { MdAddBox } from "react-icons/md";
 import { Link } from "react-router-dom";
 

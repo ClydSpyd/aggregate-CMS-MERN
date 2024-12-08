@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import API from "../../../api";
-import { useDashboard } from "../../../contexts/dash-contenxt";
-import ModalWrapper from "../../../components/utility-comps/modal-wrapper";
-import TagSelector from "../../../components/tag-selector";
-import { cn } from "../../../lib/utilities";
-import spinner from "../../../assets/loaders/spinner-indigo.svg";
+import API from "../../../../api";
+import { useDashboard } from "../../../../contexts/dash-contenxt";
+import ModalWrapper from "../../../../components/utility-comps/modal-wrapper";
+import TagSelector from "../../../../components/tag-selector";
+import { cn } from "../../../../lib/utilities";
+import spinner from ".././../../../assets/loaders/spinner-indigo.svg";
 
 const defaultVals: ConfigBlockData = {
   name: "",
