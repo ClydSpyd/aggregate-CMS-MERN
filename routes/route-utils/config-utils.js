@@ -1,7 +1,15 @@
 const NavItem = require("../../schema/NavItemConfig");
 const Article = require("../../schema/article");
 
-const getArticleCountByTag = async (tags) => {
+const getArticlesByTags = async (tags) => {
+  const items = await Article.find({
+    tags: { $in: tags },
+    published: true,
+  });
+  return items.map((item) => item.toObject());
+}
+
+const getArticleCountByTags = async (tags) => {
     const count = await Article.countDocuments({
       $or: [
         { tags: { $in: tags } },
@@ -19,12 +27,13 @@ const navItemsWithCount = async () => {
     return await Promise.all(
       navItems.map(async (navItem) => ({
         ...navItem.toObject(),
-        count: await getArticleCountByTag(navItem.tags),
+        count: await getArticleCountByTags(navItem.tags),
       }))
     );
 };
 
 module.exports = {
-    getArticleCountByTag,
-    navItemsWithCount,
+  getArticlesByTags,
+  getArticleCountByTags,
+  navItemsWithCount,
 };

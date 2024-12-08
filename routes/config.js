@@ -2,17 +2,24 @@ const express = require("express");
 const NavItem = require("../schema/NavItemConfig");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
-const { getArticleCountByTag, navItemsWithCount } = require("./route-utils/config-utils");
+const {
+  getArticleCountByTags,
+  navItemsWithCount,
+} = require("./route-utils/config-utils");
+const Article = require("../schema/article");
 
 // GET dash config data
 // returns dash config data object (nav, carouselItems, secondaryModules, tracks)
 router.get("/dashboard", async (req, res) => {
   try {
     const navItems = await navItemsWithCount();
+    const carouselItems = await Article.find({
+      highlight: { $in: ["primary"] },
+    });
 
     res.json({
       nav: navItems,
-      carouselItems: [],
+      carouselItems,
       secondaryModules: [],
       tracks: [],
     });
@@ -37,7 +44,7 @@ router.post(
         .json({ message: "Invalid input", errors: errors.array() });
     }
 
-    const articleCount = await getArticleCountByTag(req.body.tags);
+    const articleCount = await getArticleCountByTags(req.body.tags);
 
     try {
       const navItem = new NavItem({
@@ -65,10 +72,8 @@ router.delete("/dashboard/nav-item/:id", async (req, res) => {
   try {
     await NavItem.findByIdAndDelete(req.params.id);
 
-
     const navItems = await navItemsWithCount();
     res.json(navItems);
-
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -94,7 +99,44 @@ router.patch("/dashboard/nav-item/:id", async (req, res) => {
 
     const navItems = await navItemsWithCount();
     res.json(navItems);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
+// POST add carousel items
+// add carousel items with array of IDs, return updated array of carousel items
+router.post("/dashboard/carousel-items", async (req, res) => {
+  try {
+    // update highlight field of articles
+    await Article.updateMany(
+      { _id: { $in: req.body.articleIds } },
+      { $set: { highlight: "primary" } }
+    );
+
+    const carouselItems = await Article.find({
+      highlight: { $in: ["primary"] },
+    });
+
+    res.json(carouselItems);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// POST remove carousel item
+// remove carousel item with :id param, return updated array of carousel items
+router.delete("/dashboard/carousel-items/:id", async (req, res) => {
+  try {
+    await Article.findByIdAndUpdate(req.params.id, {
+      $pull: { highlight: "primary" },
+    });
+
+    const carouselItems = await Article.find({
+      highlight: { $in: ["primary"] },
+    });
+
+    res.json(carouselItems);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

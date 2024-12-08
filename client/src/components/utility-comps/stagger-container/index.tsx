@@ -19,7 +19,7 @@ export default function StaggerContainer({
 
   return (
     <div
-      className={cn("transition-all duration-300 ease-out relative h-full w-full group/container", display ? "opacity-100 right-0" : "opacity-0 right-1")}
+      className={cn("transition-all duration-300 ease-out relative h-full group/container", display ? "opacity-100 right-0" : "opacity-0 right-1")}
     >
       {children}
     </div>

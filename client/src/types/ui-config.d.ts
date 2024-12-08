@@ -7,7 +7,7 @@ declare interface ConfigBlockData {
 }
 
 declare interface NavItemConfig {
-  id: string;
+  _id: string;
   name: string;
   tags: string[];
   layout: string;

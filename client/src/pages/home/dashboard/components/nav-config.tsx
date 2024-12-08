@@ -19,7 +19,7 @@ export default function NavConfig({ items }: { items: NavItemConfig[] }) {
             add item
           </div>
         </div>
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap justify-stretch">
           {items.map((item, index) => (
             <ConfigBlock key={index} blockData={item} />
           ))}

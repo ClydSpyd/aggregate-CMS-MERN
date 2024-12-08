@@ -22,11 +22,11 @@ export default function ConfigBlock({
   });
 
   return (
-    <div className="max-w-[280px] min-w-[200px]">
+    <div className="max-w-[330px] min-w-[200px]">
       <StaggerContainer staggerDelay={50}>
         <div
           className={cn(
-            "flex flex-col gap-3 rounded-lg p-4 bg-white border shadow-sm relative group hover:border-slate-400 overflow-hidden",
+            "h-full flex flex-col gap-3 rounded-lg p-4 bg-white border shadow-sm relative group hover:border-slate-400 overflow-hidden",
             blockData.active ? "" : "border-slate-300 text-slate-300"
           )}
         >

@@ -1,7 +1,9 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface DashContextData {
     config: DashConfig | null;
     error: string | null;
-    setConfig: (config: DashConfig) => void;
+    setConfig: Dispatch<SetStateAction<DashConfig | null>>;
 };
 
 export const defaultDashContext: DashContextData = {

@@ -67,7 +67,9 @@ router.get("/recent", verifyToken, async (req, res) => {
 // :string variable defines highlight variety
 router.get("/highlight/:string", verifyToken, async (req, res) => {
   try {
-    const articles = await Article.find({ highlight: req.params.string });
+    const articles = await Article.find({
+      highlight: { $in: ["primary"] },
+    });
     res.json(articles);
   } catch (error) {
     res.status(500).json({ message: error.message });

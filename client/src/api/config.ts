@@ -65,5 +65,32 @@ export const configFunctions = {
       const err = error as ErrorResponse;
       return { error: err.response?.data.message, status: 500 };
     }
-  }
+  },
+  addCarouselItems: async (
+    articleIds: string[]
+  ): Promise<ApiResponse<Article[]>> => {
+    try {
+      const { data, status } = await baseClient.post(
+        "/config/dashboard/carousel-items",
+        { articleIds }
+      );
+      return { status, data };
+    } catch (error) {
+      const err = error as ErrorResponse;
+      return { error: err.response?.data.message, status: 500 };
+    }
+  },
+  removeCarouselItem: async (
+    articleId: string
+  ): Promise<ApiResponse<Article[]>> => {
+    try {
+      const { data, status } = await baseClient.delete(
+        `/config/dashboard/carousel-items/${articleId}`
+      );
+      return { status, data };
+    } catch (error) {
+      const err = error as ErrorResponse;
+      return { error: err.response?.data.message, status: 500 };
+    }
+  },
 };

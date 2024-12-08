@@ -1,6 +1,6 @@
 const express = require("express");
 const Tag = require("../schema/tag");
-const { getArticleCountByTag } = require("./route-utils/config-utils");
+const { getArticleCountByTags } = require("./route-utils/config-utils");
 const router = express.Router();
 
 // GET all tags
@@ -30,7 +30,7 @@ router.get("/tag-data", async (req, res) => {
 router.post("/article-count", async (req, res) => {
     try {
         const tags = req.body.tags;
-        const count = await getArticleCountByTag(tags);
+        const count = await getArticleCountByTags(tags);
         res.json({ count });
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -24,6 +24,7 @@ app.use("/api/user", require('./routes/user'));
 app.use("/api/auth", require('./routes/auth'));
 app.use("/api/utility", require('./routes/utility'));
 app.use("/api/config", require('./routes/config'));
+app.use("/api/page", require('./routes/page'));
 
 // Serve static files from the React app's build folder
 app.use(express.static(path.join(__dirname, 'client/build')));
