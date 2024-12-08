@@ -34,12 +34,14 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({
-        errors: errors
-          .array()
-          .map((err) => ({ field: err.path, message: err.msg })),
-      });
+      return res
+        .status(400)
+        .json({ message: "Invalid input", errors: errors.array() });
     }
+
+    // article count
+    const articleCount = await getArticleCountByTag(req.body.tags);
+
     // Create a new NavItem
     try {
       const navItem = new NavItem({
@@ -48,28 +50,33 @@ router.post(
       });
 
       await navItem.save();
-      res.status(201).json(navItem);
+      res.status(201).json({ ...navItem.toObject(), count: articleCount });
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      console.log(err.message);
+      const isDuplicate = err.message.includes(
+        "duplicate key error collection"
+      );
+      res
+        .status(400)
+        .json({
+          message: isDuplicate ? `Item name already exists` : err.message,
+        });
     }
   }
 );
 
-router.patch(
-  "/dashboard/nav-item/:id",
-  async (req, res) => {
-    try {
-      console.log("UPDATE NAVITEM");
-      const updatedItem = await NavItem.findByIdAndUpdate(
-        req.params.id,
-        { $set: req.body }, // update only the provided fields
-        { new: true }
-      );
-      res.json(updatedItem);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
+router.patch("/dashboard/nav-item/:id", async (req, res) => {
+  try {
+    console.log("UPDATE NAVITEM");
+    const updatedItem = await NavItem.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body }, // update only the provided fields
+      { new: true }
+    );
+    res.json(updatedItem);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-);
+});
 
 module.exports = router;

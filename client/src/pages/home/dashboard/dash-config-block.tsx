@@ -28,7 +28,7 @@ export default function ConfigBlock({
         </div>
       </div>
       <div className="flex gap-1 flex-wrap">
-        {blockData.tags.map((tag, index) => (
+        {blockData?.tags?.map((tag, index) => (
           <p
             key={index}
             className="px-2 rounded-[20px] border-2 border-indigo-500 text-indigo-500 bg-white text-xs w-fit"

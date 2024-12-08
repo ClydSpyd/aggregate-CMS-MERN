@@ -1,4 +1,4 @@
-interface DashContextData {
+export interface DashContextData {
     config: DashConfig | null;
     error: string | null;
     setConfig: (config: DashConfig) => void;

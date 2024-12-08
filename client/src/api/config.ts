@@ -24,4 +24,18 @@ export const configFunctions = {
       return { error: err.response?.data.message, status: 500 };
     }
   },
+  addNavItem: async (
+    item: ConfigBlockData
+  ): Promise<ApiResponse<NavItemConfig>> => {
+    try {
+      const { data, status } = await baseClient.post("/config/dashboard/nav-item", {
+        name: item.name,
+        tags: item.tags,
+      });
+      return { status, data };
+    } catch (error) {
+      const err = error as ErrorResponse;
+      return { error: err.response?.data.message, status: 500 };
+    }
+  },
 };

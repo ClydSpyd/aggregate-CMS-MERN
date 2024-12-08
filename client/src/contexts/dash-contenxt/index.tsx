@@ -1,8 +1,8 @@
-import { defaultDashContext } from "./types";
+import { DashContextData, defaultDashContext } from "./types";
 import { createContext, useContext, useEffect, useState } from "react";
 import API from "../../api";
 
-const DashContext = createContext(defaultDashContext);
+const DashContext = createContext<DashContextData>(defaultDashContext);
 
 export const DashProvider = ({ children }: { children: React.ReactNode }) => {
     const [ config, setConfig ] = useState<DashConfig | null>(null);

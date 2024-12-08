@@ -46,7 +46,7 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute top-[10px] right-[10px] bg-none text-16 cursor-pointer border border-gray-100 hover:border-gray-300 h-[25px] w-[25px] rounded-md"
+          className="absolute top-[10px] right-[10px] bg-none text-16 cursor-pointer border border-gray-100 hover:border-gray-300 h-[25px] w-[25px] rounded-md z-50"
           onClick={onClose}
         >
           ✕
