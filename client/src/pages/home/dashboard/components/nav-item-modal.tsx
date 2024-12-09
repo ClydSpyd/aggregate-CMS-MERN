@@ -9,6 +9,7 @@ import spinner from ".././../../../assets/loaders/spinner-indigo.svg";
 import Checkbox from "../../../../components/utility-comps/checkbox";
 import { MdDeleteForever } from "react-icons/md";
 import { FaListAlt } from "react-icons/fa";
+import { IoDocumentTextSharp, IoWarning } from "react-icons/io5";
 import InputField from "../../../../components/utility-comps/input-field";
 
 const defaultVals: ConfigBlockData = {
@@ -103,7 +104,11 @@ export default function NavItemModal({
   useEffect(() => {
     if (configVals.tags.length > 0) {
       getArticleCount();
-    }
+    } else {
+      setConfigVals((prev: ConfigBlockData) => ({
+        ...prev,
+        count: 0,
+      }));}
   }, [configVals.tags]);
 
   useEffect(() => {
@@ -113,9 +118,27 @@ export default function NavItemModal({
   return (
     <ModalWrapper open={open} onClose={() => setOpen(false)}>
       <div className="bg-white rounded-lg p-8 pb-10 w-[500px] flex flex-col gap-2 relative overflow-hidden">
-        <h1 className="text-2xl font-semibold text-indigo-500">
-          {valuesProp ? "Edit" : "New"} nav item
-        </h1>
+        <div className="w-full flex justify-between items-center">
+          <h1 className="text-2xl font-semibold text-indigo-500">
+            {valuesProp ? "Edit" : "New"} Nav Item
+          </h1>
+
+          {valuesProp && (
+            <div className="flex gap-1 items-center">
+              {configVals.count > 0 ? (
+                <p className="py-2 px-2 rounded-md bg-indigo-500 text-white flex items-center gap-1">
+                  <IoDocumentTextSharp size={16} className="text-white" />
+                  {configVals.count}
+                </p>
+              ) : (
+                <p className="py-2 px-2 rounded-md bg-red-500 text-white flex items-center gap-1">
+                  <IoWarning size={20} className="text-white" />
+                  no content
+                </p>
+              )}
+            </div>
+          )}
+        </div>
         <InputField
           autofocus
           placeholder="name"
@@ -149,19 +172,6 @@ export default function NavItemModal({
             <div className="opacity-40 cursor-not-allowed flex items-center justify-center min-h-[50px] min-w-[50px] max-h-[50px] max-w-[50px] border rounded-sm text-slate-400">
               <FaListAlt size={20} />
             </div>
-          </div>
-        )}
-        {configVals?.tags?.length > 0 && (
-          <div className="w-full justify-center flex gap-2 p-2 text-md">
-            <p className="text-[#a0a0a0] mb-1">Matching articles:</p>
-            <p
-              className={cn(
-                "font-semibold",
-                configVals.count > 0 ? "text-indigo-500" : "text-red-500"
-              )}
-            >
-              {configVals.count}
-            </p>
           </div>
         )}
         <div className="relative">

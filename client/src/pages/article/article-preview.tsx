@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { cn } from "../../lib/utilities";
 import { ArticlePreviewProps } from "./types";
 import { FiEdit } from "react-icons/fi";
+import ModalWrapper from "../../components/utility-comps/modal-wrapper";
+import TextEditor from "../../components/text-editor";
 
 const HoverWrapper = ({
   children,
@@ -28,11 +31,40 @@ const HoverWrapper = ({
   );
 };
 
+const EditArticleContent = ({
+  show,
+  setShow,
+  articleData,
+}: {
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  articleData: Article;
+}) => {
+  console.log({ blocks: articleData.blocks });
+  return (
+    <ModalWrapper open={show} onClose={() => setShow(false)}>
+      <div className="w-[80vw] h-[80vh] rounded-lg bg-white flex flex-col items-center justify-center overflow-hidden">
+        <div className="h-full border py-8 px-10">
+          {/* <TextEditor
+            canSubmit={true}
+            initialContent={articleData.blocks ?? []}
+            saveCallback={() => {
+              console.log("blocks, html");
+            }}
+          /> */}
+          <h1>{articleData.content}</h1>
+        </div>
+      </div>
+    </ModalWrapper>
+  );
+};
+
 export default function ArticlePreview({
   articleData,
   focusTitle,
   focusCaption,
 }: ArticlePreviewProps) {
+  const [edit, setEdit] = useState(false);
   return (
     <div className="grow h-full flex justify-center overflow-y-auto transition-all ease-in-out duration-500 px-4">
       <div className="w-full max-w-[1050px] h-fit flex flex-col items-center text-center pb-16">
@@ -55,11 +87,18 @@ export default function ArticlePreview({
               {articleData.caption}
             </h3>
           </HoverWrapper>
-          <div
-            className="mt-5 text-left"
-            dangerouslySetInnerHTML={{ __html: articleData.content }}
-          />
+          <HoverWrapper onClick={() => setEdit(true)} additionalClass="my-2">
+            <div
+              className="mt-5 text-left"
+              dangerouslySetInnerHTML={{ __html: articleData.content }}
+            />
+          </HoverWrapper>
         </div>
+        <EditArticleContent
+          show={edit}
+          setShow={setEdit}
+          articleData={articleData}
+        />
       </div>
     </div>
   );
