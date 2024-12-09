@@ -27,9 +27,6 @@ export default function ArticleDrawer({
   articleData,
 }: ArticleDrawerProps) {
   const [primary, setPrimary] = useState<boolean>(articleData.highlight.includes("primary"));
-  const [secondary, setSecondary] = useState<boolean>(
-    articleData.highlight.includes("secondary")
-  );
   const [published, setPublished] = useState<boolean>(articleData.published);
 
   const handlePublished = () => {
@@ -41,8 +38,6 @@ export default function ArticleDrawer({
   const handleHighlight = (type: "primary" | "secondary") => {
     if(type === "primary") {
       setPrimary((prev) => !prev);
-    } else {
-      setSecondary((prev) => !prev);
     }
     const arr = articleData.highlight;
     const index = arr.indexOf(type);
@@ -87,13 +82,6 @@ export default function ArticleDrawer({
           >
             <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>Primary carousel</p>
             <Checkbox checked={primary} />
-          </div>
-          <div
-            onClick={() => handleHighlight("secondary")}
-            className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
-          >
-            <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>Secondary carousel</p>
-            <Checkbox checked={secondary} />
           </div>
         </div>
         <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">

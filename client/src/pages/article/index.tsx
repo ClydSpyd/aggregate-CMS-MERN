@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../api";
-import { cn } from "../../lib/utilities";
+import { cn, debounce } from "../../lib/utilities";
 import { FaChevronCircleRight } from "react-icons/fa";
 import ArticleDrawer from "./article-drawer";
 import ArticlePreview from "./article-preview";
@@ -30,12 +30,20 @@ export default function ArticlePage() {
     getArticle();
   }, [articleId]);
 
+  const debouncedUpdate = useCallback(
+    debounce((id: string, val: Record<string, string | string[]>) => {
+      API.article.updateArticle(id, val);
+    }, 500),
+    []
+  );
+
 
   const handleInputChange = (value: string, key: keyof typeof articleData) => {
     setArticleData((prev: Article) => ({
       ...prev,
       [key]: value,
     }));
+    debouncedUpdate(articleData._id, { [key]: value });
   };
 
   const handleTags = (value: string[]) => {
@@ -43,6 +51,7 @@ export default function ArticlePage() {
       ...prev,
       tags: value,
     }));
+    debouncedUpdate(articleData._id, { tags: value });
   };
 
   const focusTitle = () => {
