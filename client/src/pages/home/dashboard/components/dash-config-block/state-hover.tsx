@@ -20,7 +20,7 @@ export const StateHover = ({
   return (
     <div
       className={
-        "h-full w-full absolute-center z-50 flex items-center justify-center p-2 gap-1 bg-slate-100/70 transition-all duration-100 opacity-0 group-hover:opacity-100"
+        "h-full w-full absolute-center z-50 flex items-center justify-center p-2 gap-1 bg-slate-100/70 transition-all duration-100 opacity-0 backdrop-blur-[2px] group-hover:opacity-100"
       }
     >
       <TooltipWrapper message="edit item">
