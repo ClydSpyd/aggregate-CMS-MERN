@@ -46,7 +46,7 @@ router.post(
       .withMessage("tags must be a non-empty array"),
     body("source").notEmpty().withMessage("source is required"),
     body("sourceUrl").notEmpty().withMessage("sourceUrl is required"),
-    body("blocks").notEmpty().withMessage("blocks is required"),
+    body("rawContent").notEmpty().withMessage("rawContent is required"),
   ],
   verifyToken,
   async (req, res) => {
@@ -68,7 +68,7 @@ router.post(
         tags: req.body.tags,
         source: req.body.source,
         sourceUrl: req.body.sourceUrl,
-        blocks: req.body.blocks,
+        rawContent: req.body.rawContent,
       });
 
       // extract tags and save to tags collection in db

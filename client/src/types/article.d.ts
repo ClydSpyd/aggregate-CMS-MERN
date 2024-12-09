@@ -38,7 +38,7 @@ declare interface Article {
   tags: string[];
   source: string;
   sourceUrl: string;
-  blocks: Block[];
+  rawContent: string;
   createdAt: string;
   updatedAt: string;
   published: boolean;

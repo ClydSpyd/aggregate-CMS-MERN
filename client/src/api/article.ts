@@ -4,7 +4,7 @@ import { ApiResponse } from "./types";
 import { InputData } from "../pages/browse/types";
 
 export const articleFunctions = {
-  createArticle: async (article: Article): Promise<ApiResponse<Article>> => {
+  createArticle: async (article: Partial<Article>): Promise<ApiResponse<Article>> => {
     try {
       const { data, status } = await baseClient.post(
         "/article/create",

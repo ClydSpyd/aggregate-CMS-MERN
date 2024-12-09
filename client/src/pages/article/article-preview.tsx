@@ -40,19 +40,18 @@ const EditArticleContent = ({
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   articleData: Article;
 }) => {
-  console.log({ blocks: articleData.blocks });
   return (
     <ModalWrapper open={show} onClose={() => setShow(false)}>
-      <div className="w-[80vw] h-[80vh] rounded-lg bg-white flex flex-col items-center justify-center overflow-hidden">
-        <div className="h-full border py-8 px-10">
-          {/* <TextEditor
+      <div className="w-[80vw] h-[80vh] rounded-lg bg-white flex flex-col items-center justify-center pb-2">
+        <div className="grow h-fit min-w-full overflow-y-auto pr-4">
+          <TextEditor
             canSubmit={true}
-            initialContent={articleData.blocks ?? []}
+            initialContent={articleData.content}
             saveCallback={() => {
               console.log("blocks, html");
             }}
-          /> */}
-          <h1>{articleData.content}</h1>
+          />
+          {/* <h1>{articleData.content}</h1> */}
         </div>
       </div>
     </ModalWrapper>
@@ -89,7 +88,7 @@ export default function ArticlePreview({
           </HoverWrapper>
           <HoverWrapper onClick={() => setEdit(true)} additionalClass="my-2">
             <div
-              className="mt-5 text-left"
+              className="text-left p-4"
               dangerouslySetInnerHTML={{ __html: articleData.content }}
             />
           </HoverWrapper>

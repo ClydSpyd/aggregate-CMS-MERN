@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Block } from "@blocknote/core";
 import { useQueue } from "../../../contexts/queue-context";
 import { useEffect, useState } from "react";
 import { LocalFields, defaultValues } from "../types";
@@ -41,12 +40,12 @@ export default function useCreate() {
     }
   }, [queuedItems]);
 
-  const saveCallback = async (blocks: Block[], html: string) => {
-    const payload: Article = {
+  const saveCallback = async (raw: string, html: string) => {
+    const payload: Partial<Article> = {
       ...localFields,
       source: "web",
       content: html,
-      blocks,
+      rawContent: raw,
     };
     const { data, error } = await API.article.createArticle(payload);
     if (data) {

@@ -78,7 +78,7 @@ export default function CreatePage() {
         </div>
         <div
           className={cn(
-            "overflow-y-auto grow pr-4 flex flex-col gap-1 relative",
+            "overflow-y-auto grow pr-4 pb-2 flex flex-col gap-1 relative",
             emptyQueue
               ? "opacity-50 cursor-not-allowed [&_*]:pointer-events-none"
               : ""
@@ -90,7 +90,7 @@ export default function CreatePage() {
               emptyQueue ? "absolute block z-50" : "hidden z-0"
             )}
           />
-          <div className="w-full flex flex-col gap-2 mb-1 py-2">
+          <div className="w-full flex flex-col gap-2 py-2">
             <InputField
               placeholder="Article Title"
               value={localFields.title}
@@ -118,6 +118,7 @@ export default function CreatePage() {
           </div>
           {selectedArticle && !isFirstRender && (
             <TextEditor
+              border
               saveCallback={saveCallback}
               postSubmistMsg={submitData.msg}
               isError={submitData.error}
