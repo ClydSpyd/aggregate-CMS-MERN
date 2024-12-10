@@ -22,6 +22,8 @@ input {
 
 select,
 select:focus,
+textarea,
+textarea:focus,
 input:focus {
   outline: none;
 }

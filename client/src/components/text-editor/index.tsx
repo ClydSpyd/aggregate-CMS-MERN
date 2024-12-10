@@ -13,6 +13,7 @@ export default function TextEditor({
   postSubmistMsg,
   isError,
   border,
+  btnClass,
 }: {
   canSubmit: boolean;
   initialContent?: Value | null;
@@ -20,8 +21,9 @@ export default function TextEditor({
   postSubmistMsg?: string | null;
   isError?: boolean;
   border?: boolean;
+  btnClass?: string;
 }) {
-  const [hasContent, setHasContent] = useState<boolean>(false);
+  const [dirty, setDirty] = useState<boolean>(false);
   const editorRef = useRef<ReactQuill | null>(null);
 
   const handleSave = async () => {
@@ -31,6 +33,7 @@ export default function TextEditor({
     const delta = editor?.getContents(); // Extract Delta
     console.log({ htmlContent, plainText, delta, editor });
     saveCallback?.(plainText ?? "", htmlContent ?? "");
+    // setDirty(false);
   };
 
   return (
@@ -43,7 +46,7 @@ export default function TextEditor({
       <div className="grow h-auto rounded-sm flex flex-col">
         <ReactQuill
           value={initialContent ?? undefined}
-          onKeyDown={() => setHasContent(true)}
+          onKeyDown={() => setDirty(true)}
           ref={editorRef}
           modules={{ toolbar: toolbarOptions }}
         />
@@ -61,10 +64,11 @@ export default function TextEditor({
         <div
           onClick={handleSave}
           className={cn(
-            "h-[40px] w-[140px] flex items-center justify-center border rounded-md cursor-pointer bg-gray-200 text-gray-500 hover:bg-indigo-600 hover:text-white transition-colors duration-200 pointer-events-auto relative z-50",
-            canSubmit && hasContent
+            "h-[40px] w-[160px] flex items-center justify-center border rounded-md cursor-pointer  bg-indigo-500 text-white hover:bg-indigo-600 hover:text-white transition-colors duration-200 pointer-events-auto relative z-50",
+            canSubmit && dirty
               ? "opacity-100 pointer-events-auto"
-              : "opacity-20 pointer-events-none"
+              : "opacity-50 pointer-events-none",
+            btnClass ?? ""
           )}
         >
           SAVE

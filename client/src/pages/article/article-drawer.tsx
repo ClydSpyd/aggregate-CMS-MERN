@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import InputField from "../../components/utility-comps/input-field";
 import TagSelector from "../../components/tag-selector";
 import { ArticleDrawerProps } from "./types";
 import { format } from "date-fns";
@@ -20,9 +19,6 @@ const extractDomain = (url: string) => {
 };
 
 export default function ArticleDrawer({
-  titleRef,
-  captionRef,
-  handleInputChange,
   handleTags,
   articleData,
 }: ArticleDrawerProps) {
@@ -54,18 +50,6 @@ export default function ArticleDrawer({
   return (
     <div className="h-[calc(100%-30px)] w-[430px] absolute right-4 top-4 flex flex-col no-bar-scroll-container">
       <div className="flex flex-col gap-2 grow">
-        <InputField
-          refProp={titleRef}
-          placeholder="Article Title"
-          value={articleData.title}
-          onChange={(val: string) => handleInputChange(val, "title")}
-        />
-        <InputField
-          refProp={captionRef}
-          placeholder="Caption"
-          value={articleData.caption}
-          onChange={(val: string) => handleInputChange(val, "caption")}
-        />
         <TagSelector tags={articleData.tags} setTags={handleTags} />
         <div
           onClick={handlePublished}

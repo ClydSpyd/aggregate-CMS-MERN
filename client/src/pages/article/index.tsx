@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../api";
 import { cn, debounce } from "../../lib/utilities";
 import { FaChevronCircleRight } from "react-icons/fa";
 import ArticleDrawer from "./article-drawer";
-import ArticlePreview from "./article-preview";
+import ArticleView from "./article-view";
 import { useLocalStorage } from "usehooks-ts";
 
 export default function ArticlePage() {
@@ -15,9 +15,6 @@ export default function ArticlePage() {
   );
   const [articleData, setArticleData] = useState<Article>({} as Article);
   const { articleId } = useParams<{ articleId: string }>();
-
-  const titleRef = useRef<HTMLInputElement>(null);
-  const captionRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const getArticle = async () => {
@@ -37,33 +34,12 @@ export default function ArticlePage() {
     []
   );
 
-
-  const handleInputChange = (value: string, key: keyof typeof articleData) => {
-    setArticleData((prev: Article) => ({
-      ...prev,
-      [key]: value,
-    }));
-    debouncedUpdate(articleData._id, { [key]: value });
-  };
-
   const handleTags = (value: string[]) => {
     setArticleData((prev: Article) => ({
       ...prev,
       tags: value,
     }));
     debouncedUpdate(articleData._id, { tags: value });
-  };
-
-  const focusTitle = () => {
-    setDrawrOpen(true);
-    titleRef.current?.focus();
-    titleRef.current?.setSelectionRange(0, titleRef.current.value.length);
-  };
-
-  const focusCaption = () => {
-    setDrawrOpen(true);
-    captionRef.current?.focus();
-    captionRef.current?.setSelectionRange(0, captionRef.current.value.length);
   };
 
   return (
@@ -80,10 +56,7 @@ export default function ArticlePage() {
           >
             <ArticleDrawer
               articleData={articleData}
-              handleInputChange={handleInputChange}
               handleTags={handleTags}
-              titleRef={titleRef}
-              captionRef={captionRef}
             />
             <div
               className="absolute-vert right-[-10px] cursor-pointer"
@@ -98,10 +71,9 @@ export default function ArticlePage() {
               />
             </div>
           </div>
-          <ArticlePreview
+          <ArticleView
+            setArticleData={setArticleData}
             articleData={articleData}
-            focusTitle={focusTitle}
-            focusCaption={focusCaption}
           />
         </div>
       )}
