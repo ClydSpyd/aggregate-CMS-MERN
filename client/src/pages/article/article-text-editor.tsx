@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import TextEditor from "../../components/text-editor";
+// import StickyWrapper from "../../components/utility-comps/sticky-wrapper";
 
 export const ArticleTextEditor = ({
     setShow,
@@ -19,12 +20,17 @@ export const ArticleTextEditor = ({
         ref={contRef}
         className="h-full w-full rounded-lg bg-white flex flex-col items-center justify-center pb-2"
       >
-        <div className="grow h-fit min-w-full overflow-y-auto pr-4">
+        {/* <StickyWrapper>
+          <h1 className="h-[200px] w-[400px] flex items-center justify-center bg-lime-500">
+            öÖö
+          </h1>
+        </StickyWrapper> */}
+        <div className="grow h-fit min-w-full overflow-y-auto">
           <TextEditor
             canSubmit={true}
             initialContent={articleData.content}
             saveCallback={handleContentChange}
-            btnClass="absolute top-2 right-6"
+            btnClass="absolute top-2 right-4"
           />
         </div>
       </div>
