@@ -94,66 +94,72 @@ export default function AddarticleModal({
           onChange={handleInput}
           additionalClass="w-full"
         />
-        <div className="w-full min-h-[150px] flex flex-col justify-center items-center">
-          {loading ? (
-            <img src={spinner} className="w-12 h-12" alt="loading" />
-          ) : !inputValue ? (
-            <div className="flex flex-col items-center gap-2">
-              <LuFileSearch2 size={50} className=" text-indigo-500" />
-              <p className="text-indigo-500 text-sm">
-                enter text to search articles
-              </p>
-            </div>
-          ) : inputValue && filteredArticles.length === 0 ? (
-            <p className="text-sm text-indigo-500">NO ARTICLES FOUND</p>
-          ) : (
-            <div className="w-full grow flex flex-col gap-1 max-h-[600px] overflow-y-auto pr-3">
-              {filteredArticles.map((article, index) => (
-                <div
-                  onClick={() =>
-                    setSelectedItems((prev) =>
-                      prev.includes(article._id)
-                        ? prev.filter((i) => i !== article._id)
-                        : [...prev, article._id]
-                    )
-                  }
-                  key={index}
-                  className={cn(
-                    "w-full flex justify-between items-center gap-4 p-2 border rounded-md cursor-pointer hover:border-slate-400/70",
-                    article.highlight.includes("primary")
-                      ? "opacity-30 bg-slate-200 text-slate-400 pointer-events-none border-indigo-500"
-                      : " text-indigo-500"
-                  )}
-                >
-                  <div className="flex items-center gap-2">
-                    <img
-                      src={article.imgUrl}
-                      alt={article.title}
-                      className="w-[50px] h-[50px] object-cover rounded-lg"
-                    />
-                    <p className="text-sm font-semibold">{article.title}</p>
-                  </div>
-                  {!article.highlight.includes("primary") && (
-                    <div className="w-[30px] h-[30px] flex justify-end items-center mr-1">
-                      <Checkbox checked={selectedItems.includes(article._id)} />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-        <button
-          onClick={handleSubmit}
+        {/* {(inputValue || filteredArticles.length > 0) && ( */}
+        <div
           className={cn(
-            "w-full h-[50px] bg-indigo-500 text-white rounded-md transition-all duration-200 hover:bg-indigo-600",
-            selectedItems.length > 0
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-50 pointer-events-none"
+            "w-full overflow-hidden transition-all duration-300 ease-out flex flex-col gap-2",
+            inputValue || filteredArticles.length > 0
+              ? "max-h-[70vh]"
+              : "max-h-0"
           )}
         >
-          SUBMIT
-        </button>
+          <div className="w-full min-h-[150px] flex flex-col justify-center items-center">
+            {loading ? (
+              <img src={spinner} className="w-12 h-12" alt="loading" />
+            ) : inputValue && filteredArticles.length === 0 ? (
+              <p className="text-sm text-indigo-500">NO ARTICLES FOUND</p>
+            ) : (
+              <div className="w-full grow flex flex-col gap-1 transition-all duration-300 ease-out max-h-[500px] overflow-y-auto pr-3">
+                {filteredArticles.map((article, index) => (
+                  <div
+                    onClick={() =>
+                      setSelectedItems((prev) =>
+                        prev.includes(article._id)
+                          ? prev.filter((i) => i !== article._id)
+                          : [...prev, article._id]
+                      )
+                    }
+                    key={index}
+                    className={cn(
+                      "w-full flex justify-between items-center gap-4 p-2 border rounded-md cursor-pointer hover:border-slate-400/70",
+                      article.highlight.includes("primary")
+                        ? "opacity-30 bg-slate-200 text-slate-400 pointer-events-none border-indigo-500"
+                        : " text-indigo-500"
+                    )}
+                  >
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={article.imgUrl}
+                        alt={article.title}
+                        className="w-[50px] h-[50px] object-cover rounded-lg"
+                      />
+                      <p className="text-sm font-semibold">{article.title}</p>
+                    </div>
+                    {!article.highlight.includes("primary") && (
+                      <div className="w-[30px] h-[30px] flex justify-end items-center mr-1">
+                        <Checkbox
+                          checked={selectedItems.includes(article._id)}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <button
+            onClick={handleSubmit}
+            className={cn(
+              "w-full h-[50px] bg-indigo-500 text-white rounded-md transition-all duration-200 hover:bg-indigo-600",
+              selectedItems.length > 0
+                ? "opacity-100 pointer-events-auto"
+                : "opacity-50 pointer-events-none"
+            )}
+          >
+            SUBMIT
+          </button>
+        </div>
+        {/* )} */}
       </div>
     </ModalWrapper>
   );

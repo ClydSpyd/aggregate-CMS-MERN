@@ -48,7 +48,7 @@ export default function ArticleDrawer({
   };
 
   return (
-    <div className="h-[calc(100%-30px)] w-[430px] absolute right-4 top-4 flex flex-col no-bar-scroll-container">
+    <div className="h-[calc(100%-30px)] w-[370px] absolute right-4 top-4 flex flex-col no-bar-scroll-container">
       <div className="flex flex-col gap-2 grow">
         <TagSelector tags={articleData.tags} setTags={handleTags} />
         <div

@@ -51,7 +51,7 @@ export default function ArticlePage() {
           <div
             className={cn(
               "border border-t-0 h-full transition-all ease-in-out duration-500 rounded-tr-xl rounded-br-xl relative overflow-x-visible bg-slate-100",
-              drawerOpen ? "w-[500px]" : "w-[20px]"
+              drawerOpen ? "w-[400px]" : "w-[20px]"
             )}
           >
             <ArticleDrawer
