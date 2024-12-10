@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { baseClient } from ".";
 import { ApiResponse } from "./types";
 import { normalizeJSONArticle, normalizeRssArticle } from "./utilities";
@@ -16,7 +16,8 @@ export const feedFunctions = {
   },
   json: async (url: string): Promise<ApiResponse<FeedItem[]>> => {
     try {
-      const { data, status } = await baseClient.get(url);
+      // @todo - refactor to use dynamic client
+      const { data, status } = await axios.get(url);
         return { status, data:data.items.map(normalizeJSONArticle) };
     } catch (error) {
       const err = error as AxiosError;

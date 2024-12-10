@@ -12,19 +12,19 @@ export const rssSources: RssSource[] = [
   },
   {
     name: "Billboard",
-    url: "https://rss.app/feeds/v1.1/tyFDUGkFj0HFWJrn.json",
+    url: "https://rss.app/feeds/v1.1/tXiajGWRyOju5eD5.json",
     imgUrl: `/images/billboard.png`,
     jsonResponse: true,
   },
   {
     name: "Rolling Stone",
-    url: "https://rss.app/feeds/v1.1/tiq83Mz7syjA5RSK.json",
+    url: "https://rss.app/feeds/v1.1/tsxfnyJre31zGN43.json",
     imgUrl: `/images/rolling-stone.png`,
     jsonResponse: true,
   },
   {
     name: "NME",
-    url: "https://rss.app/feeds/v1.1/t877ir82ULTdF88M.json",
+    url: "https://rss.app/feeds/v1.1/tmi0e1t3Mvlyu2W1.json",
     imgUrl: `/images/nme.png`,
     jsonResponse: true,
   },
@@ -35,13 +35,13 @@ export const rssSources: RssSource[] = [
   },
   {
     name: "Music Feed",
-    url: "https://rss.app/feeds/v1.1/tH96Yu09sAj5YvYK.json",
+    url: "https://rss.app/feeds/v1.1/td9M8EZzaDescFsg.json",
     imgUrl: `/images/music-feed.png`,
     jsonResponse: true,
   },
   {
     name: "Metal Hammer",
-    url: "https://rss.app/feeds/v1.1/tWnDRsGBOPTFO3Et.json",
+    url: "https://rss.app/feeds/v1.1/tKgRPrLogUXdjzyK.json",
     imgUrl: `/images/metal-hammer.jpg`,
     jsonResponse: true,
   },
