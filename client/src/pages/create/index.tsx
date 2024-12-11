@@ -84,49 +84,53 @@ export default function CreatePage() {
               : ""
           )}
         >
-          <div
-            className={cn(
-              "h-full w-full cursor-not-allowed",
-              emptyQueue ? "absolute block z-50" : "hidden z-0"
-            )}
-          />
-          <div className="w-full flex flex-col gap-2 py-2">
-            <InputField
-              placeholder="Article Title"
-              value={localFields.title}
-              onChange={(val: string) => handleInputChange(val, "title")}
-            />
-            <InputField
-              placeholder="Caption"
-              value={localFields.caption}
-              onChange={(val: string) => handleInputChange(val, "caption")}
-            />
-            <div className="grid grid-cols-3 gap-2">
-              <div className="col-span-2">
-                <TagSelector
-                  tags={localFields.tags}
-                  setTags={(tags: string[]) => handleTags(tags)}
-                />
-              </div>
-              <ImagePicker
-                moduleTitle="Hero Image"
-                defaultImageSrc={selectedArticle?.imgUrl ?? null}
-                altText="hero"
-                onChange={handleImage}
+          {confirmSaved ? (
+            <ConfirmModal handleDismiss={handleDismiss} />
+          ) : (
+            <>
+              <div
+                className={cn(
+                  "h-full w-full cursor-not-allowed",
+                  emptyQueue ? "absolute block z-50" : "hidden z-0"
+                )}
               />
-            </div>
-          </div>
-          {selectedArticle && !isFirstRender && (
-            <TextEditor
-              border
-              saveCallback={saveCallback}
-              postSubmistMsg={submitData.msg}
-              isError={submitData.error}
-              canSubmit={formFilled}
-            />
+              <div className="w-full flex flex-col gap-2 py-2">
+                <InputField
+                  placeholder="Article Title"
+                  value={localFields.title}
+                  onChange={(val: string) => handleInputChange(val, "title")}
+                />
+                <InputField
+                  placeholder="Caption"
+                  value={localFields.caption}
+                  onChange={(val: string) => handleInputChange(val, "caption")}
+                />
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="col-span-2">
+                    <TagSelector
+                      tags={localFields.tags}
+                      setTags={(tags: string[]) => handleTags(tags)}
+                    />
+                  </div>
+                  <ImagePicker
+                    moduleTitle="Hero Image"
+                    defaultImageSrc={selectedArticle?.imgUrl ?? null}
+                    altText="hero"
+                    onChange={handleImage}
+                  />
+                </div>
+              </div>
+              {selectedArticle && !isFirstRender && (
+                <TextEditor
+                  border
+                  saveCallback={saveCallback}
+                  postSubmistMsg={submitData.msg}
+                  isError={submitData.error}
+                  canSubmit={formFilled}
+                />
+              )}
+            </>
           )}
-          {/* { <ConfirmModal handleDismiss={handleDismiss} />} */}
-          {confirmSaved && <ConfirmModal handleDismiss={handleDismiss} />}
         </div>
       </div>
     )

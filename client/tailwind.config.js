@@ -20,9 +20,21 @@ module.exports = {
             transform: "translateX(0px)"
           }
         },
+        "drop-in": {
+          "0%": {
+            opacity: 0,
+            transform: "translateY(-20px)"
+          },
+          "100%": {
+            opacity: 100,
+            transform: "translateY(0)"
+          }
+        },
+      
       },
       animation: {
         shakeOnce: "shake 0.2s linear 2",
+        "drop-in": "drop-in 0.3s ease-out"
       },
     },
   },

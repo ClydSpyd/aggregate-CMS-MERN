@@ -6,6 +6,7 @@ import { HoverWrapper } from "../../components/utility-comps/hover-wrapper";
 import { ArticleTextEditor } from "./article-text-editor";
 import { cn } from "../../lib/utilities";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import { useNotification } from "../../contexts/notification-context";
 
 interface EditData {
   title: boolean;
@@ -34,7 +35,6 @@ const EditWrapper = ({
   const editRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
   const handleSave = () => {
     saveCallback(inputVal, keyName);
     toggleEdit(keyName);
@@ -108,6 +108,7 @@ export default function ArticleView({
   articleData,
   setArticleData,
 }: ArticleViewProps) {
+  const { showToast } = useNotification();
   const [edit, setEdit] = useState({
     title: false,
     caption: false,
@@ -126,9 +127,14 @@ export default function ArticleView({
       ...prev,
       [key]: value,
     }));
-    API.article.updateArticle(articleData._id, {
-      [key]: value,
-    });
+    try {
+      API.article.updateArticle(articleData._id, {
+        [key]: value,
+      });
+      showToast("Article updated");
+    } catch (error) {
+      console.error(`Error updating article:`, error);
+    }
   };
 
   const handleContentChange = (raw: string, html: string) => {
@@ -137,10 +143,16 @@ export default function ArticleView({
       content: html,
       rawContent: raw,
     }));
-    API.article.updateArticle(articleData._id, {
-      content: html,
-      rawContent: raw,
-    });
+
+    try {
+      API.article.updateArticle(articleData._id, {
+        content: html,
+        rawContent: raw,
+      });
+      showToast("Article updated");
+    } catch (error) {
+      console.error(`Error updating article:`, error);
+    }
   };
 
   return (
@@ -170,8 +182,9 @@ export default function ArticleView({
             saveCallback={handleInputChange}
             initialValue={articleData.caption}
             toggleEdit={toggleEdit}
+            inputClass="text-[30px] font-semibold"
           >
-            <h1>{articleData.caption}</h1>
+            <h1 className="text-[30px] font-semibold">{articleData.caption}</h1>
           </EditWrapper>
           {!edit.content ? (
             <HoverWrapper
