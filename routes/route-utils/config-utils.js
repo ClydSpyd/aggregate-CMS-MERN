@@ -1,4 +1,4 @@
-const NavItem = require("../../schema/NavItemConfig");
+const DynamicPageConfig = require("../../schema/dynamicPageConfig");
 const Article = require("../../schema/article");
 
 const getArticlesByTags = async (tags) => {
@@ -23,7 +23,7 @@ const getArticleCountByTags = async (tags) => {
 
 // retrieve all nav items and return with article count
 const navItemsWithCount = async () => {
-  const navItems = await NavItem.find();
+  const navItems = await DynamicPageConfig.find();
     return await Promise.all(
       navItems.map(async (navItem) => ({
         ...navItem.toObject(),

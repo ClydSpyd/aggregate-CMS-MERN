@@ -1,5 +1,5 @@
 const express = require("express");
-const NavItem = require("../schema/NavItemConfig");
+const DynamicPageConfig = require("../schema/dynamicPageConfig");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const {
@@ -32,7 +32,7 @@ router.get("/dashboard", async (req, res) => {
 // POST new nav item
 // create new nav item, return updated array of nav items
 router.post(
-  "/nav-item",
+  "/dynamic-page",
   [
     body("name").notEmpty().withMessage("name is required"),
     body("tags").isArray().withMessage("tags must be an array"),
@@ -48,13 +48,13 @@ router.post(
     const articleCount = await getArticleCountByTags(req.body.tags);
 
     try {
-      const navItem = new NavItem({
+      const pageConfig = new DynamicPageConfig({
         name: req.body.name,
         tags: req.body.tags,
       });
 
-      await navItem.save();
-      res.status(201).json({ ...navItem.toObject(), count: articleCount });
+      await pageConfig.save();
+      res.status(201).json({ ...pageConfig.toObject(), count: articleCount });
     } catch (err) {
       console.log(err.message);
       const isDuplicate = err.message.includes(
@@ -69,9 +69,9 @@ router.post(
 
 // DELETE nav item
 // delete nav item with :id param, return updated array of nav items
-router.delete("/nav-item/:id", async (req, res) => {
+router.delete("/dynamic-page/:id", async (req, res) => {
   try {
-    await NavItem.findByIdAndDelete(req.params.id);
+    await DynamicPageConfig.findByIdAndDelete(req.params.id);
 
     const navItems = await navItemsWithCount();
     res.json(navItems);
@@ -82,17 +82,17 @@ router.delete("/nav-item/:id", async (req, res) => {
 
 // PATCH update nav item
 // update nav item, return updated array of nav items
-router.patch("/nav-item/:id", async (req, res) => {
+router.patch("/dynamic-page/:id", async (req, res) => {
   try {
-    const navItem = await NavItem.findOne({
+    const pageConfig = await DynamicPageConfig.findOne({
       name: { $regex: new RegExp(`^${req.body.name}$`, "i") },
       _id: { $ne: req.params.id },
     });
-    if (navItem) {
+    if (pageConfig) {
       return res.status(400).json({ message: "Item name already exists" });
     }
 
-    await NavItem.findByIdAndUpdate(
+    await DynamicPageConfig.findByIdAndUpdate(
       req.params.id,
       { $set: req.body }, // update only the provided fields
       { new: true }

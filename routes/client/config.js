@@ -4,18 +4,18 @@ const {
   navItemsWithCount,
 } = require("./../route-utils/config-utils");
 const Article = require("../../schema/article");
-const NavItem = require("../../schema/NavItemConfig");
+const DynamicPageConfig = require("../../schema/dynamicPageConfig");
 
 // GET app config data
-// returns app config data object (navItems)
+// returns app config data object (pageConfigs)
 router.get("/app-config", async (req, res) => {
   try {
-    const navItems = await NavItem.find({
+    const pageConfigs = await DynamicPageConfig.find({
       active: true,
     }).select('name');
 
     res.json({
-      nav: navItems.map((item) => item.name),
+      nav: pageConfigs.map((item) => item.name),
     });
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -4,7 +4,7 @@ import ConfigBlock from "./dash-config-block";
 import { useState } from "react";
 import NavItemModal from "./nav-item-modal";
 
-export default function NavConfig({ items }: { items: NavItemConfig[] }) {
+export default function NavConfig({ items }: { items: DynamicPageConfig[] }) {
   const [modalOpen, setModalOpen] = useState(false);
   return (
     <>

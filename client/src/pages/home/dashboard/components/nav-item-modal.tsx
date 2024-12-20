@@ -46,16 +46,16 @@ export default function NavItemModal({
   const handleAddItem = async (item: ConfigBlockData) => {
     setSumbitting(true);
     try {
-      let resData, error, returnArray: NavItemConfig[] = []
+      let resData, error, returnArray: DynamicPageConfig[] = []
       if(valuesProp) {
-        const res = await API.config.updateNavItem(item);
+        const res = await API.config.updateDynamicPage(item);
         resData = res.data;
         error = res.error;
         if(resData){
           returnArray = resData;
         }
       } else {
-        const res = await API.config.addNavItem(item);
+        const res = await API.config.addDynamicPage(item);
         resData = res.data;
         error = res.error;
         if(resData && config?.nav){

@@ -13,7 +13,7 @@ export default function DashPages(){
     };
 
     const tabData =
-      config?.nav?.map((item: NavItemConfig) => ({
+      config?.nav?.map((item: DynamicPageConfig) => ({
         label: item.name.toLocaleLowerCase(),
         content: (
           <PageConfig key={item._id} tags={item.tags} title={item.name} />

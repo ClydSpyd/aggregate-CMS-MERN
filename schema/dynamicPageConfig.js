@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const navItemSchema = new mongoose.Schema(
+const dynamicPageConfigSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -21,6 +21,10 @@ const navItemSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    hero: {
+      type: Boolean,
+      default: true,
+    },
     heroArticles: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Article",
@@ -32,6 +36,6 @@ const navItemSchema = new mongoose.Schema(
   }
 );
 
-const NavItem = mongoose.model("NavItem", navItemSchema);
+const DynamicPageConfig = mongoose.model("DynamicPageConfig", dynamicPageConfigSchema);
 
-module.exports = NavItem;
+module.exports = DynamicPageConfig;

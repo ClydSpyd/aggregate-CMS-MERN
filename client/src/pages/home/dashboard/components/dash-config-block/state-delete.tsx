@@ -18,7 +18,7 @@ export const StateConfirmDelete = ({
     const handleConfirm = async () => {
       setSubmitting(true);
       console.log({ submitting });
-      const { data } = await API.config.deleteNavItem(id);
+      const { data } = await API.config.deleteDynamicPage(id);
       if (data && config) {
         setConfig({ ...config, nav: data });
         setDisplay(false);

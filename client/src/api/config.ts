@@ -24,12 +24,12 @@ export const configFunctions = {
       return { error: err.response?.data.message, status: 500 };
     }
   },
-  addNavItem: async (
+  addDynamicPage: async (
     item: ConfigBlockData
-  ): Promise<ApiResponse<NavItemConfig>> => {
+  ): Promise<ApiResponse<DynamicPageConfig>> => {
     try {
       const { data, status } = await baseClient.post(
-        "/config/nav-item",
+        "/config/dynamic-page",
         {
           name: item.name,
           tags: item.tags,
@@ -41,10 +41,10 @@ export const configFunctions = {
       return { error: err.response?.data.message, status: 500 };
     }
   },
-  deleteNavItem: async (id: string): Promise<ApiResponse<NavItemConfig[]>> => {
+  deleteDynamicPage: async (id: string): Promise<ApiResponse<DynamicPageConfig[]>> => {
     try {
       const { data, status } = await baseClient.delete(
-        `/config/nav-item/${id}`
+        `/config/dynamic-page/${id}`
       );
       return { status, data };
     } catch (error) {
@@ -52,12 +52,12 @@ export const configFunctions = {
       return { error: err.response?.data.message, status: 500 };
     }
   },
-  updateNavItem: async (
+  updateDynamicPage: async (
     item: ConfigBlockData
-  ): Promise<ApiResponse<NavItemConfig[]>> => {
+  ): Promise<ApiResponse<DynamicPageConfig[]>> => {
     try {
       const { data, status } = await baseClient.patch(
-        `/config/nav-item/${item._id}`,
+        `/config/dynamic-page/${item._id}`,
         item
       );
       return { status, data };

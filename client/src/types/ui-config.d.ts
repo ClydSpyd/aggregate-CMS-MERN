@@ -6,7 +6,7 @@ declare interface ConfigBlockData {
   count: number;
 }
 
-declare interface NavItemConfig {
+declare interface DynamicPageConfig {
   _id: string;
   name: string;
   tags: string[];
@@ -16,7 +16,7 @@ declare interface NavItemConfig {
 }
 
 declare interface DashConfig {  
-  nav: NavItemConfig[];
+  nav: DynamicPageConfig[];
   carouselItems: Article[];
   tracks: ConfigBlockData[];
 }

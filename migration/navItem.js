@@ -1,18 +1,16 @@
 const { default: mongoose } = require("mongoose");
 const { connectDB } = require("../db");
-const NavItemConfig = require("../schema/NavItemConfig");
+const DynamicPageConfig = require("../schema/dynamicPageConfig");
 require("dotenv").config();
 
 (async function() {
   try {
     connectDB();
 
-    const result = await NavItemConfig.updateMany({
-      $set: { heroArticles: [] },
+    const result = await DynamicPageConfig.updateMany({
+      $set: { hero: true },
     });
     console.log(`${result.modifiedCount} documents were updated`);
-    // const articles = await Article.find({ blocks: { $exists: true } });
-    // console.log("Found articles:", articles.length);
     
   } catch (error) {
     console.error("Error during migration:", error);

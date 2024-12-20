@@ -1,5 +1,5 @@
 const express = require("express");
-const NavItem = require("../schema/NavItemConfig");
+const DynamicPageConfig = require("../schema/dynamicPageConfig");
 const { getArticlesByTags } = require("./route-utils/config-utils");
 const router = express.Router();
 
@@ -7,17 +7,17 @@ const router = express.Router();
 router.get("/:name", async (req, res) => {
   try {
     const name = req.params.name;
-    const navItem = await NavItem.findOne({
+    const pageConfig = await DynamicPageConfig.findOne({
       name: { $regex: new RegExp(name, "i") },
     });
 
-    if (!navItem) {
+    if (!pageConfig) {
       return res.status(404).json({ message: "Page not found" });
     }
 
-    const articles = await getArticlesByTags(navItem.tags);
+    const articles = await getArticlesByTags(pageConfig.tags);
 
-    return res.status(200).json({ ...navItem.toObject(), articles });
+    return res.status(200).json({ ...pageConfig.toObject(), articles });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
