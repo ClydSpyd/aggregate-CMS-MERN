@@ -49,3 +49,15 @@ export const encodeQueryData = (data: Record<string, string>) => {
   }
   return ret.join("&");
 }
+
+export const addParamToUrl = (key: string, value: string) => {
+  const url = new URL(window.location.href);
+  url.searchParams.set(key, value);
+  window.history.pushState({}, "", url.toString());
+}
+
+export const removeParamFromUrl = (key: string) => {
+  const url = new URL(window.location.href);
+  url.searchParams.delete(key);
+  window.history.pushState({}, "", url.toString());
+}

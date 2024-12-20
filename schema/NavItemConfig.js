@@ -21,6 +21,11 @@ const navItemSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    heroArticles: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Article",
+      default: [],
+    },
   },
   {
     timestamps: true,

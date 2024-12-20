@@ -5,7 +5,7 @@ export const authFunctions = {
   signin: async (
     username: string,
     password: string
-  ): Promise<ApiResponse<{ user: User; token: string }>> => {
+  ): Promise<ApiResponse<{ user: AdminUser; token: string }>> => {
     try {
       const { data, status } = await baseClient.post("/auth/signin", {
         username,
@@ -20,7 +20,7 @@ export const authFunctions = {
   logout: async (): Promise<void> => {
     await baseClient.post("/auth/logout");
   },
-  verifyToken: async (token: string): Promise<ApiResponse<User>> => {
+  verifyToken: async (token: string): Promise<ApiResponse<AdminUser>> => {
     try {
       const { data, status } = await baseClient.post("/auth/verify-token", {
         token,

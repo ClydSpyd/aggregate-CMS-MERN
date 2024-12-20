@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // import { Link } from "react-router";
 import { useAuth } from "../../../contexts/auth-context";
 import AppLoader from "../../../components/app-loader";
@@ -8,10 +9,11 @@ import { TbUsersGroup } from "react-icons/tb";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { IconType } from "react-icons";
 import { FaChevronRight } from "react-icons/fa";
-import { cn } from "../../../lib/utilities";
+import { addParamToUrl, cn } from "../../../lib/utilities";
 import DashMain from "./views/dash-main";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNotification } from "../../../contexts/notification-context";
+import DashPages from "./views/dash-pages";
 
 interface ListItemProps extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
@@ -20,7 +22,13 @@ interface ListItemProps extends React.HTMLAttributes<HTMLDivElement> {
   selected?: boolean;
 }
 
-const Listitem = ({ text, icon, disabled, selected, onClick }: ListItemProps) => {
+const Listitem = ({
+  text,
+  icon,
+  disabled,
+  selected,
+  onClick,
+}: ListItemProps) => {
   const Icon = icon;
   return (
     <div
@@ -51,7 +59,7 @@ type DashView = "main" | "pages" | "users" | "deployments";
 
 const views: Record<DashView, JSX.Element> = {
   main: <DashMain />,
-  pages: <div>Pages</div>,
+  pages: <DashPages />,
   users: <div>Users</div>,
   deployments: <div>deployments</div>,
 };
@@ -62,12 +70,25 @@ export default function Dashboard() {
   const { config } = useDashboard();
   const { showToast } = useNotification();
 
-  if(!config) return <AppLoader />
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  useEffect(() => {
+    const tab = urlParams.get("tab");
+    if (tab && tab in views) {
+      setView(tab as DashView);
+    }
+  }, []);
+
+  useEffect(() => {
+    addParamToUrl("tab", view);
+  }, [view]);
+
+  if (!config) return <AppLoader />;
 
   return (
-    <div className="flex w-screen h-fit gap-2 p-2 px-4 relative">
+    <div className="flex w-screen grow gap-2 p-2 px-4 relative">
       <div className="min-w-[300px] max-w-[300px]" />
-      <div className="w-[300px] h-[calc(100%-80px)] rounded-lg bg-slate-100/50 border shadow-md p-4 flex flex-col gap-6 items-center fixed">
+      <div className="w-[300px] h-[calc(100%-77px)] rounded-lg bg-slate-100/50 border shadow-md p-4 flex flex-col gap-6 items-center fixed">
         <div className="w-full flex flex-col gap-1 items-center">
           <img
             src={user?.avatarUrl}
@@ -109,12 +130,17 @@ export default function Dashboard() {
         </div>
         <div className="h-[50px] w-full">
           {/* <Listitem text="Account Settings" icon={IoSettingsOutline} /> */}
-          <div onClick={() => {showToast("Deployment triggered", "info")}} className="w-full h-full border-2 border-indigo-500 text-indigo-500 rounded-md flex items-center justify-center font-semibold cursor-pointer">
-              PUBLISH LATEST
-            </div>
+          <div
+            onClick={() => {
+              showToast("Deployment triggered", "info");
+            }}
+            className="w-full h-full border-2 border-indigo-500 text-indigo-500 rounded-md flex items-center justify-center font-semibold cursor-pointer"
+          >
+            PUBLISH LATEST
+          </div>
         </div>
       </div>
-      <div className="grow h-full">{views[view]}</div>
+      {views[view]}
     </div>
   );
 }

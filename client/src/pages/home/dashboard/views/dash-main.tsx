@@ -6,7 +6,7 @@ import TracksConfig from "../components/tracks-config";
 export default function DashMain() {
     const { config } = useDashboard();
   return (
-    <div className="w-full h-full flex flex-col gap-4 pb-2">
+    <div className="w-full h-fit flex flex-col gap-4 pb-[9px]">
       <NavConfig items={config?.nav ?? []} />
       <CarouselConfig />
       <TracksConfig />

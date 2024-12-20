@@ -7,7 +7,7 @@ const {
   getUsers,
   generateAccessToken,
 } = require("../services/user-service");
-const user = require("../schema/user");
+const user = require("../schema/admin-user");
 
 // @post
 // REGISTER NEW USER

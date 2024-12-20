@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt")
-const User = require("../schema/user")
+const AdminUser = require("../schema/admin-user")
 const jwt = require('jsonwebtoken');
 const { TOKEN_LIFESPAN } = require("../constants");
 
@@ -10,7 +10,7 @@ const createNewUser = async ({ username, email, password, role, avatarUrl }) => 
     const hashedPassword = await bcrypt.hash(password, 10)
 
     // create user
-    const newUser = new User({
+    const newUser = new AdminUser({
       username,
       email,
       password: hashedPassword,
@@ -28,21 +28,21 @@ const createNewUser = async ({ username, email, password, role, avatarUrl }) => 
 }
 
 const getUsers = async () => {
-  return await User.find()
+  return await AdminUser.find()
 }
 const getUserById = async (userId) => {
-  return await User.findOne({ _id: userId })
+  return await AdminUser.findOne({ _id: userId })
 }
 
 const findUserByUsername = async (username) => {
-  return await User.findOne({ username: username })
+  return await AdminUser.findOne({ username: username })
 }
 const findUserByEmail = async (email) => {
-  return await User.findOne({ email: email })
+  return await AdminUser.findOne({ email: email })
 }
 
 const findUserByEmailWithPassword = async (user) => {
-  return await User.findOne({ email: user.email }).select("+password")
+  return await AdminUser.findOne({ email: user.email }).select("+password")
 }
 
 const generateAccessToken = (user) => {

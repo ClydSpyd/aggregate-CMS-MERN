@@ -1,4 +1,4 @@
-declare interface User {
+declare interface AdminUser {
   username: string;
   id: string;
   role: UserRole;
