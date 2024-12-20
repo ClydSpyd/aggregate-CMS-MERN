@@ -16,6 +16,7 @@ console.log("starting server...");
 
 connectDB();
 
+// admin routes (for CMS)
 app.use("/api/test", require('./routes/test'));
 app.use("/api/rss", require('./routes/rss-data'));
 app.use("/api/article", require('./routes/article'));
@@ -25,6 +26,10 @@ app.use("/api/auth", require('./routes/auth'));
 app.use("/api/utility", require('./routes/utility'));
 app.use("/api/config", require('./routes/config'));
 app.use("/api/page", require('./routes/page'));
+
+// client-facing routes (for main site)
+app.use("/api/client/config", require('./routes/client/config'));
+app.use("/api/client/page", require('./routes/client/pages'));
 
 // Serve static files from the React app's build folder
 app.use(express.static(path.join(__dirname, 'client/build')));

@@ -4,6 +4,7 @@ import {
   NotificationContextData,
   NotificationLevel,
   defaultNotificationContextData,
+  // dummyToasts,
 } from "./types";
 import Toast from "./toast";
 
@@ -16,9 +17,8 @@ export const NotificationProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [toastNotifications, setToastNotifications] = useState<Notification[]>(
-    []
-  );
+  const [toastNotifications, setToastNotifications] =
+    useState<Notification[]>([]);
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const addNotification = (notification: Notification) => {
@@ -43,7 +43,7 @@ export const NotificationProvider = ({
     >
       <>
         {children}
-        <div className="fixed right-10 bottom-4 flex flex-col-reverse z-50">
+        <div className="fixed right-4 top-16 flex flex-col z-50">
           {toastNotifications.map((toast, idx) => (
             <Toast
               key={toast.key}

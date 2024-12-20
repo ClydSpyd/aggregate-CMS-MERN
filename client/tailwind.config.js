@@ -34,7 +34,7 @@ module.exports = {
       },
       animation: {
         shakeOnce: "shake 0.2s linear 2",
-        "drop-in": "drop-in 0.3s ease-out"
+        "drop-in": "drop-in 0.2s ease-out"
       },
     },
   },

@@ -5,11 +5,13 @@ import { useDashboard } from "../../../contexts/dash-contenxt";
 import { IoDocumentsOutline } from "react-icons/io5";
 import { MdOutlineDisplaySettings } from "react-icons/md";
 import { TbUsersGroup } from "react-icons/tb";
+import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { IconType } from "react-icons";
 import { FaChevronRight } from "react-icons/fa";
 import { cn } from "../../../lib/utilities";
 import DashMain from "./views/dash-main";
 import { useState } from "react";
+import { useNotification } from "../../../contexts/notification-context";
 
 interface ListItemProps extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
@@ -45,18 +47,20 @@ const Listitem = ({ text, icon, disabled, selected, onClick }: ListItemProps) =>
   );
 };
 
-type DashView = "main" | "pages" | "users";
+type DashView = "main" | "pages" | "users" | "deployments";
 
 const views: Record<DashView, JSX.Element> = {
   main: <DashMain />,
   pages: <div>Pages</div>,
   users: <div>Users</div>,
+  deployments: <div>deployments</div>,
 };
 
 export default function Dashboard() {
   const [view, setView] = useState<DashView>("main");
   const { user } = useAuth();
   const { config } = useDashboard();
+  const { showToast } = useNotification();
 
   if(!config) return <AppLoader />
 
@@ -96,10 +100,16 @@ export default function Dashboard() {
             icon={TbUsersGroup}
             selected={view === "users"}
           />
+          <Listitem
+            onClick={() => setView("deployments")}
+            text="Deployments"
+            icon={HiOutlineRocketLaunch}
+            selected={view === "deployments"}
+          />
         </div>
         <div className="h-[50px] w-full">
           {/* <Listitem text="Account Settings" icon={IoSettingsOutline} /> */}
-          <div className="w-full h-full border-2 border-indigo-500 text-indigo-500 rounded-md flex items-center justify-center font-semibold cursor-pointer">
+          <div onClick={() => {showToast("Deployment triggered", "info")}} className="w-full h-full border-2 border-indigo-500 text-indigo-500 rounded-md flex items-center justify-center font-semibold cursor-pointer">
               PUBLISH LATEST
             </div>
         </div>

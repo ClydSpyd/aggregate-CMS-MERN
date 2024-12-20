@@ -29,7 +29,7 @@ export const configFunctions = {
   ): Promise<ApiResponse<NavItemConfig>> => {
     try {
       const { data, status } = await baseClient.post(
-        "/config/dashboard/nav-item",
+        "/config/nav-item",
         {
           name: item.name,
           tags: item.tags,
@@ -44,7 +44,7 @@ export const configFunctions = {
   deleteNavItem: async (id: string): Promise<ApiResponse<NavItemConfig[]>> => {
     try {
       const { data, status } = await baseClient.delete(
-        `/config/dashboard/nav-item/${id}`
+        `/config/nav-item/${id}`
       );
       return { status, data };
     } catch (error) {
@@ -57,7 +57,7 @@ export const configFunctions = {
   ): Promise<ApiResponse<NavItemConfig[]>> => {
     try {
       const { data, status } = await baseClient.patch(
-        `/config/dashboard/nav-item/${item._id}`,
+        `/config/nav-item/${item._id}`,
         item
       );
       return { status, data };
@@ -71,7 +71,7 @@ export const configFunctions = {
   ): Promise<ApiResponse<Article[]>> => {
     try {
       const { data, status } = await baseClient.post(
-        "/config/dashboard/carousel-items",
+        "/config/home/carousel-items",
         { articleIds }
       );
       return { status, data };
@@ -85,7 +85,7 @@ export const configFunctions = {
   ): Promise<ApiResponse<Article[]>> => {
     try {
       const { data, status } = await baseClient.delete(
-        `/config/dashboard/carousel-items/${articleId}`
+        `/config/home/carousel-items/${articleId}`
       );
       return { status, data };
     } catch (error) {

@@ -61,11 +61,17 @@ export default function ImagePicker({
       <p className="text-xs text-[#a0a0a0] mb-1">{moduleTitle}:</p>
       <div
         onClick={handleInputClick}
-        className="grow w-full border relative cursor-pointer z-1"
+        className="grow w-full border rounded-md overflow-hidden group-hover:border-slate-400 relative cursor-pointer z-1"
       >
-        <div className="absolute h-full w-full bg-indigo-400/90 flex flex-col items-center opacity-0 group-hover:opacity-100 group-active:bg-indigo-600/90 justify-center z-20 transition-all duration-300 ease-out">
-          <MdOutlineFileUpload size={40} color="#ffffff" />
-          <p className="text-sm text-[#ffffff] font-bold">Upload Image</p>
+        <div className="absolute h-full w-full flex flex-col gap-1 items-center opacity-0 group-hover:opacity-100 bg-slate-300/50 backdrop-blur-sm  justify-center z-20 transition-all duration-300 ease-out">
+          <div className="flex flex-col items-center gap-1 group/btn">
+            <div className="h-[40px] w-[40px] bg-white text-slate-500 border hover:border-indigo-500 hover:text-indigo-500 transition-all duration-300 ease-out flex items-center justify-center rounded-md">
+              <MdOutlineFileUpload size={22} />
+            </div>
+            <p className="text-xs text-white font-bold">
+              Upload Image
+            </p>
+          </div>
         </div>
         {loading ? (
           <div className="h-full w-full border flex items-center justify-center">

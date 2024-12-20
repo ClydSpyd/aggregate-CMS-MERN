@@ -131,7 +131,7 @@ export default function ArticleView({
       API.article.updateArticle(articleData._id, {
         [key]: value,
       });
-      showToast("Article updated");
+      showToast("Article updated", "success");
     } catch (error) {
       console.error(`Error updating article:`, error);
     }
@@ -149,7 +149,7 @@ export default function ArticleView({
         content: html,
         rawContent: raw,
       });
-      showToast("Article updated");
+      showToast("Article updated", "success");
     } catch (error) {
       console.error(`Error updating article:`, error);
     }

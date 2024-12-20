@@ -32,7 +32,7 @@ router.get("/dashboard", async (req, res) => {
 // POST new nav item
 // create new nav item, return updated array of nav items
 router.post(
-  "/dashboard/nav-item",
+  "/nav-item",
   [
     body("name").notEmpty().withMessage("name is required"),
     body("tags").isArray().withMessage("tags must be an array"),
@@ -69,7 +69,7 @@ router.post(
 
 // DELETE nav item
 // delete nav item with :id param, return updated array of nav items
-router.delete("/dashboard/nav-item/:id", async (req, res) => {
+router.delete("/nav-item/:id", async (req, res) => {
   try {
     await NavItem.findByIdAndDelete(req.params.id);
 
@@ -82,7 +82,7 @@ router.delete("/dashboard/nav-item/:id", async (req, res) => {
 
 // PATCH update nav item
 // update nav item, return updated array of nav items
-router.patch("/dashboard/nav-item/:id", async (req, res) => {
+router.patch("/nav-item/:id", async (req, res) => {
   try {
     const navItem = await NavItem.findOne({
       name: { $regex: new RegExp(`^${req.body.name}$`, "i") },
@@ -107,7 +107,7 @@ router.patch("/dashboard/nav-item/:id", async (req, res) => {
 
 // POST add carousel items
 // add carousel items with array of IDs, return updated array of carousel items
-router.post("/dashboard/carousel-items", async (req, res) => {
+router.post("/home/carousel-items", async (req, res) => {
   try {
     // update highlight field of articles
     await Article.updateMany(
@@ -128,7 +128,7 @@ router.post("/dashboard/carousel-items", async (req, res) => {
 
 // POST remove carousel item
 // remove carousel item with :id param, return updated array of carousel items
-router.delete("/dashboard/carousel-items/:id", async (req, res) => {
+router.delete("/home/carousel-items/:id", async (req, res) => {
   try {
     await Article.findByIdAndUpdate(req.params.id, {
       $pull: { highlight: "primary" },

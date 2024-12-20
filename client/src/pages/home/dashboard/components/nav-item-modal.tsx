@@ -118,20 +118,20 @@ export default function NavItemModal({
   return (
     <ModalWrapper open={open} onClose={() => setOpen(false)}>
       <div className="bg-white rounded-lg p-8 pb-10 w-[500px] flex flex-col gap-2 relative overflow-hidden">
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-between items-center mb-1">
           <h1 className="text-2xl font-semibold text-indigo-500">
             {valuesProp ? "Edit" : "New"} Nav Item
           </h1>
 
-          {valuesProp && (
+          {(valuesProp || configVals.tags.length > 0) && (
             <div className="flex gap-1 items-center">
               {configVals.count > 0 ? (
-                <p className="py-2 px-2 rounded-md bg-indigo-500 text-white flex items-center gap-1">
+                <p className="py-1 px-2 rounded-md bg-indigo-500 text-white flex items-center gap-1">
                   <IoDocumentTextSharp size={16} className="text-white" />
                   {configVals.count}
                 </p>
               ) : (
-                <p className="py-2 px-2 rounded-md bg-red-500 text-white flex items-center gap-1">
+                <p className="py-1 px-2 rounded-md bg-red-500 text-white flex items-center gap-1">
                   <IoWarning size={20} className="text-white" />
                   no content
                 </p>
