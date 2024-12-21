@@ -1,5 +1,5 @@
 const express = require("express");
-const DynamicPageConfig = require("../schema/dynamicPageConfig");
+const DynamicPageConfig = require("../schema/DynamicPageConfig");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const {
@@ -29,8 +29,27 @@ router.get("/dashboard", async (req, res) => {
   }
 });
 
-// POST new nav item
-// create new nav item, return updated array of nav items
+// GET dynamic page config data by name
+// returns dynamic page config data object
+router.get("/dynamic-page/:name", async (req, res) => {
+  try {
+    const pageConfig = await DynamicPageConfig.findOne({
+      name: { $regex: new RegExp(`^${req.params.name}$`, "i") },
+    }).populate('heroConfig.articles');
+
+    if (!pageConfig) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+
+    res.json(pageConfig);
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// POST new dynamic page config
+// create new dynamic page config, return updated array of dynamic page configs
 router.post(
   "/dynamic-page",
   [
@@ -67,8 +86,8 @@ router.post(
   }
 );
 
-// DELETE nav item
-// delete nav item with :id param, return updated array of nav items
+// DELETE dynamic page config
+// delete dynamic page config with :id param, return updated array of dynamic page configs
 router.delete("/dynamic-page/:id", async (req, res) => {
   try {
     await DynamicPageConfig.findByIdAndDelete(req.params.id);
@@ -80,8 +99,8 @@ router.delete("/dynamic-page/:id", async (req, res) => {
   }
 });
 
-// PATCH update nav item
-// update nav item, return updated array of nav items
+// PATCH update dynamic page config
+// update dynamic page config, return updated array of dynamic page configs
 router.patch("/dynamic-page/:id", async (req, res) => {
   try {
     const pageConfig = await DynamicPageConfig.findOne({

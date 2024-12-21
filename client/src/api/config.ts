@@ -24,16 +24,12 @@ export const configFunctions = {
       return { error: err.response?.data.message, status: 500 };
     }
   },
-  addDynamicPage: async (
-    item: ConfigBlockData
+  getDynamicPageConfig: async (
+    title: string
   ): Promise<ApiResponse<DynamicPageConfig>> => {
     try {
-      const { data, status } = await baseClient.post(
-        "/config/dynamic-page",
-        {
-          name: item.name,
-          tags: item.tags,
-        }
+      const { data, status } = await baseClient.get(
+        `/config/dynamic-page/${title}`
       );
       return { status, data };
     } catch (error) {
@@ -41,7 +37,23 @@ export const configFunctions = {
       return { error: err.response?.data.message, status: 500 };
     }
   },
-  deleteDynamicPage: async (id: string): Promise<ApiResponse<DynamicPageConfig[]>> => {
+  addDynamicPage: async (
+    item: ConfigBlockData
+  ): Promise<ApiResponse<DynamicPageConfig>> => {
+    try {
+      const { data, status } = await baseClient.post("/config/dynamic-page", {
+        name: item.name,
+        tags: item.tags,
+      });
+      return { status, data };
+    } catch (error) {
+      const err = error as ErrorResponse;
+      return { error: err.response?.data.message, status: 500 };
+    }
+  },
+  deleteDynamicPage: async (
+    id: string
+  ): Promise<ApiResponse<DynamicPageConfig[]>> => {
     try {
       const { data, status } = await baseClient.delete(
         `/config/dynamic-page/${id}`

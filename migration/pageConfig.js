@@ -1,17 +1,20 @@
 const { default: mongoose } = require("mongoose");
 const { connectDB } = require("../db");
-const DynamicPageConfig = require("../schema/dynamicPageConfig");
+const DynamicPageConfig = require("../schema/DynamicPageConfig");
 require("dotenv").config();
 
-(async function() {
+(async function () {
   try {
     connectDB();
 
-    const result = await DynamicPageConfig.updateMany({
-      $set: { hero: true },
-    });
+    const result = await DynamicPageConfig.updateMany(
+      {},
+      {
+        $unset: { layout: 1 },
+      },
+      { strict: false }
+    );
     console.log(`${result.modifiedCount} documents were updated`);
-    
   } catch (error) {
     console.error("Error during migration:", error);
   } finally {

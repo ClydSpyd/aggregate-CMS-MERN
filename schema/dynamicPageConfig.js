@@ -13,22 +13,25 @@ const dynamicPageConfigSchema = new mongoose.Schema(
       required: true,
       default: [],
     },
-    layout: {
-      type: String,
-      default: "standard",
-    },
     active: {
       type: Boolean,
       default: true,
     },
-    hero: {
-      type: Boolean,
-      default: true,
-    },
-    heroArticles: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Article",
-      default: [],
+    heroConfig: {
+      enabled: {
+        type: Boolean,
+        default: true,
+      },
+      layout: {
+        type: String, // quad-list | quad-grid | carousel | grid
+        required: true,
+        default: "quad-list",
+      },
+      articles: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Article",
+        default: [],
+      },
     },
   },
   {
