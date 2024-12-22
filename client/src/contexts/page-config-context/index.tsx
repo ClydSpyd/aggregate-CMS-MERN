@@ -39,6 +39,7 @@ export const PageConfigProvider = ({
   }, [pageName]);
 
   useEffect(() => {
+    if(!pageConfig.tags) return;
     const getArticles = async () => {
       const { data } = await API.article.getFilteredArticles({
         text: "",
@@ -49,7 +50,7 @@ export const PageConfigProvider = ({
       }
     };
     getArticles();
-  }, []);
+  }, [pageConfig]);
 
   useEffect(() => {
     if (pageConfig) {
