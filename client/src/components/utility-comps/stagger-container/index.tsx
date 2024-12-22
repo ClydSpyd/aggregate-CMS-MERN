@@ -7,6 +7,7 @@ export default function StaggerContainer({
   children,
   staggerDelay = 50,
   randomFactor = 300,
+  className,
 }: StaggerContainerProps) {
   const [display, setDisplay] = useState<boolean>(false);
 
@@ -19,7 +20,11 @@ export default function StaggerContainer({
 
   return (
     <div
-      className={cn("transition-all duration-300 ease-out relative h-full group/container", display ? "opacity-100 right-0" : "opacity-0 right-1")}
+      className={cn(
+        "transition-all duration-300 ease-out relative h-full group/container",
+        display ? "opacity-100 right-0" : "opacity-0 right-1",
+        className
+      )}
     >
       {children}
     </div>
