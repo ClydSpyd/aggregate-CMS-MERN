@@ -1,6 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const { connectDB } = require("../db");
-const DynamicPageConfig = require("../schema/DynamicPageConfig");
+const DynamicPageConfig = require("../schema/dynamicPageConfig");
 require("dotenv").config();
 
 (async function () {

@@ -4,7 +4,7 @@ const {
   navItemsWithCount,
 } = require("./../route-utils/config-utils");
 const Article = require("../../schema/article");
-const DynamicPageConfig = require("../../schema/DynamicPageConfig");
+const DynamicPageConfig = require("../../schema/dynamicPageConfig");
 
 // GET app config data
 // returns app config data object (pageConfigs)

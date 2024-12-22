@@ -3,6 +3,7 @@ import { usePageConfig } from "../../../../../contexts/page-config-context";
 import { cn } from "../../../../../lib/utilities";
 import ArticlePickerModal from "../../../../../components/utility-comps/article-picker-modal";
 import { MdOutlineAddBox } from "react-icons/md";
+import StaggerContainer from "../../../../../components/utility-comps/stagger-container";
 
 export default function SecondaryArticles() {
   const {
@@ -39,18 +40,20 @@ export default function SecondaryArticles() {
     >
       {Array.from({ length: 4 }).map((_, i) => (
         <div key={i} className="border rounded-md shadow-md">
-          {selectedArticles && selectedArticles[i] ? (
-            <img
-              src={selectedArticles[i].imgUrl}
-              alt={selectedArticles[i].title}
-              className="w-full h-full object-cover rounded-md"
-            />
-          ) : (
-            <div className="h-full w-full flex flex-col gap-1 text-indigo-500 items-center justify-center">
-              <MdOutlineAddBox size={30} />
-              <h1 className="font-semibold text-xs">ADD ARTICLE</h1>
-            </div>
-          )}
+          <StaggerContainer className="duration-1000 ease-out">
+            {selectedArticles && selectedArticles[i] ? (
+              <img
+                src={selectedArticles[i].imgUrl}
+                alt={selectedArticles[i].title}
+                className="w-full h-full object-cover rounded-md"
+              />
+            ) : (
+              <div className="h-full w-full flex flex-col gap-1 text-indigo-500 items-center justify-center">
+                <MdOutlineAddBox size={30} />
+                <h1 className="font-semibold text-xs">ADD ARTICLE</h1>
+              </div>
+            )}
+          </StaggerContainer>
         </div>
       ))}
       <div

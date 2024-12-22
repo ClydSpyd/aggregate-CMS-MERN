@@ -1,4 +1,4 @@
-const DynamicPageConfig = require("../../schema/DynamicPageConfig");
+const DynamicPageConfig = require("../../schema/dynamicPageConfig");
 const Article = require("../../schema/article");
 
 const getArticlesByTags = async (tags) => {

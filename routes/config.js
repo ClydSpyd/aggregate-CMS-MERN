@@ -1,5 +1,5 @@
 const express = require("express");
-const DynamicPageConfig = require("../schema/DynamicPageConfig");
+const DynamicPageConfig = require("../schema/dynamicPageConfig");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const {

@@ -1,5 +1,5 @@
 const express = require("express");
-const DynamicPageConfig = require("../schema/DynamicPageConfig");
+const DynamicPageConfig = require("../schema/dynamicPageConfig");
 const { getArticlesByTags } = require("./route-utils/config-utils");
 const router = express.Router();
 
