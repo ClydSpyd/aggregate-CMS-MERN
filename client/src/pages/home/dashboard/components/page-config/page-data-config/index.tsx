@@ -1,12 +1,12 @@
 // import { IoDocumentTextSharp, IoWarning } from "react-icons/io5";
-import TagSelector from "../../../../../components/tag-selector";
-import { usePageConfig } from "../../../../../contexts/page-config-context";
+import TagSelector from "../../../../../../components/tag-selector";
+import { usePageConfig } from "../../../../../../contexts/page-config-context";
 // import { cn } from "../../../../../lib/utilities";
-import InputField from "../../../../../components/utility-comps/input-field";
-import Checkbox from "../../../../../components/utility-comps/checkbox";
-import TooltipWrapper from "../../../../../components/utility-comps/tooltip-wrapper";
+import InputField from "../../../../../../components/utility-comps/input-field";
+import Checkbox from "../../../../../../components/utility-comps/checkbox";
+import TooltipWrapper from "../../../../../../components/utility-comps/tooltip-wrapper";
 import { MdDeleteForever } from "react-icons/md";
-import { useDashboard } from "../../../../../contexts/dash-contenxt";
+import { useDashboard } from "../../../../../../contexts/dash-contenxt";
 
 export default function PageDataConfig() {
   const {

@@ -106,22 +106,13 @@ router.delete("/dynamic-page/:id", async (req, res) => {
 // update dynamic page config, return updated array of dynamic page configs
 router.patch("/dynamic-page/:id", async (req, res) => {
   try {
-    const pageConfig = await DynamicPageConfig.findOne({
-      name: { $regex: new RegExp(`^${req.body.name}$`, "i") },
-      _id: { $ne: req.params.id },
-    });
-    if (pageConfig) {
-      return res.status(400).json({ message: "Item name already exists" });
-    }
-
-    await DynamicPageConfig.findByIdAndUpdate(
+    const pageConfig = await DynamicPageConfig.findByIdAndUpdate(
       req.params.id,
       { $set: req.body }, // update only the provided fields
       { new: true }
     );
 
-    const navItems = await navItemsWithCount();
-    res.json(navItems);
+    res.json(pageConfig);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

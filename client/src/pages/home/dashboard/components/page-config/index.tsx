@@ -3,6 +3,7 @@ import { PageConfigProps } from "./types";
 import HeroArticleConfig from "./hero-articles-config";
 import { PageConfigProvider } from "../../../../../contexts/page-config-context";
 import PageDataConfig from "./page-data-config";
+import ArticleList from "./article-list";
 
 const Content = () => {
   return (
@@ -10,6 +11,7 @@ const Content = () => {
       <>
         <PageDataConfig />
         <HeroArticleConfig />
+        <ArticleList />
         {/* <div className="flex w-full justify-between">
             <ModuleTitle title={"Articles"} />
           </div> */}
