@@ -69,7 +69,7 @@ export const configFunctions = {
   ): Promise<ApiResponse<DynamicPageConfig[]>> => {
     try {
       const { data, status } = await baseClient.patch(
-        `/config/dynamic-page/${item._id}`,
+        `/config/dynamic-page/${item._id}?returnAll=true`,
         item
       );
       return { status, data };

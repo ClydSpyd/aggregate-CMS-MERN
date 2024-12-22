@@ -1,7 +1,7 @@
 import { MdDeleteForever } from "react-icons/md";
 import { IoEye } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import TooltipWrapper from "../../../../../components/utility-comps/tooltip-wrapper";
+import TooltipWrapper from "../utility-comps/tooltip-wrapper";
 
 export const StateHover = ({
   articleId,
@@ -28,17 +28,17 @@ export const StateHover = ({
       <TooltipWrapper message="delete item">
         <div
           onClick={handleDelete}
-          className="cursor-pointer h-[35px] w-[35px] flex items-center justify-center border border-slate-400 rounded-sm bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
+          className="h-[40px] w-[40px] cursor-pointer flex items-center justify-center border border-slate-400 rounded-md transition-all duration-200 bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
         >
-          <MdDeleteForever size={20} />
+          <MdDeleteForever size={23} />
         </div>
       </TooltipWrapper>
       <TooltipWrapper message="view article">
         <div
           onClick={handleRedirect}
-          className="cursor-pointer h-[35px] w-[35px] flex items-center justify-center border border-slate-400 rounded-sm bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
+          className="h-[40px] w-[40px] cursor-pointer flex items-center justify-center border border-slate-400 rounded-md transition-all duration-200 bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
         >
-          <IoEye size={18} />
+          <IoEye size={22} />
         </div>
       </TooltipWrapper>
     </div>

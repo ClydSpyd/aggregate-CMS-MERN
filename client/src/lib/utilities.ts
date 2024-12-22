@@ -88,3 +88,30 @@ export const truncateString = (str: string, num: number) => {
   }
   return str.slice(0, num) + "...";
 };
+
+export const clampString = (str: string, lines: number) => {
+  const words = str.split(' ');
+  let clampedStr = '';
+  let currentLine = '';
+  let lineCount = 0;
+
+  for (const word of words) {
+    if (currentLine.length + word.length + 1 <= 80) { // assuming 80 characters per line
+      currentLine += (currentLine ? ' ' : '') + word;
+    } else {
+      clampedStr += (clampedStr ? '\n' : '') + currentLine;
+      currentLine = word;
+      lineCount++;
+      if (lineCount >= lines) {
+        clampedStr += '...';
+        return clampedStr;
+      }
+    }
+  }
+
+  if (currentLine) {
+    clampedStr += (clampedStr ? '\n' : '') + currentLine;
+  }
+
+  return clampedStr;
+};

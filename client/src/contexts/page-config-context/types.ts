@@ -5,6 +5,7 @@ export interface PageConfigContextData {
   setPageConfig: Dispatch<SetStateAction<DynamicPageConfig >>;
   handleHeroConfigChange: (input: Partial<QuadBlockConfig>) => void;
   articles: Article[];
+  setArticles: Dispatch<SetStateAction<Article[]>>;
 }
 
 export const defaultPageConfigContext: PageConfigContextData = {
@@ -12,5 +13,6 @@ export const defaultPageConfigContext: PageConfigContextData = {
     setPageConfig: () => {},
     handleHeroConfigChange: () => {},
     articles: [],
+    setArticles: () => {},
 }
 

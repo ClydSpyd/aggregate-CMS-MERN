@@ -62,6 +62,7 @@ export default function NavItemModal({
           returnArray = [...config.nav, resData];
         }
       }
+      console.log({resData, error, returnArray});
       if (resData && config) {
         setConfig({
           ...config,

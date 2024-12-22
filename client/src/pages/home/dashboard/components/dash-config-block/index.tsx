@@ -9,10 +9,8 @@ import { StateConfirmDelete } from "./state-delete";
 
 export default function ConfigBlock({
   blockData,
-  idx,
 }: {
   blockData: ConfigBlockData;
-  idx:number
 }) {
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);

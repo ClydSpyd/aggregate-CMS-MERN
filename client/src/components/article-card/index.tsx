@@ -1,13 +1,17 @@
 import { useRef, useState } from "react";
-import StaggerContainer from "../../../../../components/utility-comps/stagger-container";
-import { StateConfirmDelete } from "./state-delete";
+import useOutsideClick from "../../hooks/useOutsideClick";
+import StaggerContainer from "../utility-comps/stagger-container";
 import { StateHover } from "./state-hover";
-import useOutsideClick from "../../../../../hooks/useOutsideClick";
+import { StateConfirmDelete } from "./state-delete";
 
-export default function CarouselConfigBlock({
+export default function ArticleCard({
   item,
+  handleDelete,
+  permaDeath,
 }: {
   item: Article;
+  handleDelete: () => void;
+  permaDeath?: boolean;
 }) {
     const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
     const contRef = useRef<HTMLDivElement>(null);
@@ -42,9 +46,10 @@ export default function CarouselConfigBlock({
             />
           )}
           <StateConfirmDelete
-            articleId={item._id}
             display={confirmDelete}
             setDisplay={setConfirmDelete}
+            handleDelete={handleDelete}
+            permaDeath={!!permaDeath}
           />
         </div>
       </StaggerContainer>

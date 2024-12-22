@@ -17,11 +17,22 @@ export default function QuadBlock({
       heroConfig: { layout },
     },
   } = usePageConfig();
+  
   const handlePrincipalArticle = (article: Article) => {
     const articles = [...configData.articles];
     articles[0] = article;
     setConfigData({
       articles,
+    });
+  };
+  
+  const handleSecondaryArticles = (articles: Article[]) => {
+    const articlesPayload =
+      configData.articles.length > 0
+        ? [configData.articles[0], ...articles]
+        : [{} as Article, ...articles];
+    setConfigData({
+      articles: articlesPayload,
     });
   };
 
@@ -35,7 +46,7 @@ export default function QuadBlock({
       )}
     >
       <PrincipalArticle options={options} onChange={handlePrincipalArticle} />
-      <SecondaryArticles />
+      <SecondaryArticles onChange={handleSecondaryArticles} />
     </div>
   );
 }

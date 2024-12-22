@@ -112,7 +112,13 @@ router.patch("/dynamic-page/:id", async (req, res) => {
       { new: true }
     );
 
-    res.json(pageConfig);
+    if (req.query.returnAll === "true") {
+      const navItems = await navItemsWithCount();
+      return res.json(navItems);
+    } else {
+      return res.json(pageConfig);
+    }
+    
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

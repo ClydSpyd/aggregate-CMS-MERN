@@ -2,12 +2,24 @@ import { MdAddBox } from "react-icons/md";
 import { useDashboard } from "../../../../../contexts/dash-contenxt";
 import { useState } from "react";
 import AddarticleModal from "./add-article-modal";
-import CarouselConfigBlock from "./carousel-config-block";
-
+import ArticleCard from "../../../../../components/article-card";
+import API from "../../../../../api";
 
 export default function CarouselConfig() {
   const [modalOpen, setModalOpen] = useState(false);
-  const { config } = useDashboard();
+  const { config, setConfig } = useDashboard();
+
+  const handleDelete = async (articleId: string) => {
+    const { data, error } = await API.config.removeCarouselItem(articleId);
+    if (data && config) {
+      setConfig({
+        ...config,
+        carouselItems: data,
+      });
+    } else if (error) {
+      console.error(`Error deleting carousel item:`, error);
+    }
+  };
 
   return (
     <>
@@ -19,7 +31,11 @@ export default function CarouselConfig() {
         </div>
         <div className="w-full flex gap-4 flex-wrap items-stretch">
           {config?.carouselItems?.map((item, index) => (
-            <CarouselConfigBlock item={item} key={item._id} />
+            <ArticleCard
+              item={item}
+              key={item._id}
+              handleDelete={() => handleDelete(item._id)}
+            />
           ))}
           <div
             onClick={() => setModalOpen(true)}

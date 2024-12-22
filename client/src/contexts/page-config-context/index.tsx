@@ -25,6 +25,7 @@ export const PageConfigProvider = ({
     {} as DynamicPageConfig
   );
   const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getPageConfig = async () => {
@@ -48,6 +49,7 @@ export const PageConfigProvider = ({
       if (data) {
         setArticles(data);
       }
+      setLoading(false);
     };
     getArticles();
   }, [pageConfig]);
@@ -77,9 +79,15 @@ export const PageConfigProvider = ({
       </div>
     );
 
-  return (
+  return !loading && (
     <PageConfigContext.Provider
-      value={{ pageConfig, setPageConfig, handleHeroConfigChange, articles }}
+      value={{
+        pageConfig,
+        setPageConfig,
+        handleHeroConfigChange,
+        articles,
+        setArticles,
+      }}
     >
       {children}
     </PageConfigContext.Provider>

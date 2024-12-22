@@ -9,6 +9,7 @@ import { CgPlayListRemove } from "react-icons/cg";
 import { LayoutIcon } from "../layout-icon";
 import TooltipWrapper from "../../../../../../components/utility-comps/tooltip-wrapper";
 import { useNotification } from "../../../../../../contexts/notification-context";
+import { IoWarning } from "react-icons/io5";
 
 export default function TopBar({
   setEditArticles,
@@ -92,6 +93,14 @@ export default function TopBar({
             />
           </div>
         </TooltipWrapper>
+        {heroConfig.articles.length > 0 && heroConfig.articles.length < 5 && (
+          <TooltipWrapper message={"Define all 5 articles for block to be valid"}>
+            <p className="text-xs font-semibold h-[35px] flex items-center px-2 rounded-md bg-red-500 text-white gap-1">
+              <IoWarning size={20} className="text-white" />
+              INCOMPLETE
+            </p>
+          </TooltipWrapper>
+        )}
       </div>
       <div className="relative">
         <p
@@ -104,7 +113,7 @@ export default function TopBar({
         </p>
         <div
           className={cn(
-            "w-full flex items-center justify-end transition-all duration-300",
+            "w-full flex gap-1 items-center justify-end transition-all duration-300",
             heroConfig.enabled ? "opacity-100" : "opacity-0 pointer-events-none"
           )}
         >

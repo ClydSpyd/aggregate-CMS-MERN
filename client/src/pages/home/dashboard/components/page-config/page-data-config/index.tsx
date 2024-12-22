@@ -1,7 +1,5 @@
-// import { IoDocumentTextSharp, IoWarning } from "react-icons/io5";
 import TagSelector from "../../../../../../components/tag-selector";
 import { usePageConfig } from "../../../../../../contexts/page-config-context";
-// import { cn } from "../../../../../lib/utilities";
 import InputField from "../../../../../../components/utility-comps/input-field";
 import Checkbox from "../../../../../../components/utility-comps/checkbox";
 import TooltipWrapper from "../../../../../../components/utility-comps/tooltip-wrapper";
@@ -15,14 +13,9 @@ export default function PageDataConfig() {
   } = usePageConfig();
   const { updateNavItem } = useDashboard();
 
-  const handleTags = (tags:string[]) => {
-    setPageConfig((prev: DynamicPageConfig) => ({ ...prev, tags }));
-    updateNavItem(itemId, { tags });
-  }
-
-  const handleCheckobox = (val: boolean) => {
-    setPageConfig((prev: DynamicPageConfig) => ({ ...prev, active: val }));
-    updateNavItem(itemId, { active: val });
+  const handleUpdate = (data:Partial<DynamicPageConfig>) => {
+    setPageConfig((prev: DynamicPageConfig) => ({ ...prev, ...data }));
+    updateNavItem(itemId, data);
   }
 
   return (
@@ -32,13 +25,13 @@ export default function PageDataConfig() {
           <InputField
             autofocus
             placeholder="name"
-            onChange={(val: string) => console.log(val)}
+            onChange={(val: string) => handleUpdate({ name: val })}
             value={name}
           />
         </div>
         <TooltipWrapper message={`${active ? "Deactivate" : "Activate"} page`}>
           <div
-            onClick={() => handleCheckobox(!active)}
+            onClick={() => handleUpdate({ active: !active })}
             className="h-full px-[12px] flex gap-4 items-center justify-between bg-white border rounded-sm relative cursor-pointer group hover:border-indigo-500"
           >
             <p className={"text-[#a0a0a0] text-md group-hover:text-[#747474]"}>
@@ -51,24 +44,6 @@ export default function PageDataConfig() {
             />
           </div>
         </TooltipWrapper>
-        {/* <div
-          className={cn(
-            "w-[90px] h-[60px] rounded-sm flex flex-col gap-1 items-center justify-center text-white font-bold",
-            count > 0 ? "bg-indigo-500" : "bg-red-500"
-          )}
-        >
-          {count > 0 ? (
-            <>
-              <IoDocumentTextSharp size={20} />
-              <p className="text-md">{count}</p>
-            </>
-          ) : (
-            <>
-              <IoWarning size={20} />
-              <p className="text-md">no content</p>
-            </>
-          )}
-        </div> */}
         <TooltipWrapper message="delete item">
           <div
             // onClick={handleDelete}
@@ -79,7 +54,11 @@ export default function PageDataConfig() {
         </TooltipWrapper>
       </div>
       <div className="w-full flex gap-2">
-        <TagSelector tags={tags} setTags={handleTags} className="rounded-lg" />
+        <TagSelector
+          tags={tags}
+          setTags={(tags) => handleUpdate({ tags })}
+          className="rounded-lg"
+        />
       </div>
     </div>
   );

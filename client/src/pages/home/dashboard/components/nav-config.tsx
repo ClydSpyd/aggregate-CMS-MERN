@@ -6,6 +6,7 @@ import NavItemModal from "./nav-item-modal";
 
 export default function NavConfig({ items }: { items: DynamicPageConfig[] }) {
   const [modalOpen, setModalOpen] = useState(false);
+  console.log({ items });
   return (
     <>
       <div className="w-full rounded-lg bg-slate-100/50 border shadow-md p-4 py-3 flex flex-col gap-3">
@@ -20,8 +21,8 @@ export default function NavConfig({ items }: { items: DynamicPageConfig[] }) {
           </div>
         </div>
         <div className="flex gap-2 flex-wrap justify-stretch">
-          {items.map((item, index) => (
-            <ConfigBlock key={index} idx={index} blockData={item} />
+          {items?.map((item, index) => (
+            <ConfigBlock key={index} blockData={item} />
           ))}
         </div>
       </div>
