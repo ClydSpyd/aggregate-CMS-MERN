@@ -61,3 +61,23 @@ export const removeParamFromUrl = (key: string) => {
   url.searchParams.delete(key);
   window.history.pushState({}, "", url.toString());
 }
+
+export const getRandomEntries = (arr: string[], x: number): string[] => {
+    
+  const randomEntries: string[] = [];
+  const length = Math.min(x, arr.length);
+  
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    const randomEntry = arr[randomIndex];
+    
+    if (!randomEntries.includes(randomEntry)) {
+      randomEntries.push(randomEntry);
+      arr.splice(randomIndex, 1);
+    } else {
+      i--;
+    }
+  }
+  
+  return randomEntries;
+};

@@ -9,14 +9,17 @@ import { StateConfirmDelete } from "./state-delete";
 
 export default function ConfigBlock({
   blockData,
+  idx,
 }: {
   blockData: ConfigBlockData;
+  idx:number
 }) {
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const confRef = useRef<HTMLDivElement>(null);
   useOutsideClick(confRef, () => setConfirmDelete(false));
 
+  // const redirectParams = `tab=pages&idx=${idx}`;
   const redirectParams = encodeQueryData({
     tags: blockData.tags.join(","),
   });

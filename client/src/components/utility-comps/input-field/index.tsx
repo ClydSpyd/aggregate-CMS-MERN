@@ -13,6 +13,7 @@ export default function InputField({
   secure,
   refProp,
   autofocus,
+  ...rest
 }: //   validityCheck,
 InputFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
@@ -39,12 +40,13 @@ InputFieldProps) {
       )}
     >
       {/* hidden input to prevent autofill */}
-        <input
-          type={!showValue ? "password" : "text"}
-          placeholder={placeholder}
-          className="absolute opacity-0 pointer-events-none"
-          tabIndex={-1}
-        />
+      <input
+        type={!showValue ? "password" : "text"}
+        placeholder={placeholder}
+        className="absolute opacity-0 pointer-events-none"
+        tabIndex={-1}
+        {...rest}
+      />
       {/* hidden input to prevent autofill */}
       <p
         className={cn(

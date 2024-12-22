@@ -11,7 +11,7 @@ export default function AppLoader({
     <div
       className={cn(
         "flex flex-col gap-1 items-center justify-center",
-        asChild ? "w-full grow" : "fixed h-screen w-screen"
+        asChild ? "w-full grow" : "fixed h-screen w-screen top-0 left-0"
       )}
     >
       <img src={spinner} alt="loading spinner" className="h-[50px] w-[50px]" />

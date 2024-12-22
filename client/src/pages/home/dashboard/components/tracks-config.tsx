@@ -49,7 +49,7 @@ export default function TracksConfig() {
       </div>
       <div className="flex gap-2 flex-wrap pointer-events-none">
         {/* {dummyItems.map((item, index) => (
-          <ConfigBlock key={index} blockData={item} />
+          <ConfigBlock key={index} idx={index} blockData={item} />
         ))} */}
         <h1 className="w-full text-sm text-center my-2">NO TRACKS FOUND</h1>
       </div>

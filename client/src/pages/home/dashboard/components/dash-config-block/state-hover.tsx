@@ -1,5 +1,6 @@
 import { AiFillEdit } from "react-icons/ai";
 import { FaListAlt } from "react-icons/fa";
+import { RiFileSettingsFill } from "react-icons/ri";
 import { MdDeleteForever } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import TooltipWrapper from "../../../../../components/utility-comps/tooltip-wrapper";
@@ -15,6 +16,7 @@ export const StateHover = ({
 }) => {
   const navigate = useNavigate();
   const handleRedirect = () => {
+    // navigate(`?${redirectParams}`);
     navigate(`/browse?${redirectParams}`);
   };
   return (
@@ -39,6 +41,14 @@ export const StateHover = ({
           <MdDeleteForever size={20} />
         </div>
       </TooltipWrapper>
+      {/* <TooltipWrapper message="page config">
+        <div
+          onClick={handleRedirect}
+          className="cursor-pointer h-[35px] w-[35px] flex items-center justify-center border rounded-sm bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
+        >
+          <RiFileSettingsFill size={18} />
+        </div>
+      </TooltipWrapper> */}
       <TooltipWrapper message="view articles">
         <div
           onClick={handleRedirect}
