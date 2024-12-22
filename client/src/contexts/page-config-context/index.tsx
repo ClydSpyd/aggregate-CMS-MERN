@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from "react";
 import { PageConfigContextData, defaultPageConfigContext } from "./types";
 import API from "../../api";
@@ -20,7 +21,9 @@ export const PageConfigProvider = ({
   children: React.ReactNode;
   pageName: string;
 }) => {
-  const [pageConfig, setPageConfig] = useState<DynamicPageConfig | null>(null);
+  const [pageConfig, setPageConfig] = useState<DynamicPageConfig>(
+    {} as DynamicPageConfig
+  );
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
@@ -36,18 +39,17 @@ export const PageConfigProvider = ({
   }, [pageName]);
 
   useEffect(() => {
-    if(!pageConfig) return;
     const getArticles = async () => {
       const { data } = await API.article.getFilteredArticles({
         text: "",
-        tags: pageConfig.tags,
+        tags: pageConfig?.tags ?? [],
       });
       if (data) {
         setArticles(data);
       }
     };
     getArticles();
-  }, [pageConfig]);
+  }, []);
 
   useEffect(() => {
     if (pageConfig) {
@@ -67,7 +69,7 @@ export const PageConfigProvider = ({
     setPageConfig(payload);
   };
 
-  if (!pageConfig)
+  if (!pageConfig._id)
     return (
       <div className="w-full min-h-full flex flex-col items-center gap-[10px]">
         <AppLoader asChild spinnerOnly />

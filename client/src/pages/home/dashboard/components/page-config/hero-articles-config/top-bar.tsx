@@ -38,7 +38,8 @@ export default function TopBar({
   };
 
   const handleRandomize = () => {
-    const randomArticleIds = getRandomEntries(articles.map((i:Article) =>  i._id), 5);
+    console.log({ articles });
+    const randomArticleIds = getRandomEntries(articles?.map((i:Article) =>  i._id), 5);
     if(randomArticleIds.length < 5){
       showToast("Not enough articles to randomize", "error");
     } else {
@@ -116,6 +117,16 @@ export default function TopBar({
           <LayoutIcon
             onClick={() => handleLayoutChange("quad-list")}
             layout={"quad-list"}
+            selected={heroConfig.layout}
+          />
+          <LayoutIcon
+            onClick={() => handleLayoutChange("quad-grid-b")}
+            layout={"quad-grid-b"}
+            selected={heroConfig.layout}
+          />
+          <LayoutIcon
+            onClick={() => handleLayoutChange("quad-list-b")}
+            layout={"quad-list-b"}
             selected={heroConfig.layout}
           />
         </div>

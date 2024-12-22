@@ -1,17 +1,20 @@
 import { cn } from "../../lib/utilities";
 import { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
+import StaggerContainer from "../utility-comps/stagger-container";
 
 export default function TagSelector({
   tags,
   setTags,
   additionalClass,
   noBorder,
+  className
 }: {
   tags: string[];
   setTags: (tags: string[]) => void;
   additionalClass?: string;
   noBorder?:boolean;
+  className?: string;
 }) {
   const [localTags, setLocalTags] = useState<string[]>(tags);
   const [inputValue, setInputValue] = useState<string>("");
@@ -42,9 +45,7 @@ export default function TagSelector({
   }, [tags]);
 
   return (
-    <div
-      className={cn("w-full bg-white", !noBorder ? "border p-2" : "")}
-    >
+    <div className={cn("w-full bg-white", !noBorder ? "border p-2" : "", className)}>
       <p className="text-xs text-[#a0a0a0] mb-1">Tags:</p>
       <form onSubmit={handlelNewTag}>
         <div
@@ -72,17 +73,19 @@ export default function TagSelector({
       <div className="flex flex-wrap gap-1 mt-2 min-h-[40px]">
         {localTags.length > 0 ? (
           localTags.map((tag, index) => (
-            <div
-              key={index}
-              className="h-fit bg-indigo-500 text-white pr-1 pl-3 rounded-2xl flex items-center gap-1"
-            >
-              {tag}
-              <TiDelete
-                onClick={() => handleRemoveTag(tag)}
-                className="cursor-pointer"
-                size={20}
-              />
-            </div>
+            <StaggerContainer className="duration-200 ease-out">
+              <div
+                key={index}
+                className="h-fit bg-indigo-500 text-white pr-1 pl-3 rounded-2xl flex items-center gap-1"
+              >
+                {tag}
+                <TiDelete
+                  onClick={() => handleRemoveTag(tag)}
+                  className="cursor-pointer"
+                  size={20}
+                />
+              </div>
+            </StaggerContainer>
           ))
         ) : (
           <p className="text-xs text-[#a0a0a0] mt-2">no tags found</p>

@@ -19,8 +19,20 @@ export const LayoutIcon = ({ layout, selected, ...rest }: LayoutIconProps) => {
     >
       {layout === "quad-list" ? (
         <QuadList size={20} color={isActive ? "rgb(99 102 241)" : undefined} />
-      ) : (
+      ) : layout === "quad-grid" ? (
         <QuadGrid size={20} color={isActive ? "rgb(99 102 241)" : undefined} />
+      ) : layout === "quad-list-b" ? (
+        <QuadList
+          size={20}
+          color={isActive ? "rgb(99 102 241)" : undefined}
+          className="rotate-180"
+        />
+      ) : (
+        <QuadGrid
+          size={20}
+          color={isActive ? "rgb(99 102 241)" : undefined}
+          className="rotate-180"
+        />
       )}
     </div>
   );

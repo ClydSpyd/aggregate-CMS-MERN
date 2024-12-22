@@ -7,6 +7,16 @@ const DashContext = createContext<DashContextData>(defaultDashContext);
 export const DashProvider = ({ children }: { children: React.ReactNode }) => {
     const [ config, setConfig ] = useState<DashConfig | null>(null);
     const [error, setError] = useState<string | null>(null);
+
+    const updateNavItem = (id: string, data: Partial<DynamicPageConfig>) => {
+      if (config) {
+        const newConfig = { ...config };
+        const nav = newConfig.nav.map((navItem) =>
+          navItem._id === id ? { ...navItem, ...data } : navItem
+        );
+        setConfig({ ...newConfig, nav });
+      }
+    };
     
     useEffect(() => {
         const fetchConfig = async () => {
@@ -23,7 +33,7 @@ export const DashProvider = ({ children }: { children: React.ReactNode }) => {
       }, []);
 
     return (
-      <DashContext.Provider value={{ error, config, setConfig }}>
+      <DashContext.Provider value={{ error, config, setConfig, updateNavItem }}>
         {children}
       </DashContext.Provider>
     );

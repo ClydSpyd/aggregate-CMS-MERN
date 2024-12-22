@@ -12,7 +12,7 @@ interface QuadBlockConfig {
   articles: Article[];
 }
 
-declare type QuadBlockLayout = "quad-list" | "quad-grid" | "carousel" | "grid";
+declare type QuadBlockLayout = "quad-list" | "quad-grid" | "quad-list-b" | "quad-grid-b" | "carousel" | "grid";
 
 declare interface DynamicPageConfig {
   _id: string;
@@ -33,4 +33,5 @@ declare interface DashConfig {
 declare type IconProps = {
   size: number;
   color?: string;
+  className?: string;
 };

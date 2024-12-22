@@ -41,7 +41,10 @@ router.get("/dynamic-page/:name", async (req, res) => {
       return res.status(404).json({ message: "Item not found" });
     }
 
-    res.json(pageConfig);
+    res.json({
+      ...pageConfig.toObject(),
+      count: await getArticleCountByTags(pageConfig.tags),
+    });
 
   } catch (err) {
     res.status(500).json({ message: err.message });

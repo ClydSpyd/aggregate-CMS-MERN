@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { usePageConfig } from "../../../../../contexts/page-config-context";
-import { cn } from "../../../../../lib/utilities";
+import { cn, truncateString } from "../../../../../lib/utilities";
 import ArticlePickerModal from "../../../../../components/utility-comps/article-picker-modal";
 import { MdOutlineAddBox } from "react-icons/md";
 import StaggerContainer from "../../../../../components/utility-comps/stagger-container";
@@ -33,20 +33,28 @@ export default function SecondaryArticles() {
     <div
       className={cn(
         "w-1/2 gap-2 grid relative group",
-        layout === "quad-grid"
+        layout.includes("grid")
           ? "grid-cols-2 grid-rows-2"
           : "grid-cols-1 grid-rows-4"
       )}
     >
       {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="border rounded-md shadow-md">
+        <div key={i} className="border rounded-md shadow-md relative">
           <StaggerContainer className="duration-1000 ease-out">
             {selectedArticles && selectedArticles[i] ? (
-              <img
-                src={selectedArticles[i].imgUrl}
-                alt={selectedArticles[i].title}
-                className="w-full h-full object-cover rounded-md"
-              />
+              <>
+                <img
+                  src={selectedArticles[i].imgUrl}
+                  alt={selectedArticles[i].title}
+                  className="w-full h-full object-cover rounded-md"
+                />
+
+                <div className="w-full min-h-1/3 absolute bottom-0 left-0 bg-white/40 opacity-85 text-slate-800 backdrop-blur-sm flex flex-col justify-center p-4">
+                  <h1 className="text-lg font-bold leading-[1.3]">
+                    {truncateString(selectedArticles[i].title, 60)}
+                  </h1>
+                </div>
+              </>
             ) : (
               <div className="h-full w-full flex flex-col gap-1 text-indigo-500 items-center justify-center">
                 <MdOutlineAddBox size={30} />

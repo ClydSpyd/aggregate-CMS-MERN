@@ -3,7 +3,7 @@ import { CheckboxProps } from "./types";
 import { FaCheck } from "react-icons/fa";
 
 
-export default function Checkbox({ checked, additionalClass }: CheckboxProps) {
+export default function Checkbox({ checked, additionalClass, size }: CheckboxProps) {
   return (
     <div
       className={cn(
@@ -12,7 +12,7 @@ export default function Checkbox({ checked, additionalClass }: CheckboxProps) {
         additionalClass
       )}
     >
-      {checked && <FaCheck size={14} className="text-white" />}
+      {checked && <FaCheck size={size ?? 14} className="text-white" />}
     </div>
   );
 }

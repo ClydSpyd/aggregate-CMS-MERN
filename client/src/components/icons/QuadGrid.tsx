@@ -3,12 +3,13 @@ import React from "react";
 const QuadGrid: React.FC<IconProps> = ({
   size,
   color = "#cacaca",
+  className,
 }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 110.74 55.23"
-      className="icon"
+      className={className}
       height={size}
     >
       <rect
