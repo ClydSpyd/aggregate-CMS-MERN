@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// import { Link } from "react-router";
 import { useAuth } from "../../../contexts/auth-context";
 import AppLoader from "../../../components/app-loader";
 import { useDashboard } from "../../../contexts/dash-contenxt";
@@ -7,81 +5,14 @@ import { IoDocumentsOutline } from "react-icons/io5";
 import { MdOutlineDisplaySettings } from "react-icons/md";
 import { TbUsersGroup } from "react-icons/tb";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
-import { IconType } from "react-icons";
-import { FaChevronRight } from "react-icons/fa";
-import { addParamToUrl, cn } from "../../../lib/utilities";
-import DashMain from "./views/dash-main";
-import { useEffect, useState } from "react";
 import { useNotification } from "../../../contexts/notification-context";
-import DashPages from "./views/dash-pages";
+import { DashListitem } from "./components/dash-list-item";
 
-interface ListItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  text: string;
-  icon: IconType;
-  disabled?: boolean;
-  selected?: boolean;
-}
-
-const Listitem = ({
-  text,
-  icon,
-  disabled,
-  selected,
-  onClick,
-}: ListItemProps) => {
-  const Icon = icon;
-  return (
-    <div
-      onClick={onClick}
-      className={cn(
-        "w-full h-[50px] p-2 flex items-center justify-between border border-slate-200 rounded-sm cursor-pointer text-slate-500 transition-all duration-300 hover:border-slate-400/80",
-        selected ? "!border-indigo-500 pointer-events-none" : "",
-        disabled
-          ? "opacity-30 pointer-events-none"
-          : "pointer-events-auto opacity-100"
-      )}
-    >
-      {text}
-      <div
-        className={cn(
-          "flex items-center gap-2",
-          selected ? "text-indigo-500" : ""
-        )}
-      >
-        <Icon size={20} />
-        <FaChevronRight size={14} />
-      </div>
-    </div>
-  );
-};
-
-type DashView = "main" | "pages" | "users" | "deployments";
-
-const views: Record<DashView, JSX.Element> = {
-  main: <DashMain />,
-  pages: <DashPages />,
-  users: <div>Users</div>,
-  deployments: <div>deployments</div>,
-};
 
 export default function Dashboard() {
-  const [view, setView] = useState<DashView>("main");
   const { user } = useAuth();
-  const { config } = useDashboard();
+  const { config, view, setView, views } = useDashboard();
   const { showToast } = useNotification();
-
-  const urlParams = new URLSearchParams(window.location.search);
-  
-  useEffect(() => {
-    const tab = urlParams.get("tab");
-    if (tab && tab in views) {
-      setView(tab as DashView);
-    }
-  }, []);
-
-  useEffect(() => {
-    addParamToUrl("tab", view);
-  }, [view]);
 
   if (!config) return <AppLoader />;
 
@@ -103,25 +34,25 @@ export default function Dashboard() {
           </h4>
         </div>
         <div className="grow w-full flex flex-col gap-2">
-          <Listitem
+          <DashListitem
             onClick={() => setView("main")}
             text="Main"
             icon={MdOutlineDisplaySettings}
             selected={view === "main"}
           />
-          <Listitem
+          <DashListitem
             onClick={() => setView("pages")}
             text="Pages"
             icon={IoDocumentsOutline}
             selected={view === "pages"}
           />
-          <Listitem
+          <DashListitem
             onClick={() => setView("users")}
             text="Users"
             icon={TbUsersGroup}
             selected={view === "users"}
           />
-          <Listitem
+          <DashListitem
             onClick={() => setView("deployments")}
             text="Deployments"
             icon={HiOutlineRocketLaunch}

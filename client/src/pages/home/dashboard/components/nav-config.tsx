@@ -22,7 +22,7 @@ export default function NavConfig({ items }: { items: DynamicPageConfig[] }) {
         </div>
         <div className="flex gap-2 flex-wrap justify-stretch">
           {items?.map((item, index) => (
-            <ConfigBlock key={index} blockData={item} />
+            <ConfigBlock key={index} idx={index} blockData={item} />
           ))}
         </div>
       </div>

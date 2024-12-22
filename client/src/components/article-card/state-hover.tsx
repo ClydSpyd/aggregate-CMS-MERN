@@ -30,7 +30,7 @@ export const StateHover = ({
           onClick={handleDelete}
           className="h-[40px] w-[40px] cursor-pointer flex items-center justify-center border border-slate-400 rounded-md transition-all duration-200 bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
         >
-          <MdDeleteForever size={23} />
+          <MdDeleteForever size={25} />
         </div>
       </TooltipWrapper>
       <TooltipWrapper message="view article">
@@ -38,7 +38,7 @@ export const StateHover = ({
           onClick={handleRedirect}
           className="h-[40px] w-[40px] cursor-pointer flex items-center justify-center border border-slate-400 rounded-md transition-all duration-200 bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
         >
-          <IoEye size={22} />
+          <IoEye size={25} />
         </div>
       </TooltipWrapper>
     </div>

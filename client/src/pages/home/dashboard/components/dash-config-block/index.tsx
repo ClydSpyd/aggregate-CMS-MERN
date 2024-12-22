@@ -1,7 +1,7 @@
 import { IoDocumentTextSharp, IoWarning } from "react-icons/io5";
 import StaggerContainer from "../../../../../components/utility-comps/stagger-container";
 import { useRef, useState } from "react";
-import { cn, encodeQueryData } from "../../../../../lib/utilities";
+import { cn } from "../../../../../lib/utilities";
 import useOutsideClick from "../../../../../hooks/useOutsideClick";
 import NavItemModal from "../nav-item-modal";
 import { StateHover } from "./state-hover";
@@ -9,18 +9,15 @@ import { StateConfirmDelete } from "./state-delete";
 
 export default function ConfigBlock({
   blockData,
+  idx,
 }: {
+  idx: number;
   blockData: ConfigBlockData;
 }) {
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const confRef = useRef<HTMLDivElement>(null);
   useOutsideClick(confRef, () => setConfirmDelete(false));
-
-  // const redirectParams = `tab=pages&idx=${idx}`;
-  const redirectParams = encodeQueryData({
-    tags: blockData.tags.join(","),
-  });
 
   return (
     <div className="max-w-[330px] min-w-[200px]">
@@ -68,7 +65,7 @@ export default function ConfigBlock({
           </div>
           {!confirmDelete && (
             <StateHover
-              redirectParams={redirectParams}
+              idx={idx.toString()}
               handleEdit={() => setEditModal(true)}
               handleDelete={() => {
                 setConfirmDelete(true);

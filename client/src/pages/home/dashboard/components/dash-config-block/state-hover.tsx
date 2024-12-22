@@ -2,22 +2,25 @@ import { AiFillEdit } from "react-icons/ai";
 import { FaListAlt } from "react-icons/fa";
 import { RiFileSettingsFill } from "react-icons/ri";
 import { MdDeleteForever } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
 import TooltipWrapper from "../../../../../components/utility-comps/tooltip-wrapper";
+import { useDashboard } from "../../../../../contexts/dash-contenxt";
 
 export const StateHover = ({
   handleDelete,
-  redirectParams,
+  idx,
   handleEdit,
 }: {
   handleDelete: () => void;
   handleEdit: () => void;
-  redirectParams: string;
+  idx: string;
 }) => {
-  const navigate = useNavigate();
+  const { setView } = useDashboard();
+
   const handleRedirect = () => {
-    // navigate(`?${redirectParams}`);
-    navigate(`/browse?${redirectParams}`);
+    const url = new URL(window.location.href);
+    url.searchParams.set("idx", idx);
+    window.history.replaceState({}, document.title, url.toString());
+    setView("pages");
   };
   return (
     <div
@@ -28,33 +31,25 @@ export const StateHover = ({
       <TooltipWrapper message="edit item">
         <div
           onClick={handleEdit}
-          className="cursor-pointer h-[35px] w-[35px] flex items-center justify-center border rounded-sm transition-all duration-200 bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
+          className="h-[40px] w-[40px] cursor-pointer flex items-center justify-center border border-slate-400 rounded-md transition-all duration-200 bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
         >
-          <AiFillEdit size={18} />
+          <AiFillEdit size={22} />
         </div>
       </TooltipWrapper>
       <TooltipWrapper message="delete item">
         <div
           onClick={handleDelete}
-          className="cursor-pointer h-[35px] w-[35px] flex items-center justify-center border rounded-sm bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
+          className="h-[40px] w-[40px] cursor-pointer flex items-center justify-center border border-slate-400 rounded-md transition-all duration-200 bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
         >
-          <MdDeleteForever size={20} />
+          <MdDeleteForever size={25} />
         </div>
       </TooltipWrapper>
-      {/* <TooltipWrapper message="page config">
+      <TooltipWrapper message="page config">
         <div
           onClick={handleRedirect}
-          className="cursor-pointer h-[35px] w-[35px] flex items-center justify-center border rounded-sm bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
+          className="h-[40px] w-[40px] cursor-pointer flex items-center justify-center border border-slate-400 rounded-md transition-all duration-200 bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
         >
-          <RiFileSettingsFill size={18} />
-        </div>
-      </TooltipWrapper> */}
-      <TooltipWrapper message="view articles">
-        <div
-          onClick={handleRedirect}
-          className="cursor-pointer h-[35px] w-[35px] flex items-center justify-center border rounded-sm bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500"
-        >
-          <FaListAlt size={18} />
+          <RiFileSettingsFill size={22} />
         </div>
       </TooltipWrapper>
     </div>
