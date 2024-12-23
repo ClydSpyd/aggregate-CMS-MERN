@@ -23,7 +23,7 @@ export default function TableRow({ user, zIndex }: { user: ClientUser, zIndex: n
         <div className="w-1/6 grow px-4 py-2 flex justify-center">
           {user.username}
         </div>
-        <div className="w-1/5 grow px-4 py-2 flex justify-center">
+        <div className="w-1/5 grow px-4 py-2 flex justify-center text-sm">
           {user.email}
         </div>
         <div className="w-[120px] flex items-center justify-center text-sm">
