@@ -1,4 +1,4 @@
-const express = require("express");
+  const express = require("express");
 const { body, validationResult } = require("express-validator");
 const router = express.Router();
 
@@ -7,7 +7,7 @@ const {
   getUsers,
   generateAccessToken,
 } = require("../services/user-service");
-const user = require("../schema/admin-user");
+const AdminUser = require("../schema/user-admin");
 
 // @post
 // REGISTER NEW USER
@@ -17,11 +17,9 @@ router.post(
     body("username").notEmpty().withMessage("Username is required"),
     body("email").notEmpty().withMessage("Email is required"),
     body("password").notEmpty().withMessage("Password is required"),
-    body("role").notEmpty().withMessage("Role is required"),
-    body("avatarUrl").notEmpty().withMessage("AvatarURL is required"),
   ],
   async (req, res) => {
-    console.log("ADD USER");
+    console.log("ADD CLIENT USER");
     console.log(req.body);
     const errors = validationResult(req);
 
@@ -32,11 +30,11 @@ router.post(
       });
     }
 
-    // email + password + validate repeat pass + username + avatar
-    const { username, email, password, role, avatarUrl } = req.body;
+    // email + password + validate repeat pass + username
+    const { username, email, password, avatarUrl } = req.body;
 
     // check username or email do not already exists
-    const users = await getUsers();
+    const users = await getUsers(true);
     if (users.find((user) => user.username === username.toLowerCase())) {
       messages.push(`Username '${username.toLowerCase()}' already exists`);
     }
@@ -50,8 +48,10 @@ router.post(
       username: username.toLowerCase(),
       email: email.toLowerCase(),
       password,
-      role,
-      avatarUrl,
+      role: "client",
+      avatarUrl:
+        avatarUrl ??
+        "https://aggregate-imgs.s3.eu-north-1.amazonaws.com/avatars/abstract_17.png",
     });
 
     // return error is any
@@ -74,10 +74,10 @@ router.patch("/update/:id", async (req, res) => {
   }
 
   try {
-    const updatedUser = await user.findByIdAndUpdate(
+    const updatedUser = await AdminUser.findByIdAndUpdate(
       req.params.id,
-      { $set: req.body }, // Use $set to update only the provided fields
-      { new: true, runValidators: true } // new: true returns the updated document)
+      { $set: req.body }, // $set - update only the provided fields
+      { new: true, runValidators: true } // new: true - return updated document)
     );
 
     // Check if the user exists
@@ -96,7 +96,7 @@ router.patch("/update/:id", async (req, res) => {
 // @GET
 // FETCH ALL USERS
 router.get("/all", async (req, res) => {
-  const users = await getUsers();
+  const users = await getUsers(true);
   // delete password attribute
   users.forEach((user) => delete user.password);
   res.status(200).json(users);

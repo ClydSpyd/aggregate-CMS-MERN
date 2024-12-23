@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt")
-const AdminUser = require("../schema/admin-user")
+const AdminUser = require("../schema/user-admin")
+const ClientUser = require("../schema/user-client")
 const jwt = require('jsonwebtoken');
 const { TOKEN_LIFESPAN } = require("../constants");
 
@@ -27,9 +28,9 @@ const createNewUser = async ({ username, email, password, role, avatarUrl }) => 
   }
 }
 
-const getUsers = async () => {
-  return await AdminUser.find()
-}
+const getUsers = async (client) => {
+  return client ? await ClientUser.find() : await AdminUser.find();
+};
 const getUserById = async (userId) => {
   return await AdminUser.findOne({ _id: userId })
 }
