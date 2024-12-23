@@ -33,6 +33,14 @@ const ClientUserSchema = new mongoose.Schema(
       ref: "Article",
       default: [],
     },
+    restricted: {
+      type: Boolean,
+      default: false,
+    },
+    lastLogin: {
+      type: Date || null,
+      default: null,
+    },
   },
   { timestamps: true }
 );

@@ -31,6 +31,8 @@ router.post("/signin", async (req, res) => {
     const userWithPass = await findUserByEmailWithPassword(user);
     if (await bcrypt.compare(password, userWithPass.password)) {
       const token = generateAccessToken(user);
+      user.lastLogin = new Date();
+      await user.save();
       res
         .status(200)
         .cookie("authToken", token, {

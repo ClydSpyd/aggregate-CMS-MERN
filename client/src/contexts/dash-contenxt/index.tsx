@@ -5,13 +5,14 @@ import API from "../../api";
 import DashMain from "../../pages/home/dashboard/views/dash-main";
 import DashPages from "../../pages/home/dashboard/views/dash-pages";
 import { addParamToUrl } from "../../lib/utilities";
+import DashUsers from "../../pages/home/dashboard/views/dash-users";
 
 const DashContext = createContext<DashContextData>(defaultDashContext);
 
 const views: ViewMap = {
   main: <DashMain />,
   pages: <DashPages />,
-  users: <div>Users</div>,
+  users: <DashUsers />,
   deployments: <div>deployments</div>,
 };
 

@@ -24,6 +24,14 @@ const AdminUserSchema = new mongoose.Schema(
       enum: ["admin", "contributor", "readonly"],
       required: true,
     },
+    restricted: {
+      type: Boolean,
+      default: false,
+    },
+    lastLogin: {
+      type: Date || null,
+      default: null,
+    },
   },
   { timestamps: true }
 );

@@ -3,11 +3,11 @@ const { body, validationResult } = require("express-validator");
 const router = express.Router();
 
 const {
-  createNewUser,
+  createNewClientUser,
   getUsers,
   generateAccessToken,
 } = require("../services/user-service");
-const AdminUser = require("../schema/user-admin");
+const ClientUser = require("../schema/user-client");
 
 // @post
 // REGISTER NEW USER
@@ -44,7 +44,7 @@ router.post(
     }
 
     // create new user
-    const { newUser, error } = await createNewUser({
+    const { newUser, error } = await createNewClientUser({
       username: username.toLowerCase(),
       email: email.toLowerCase(),
       password,
@@ -74,7 +74,7 @@ router.patch("/update/:id", async (req, res) => {
   }
 
   try {
-    const updatedUser = await AdminUser.findByIdAndUpdate(
+    const updatedUser = await ClientUser.findByIdAndUpdate(
       req.params.id,
       { $set: req.body }, // $set - update only the provided fields
       { new: true, runValidators: true } // new: true - return updated document)

@@ -4,7 +4,7 @@ const ClientUser = require("../schema/user-client")
 const jwt = require('jsonwebtoken');
 const { TOKEN_LIFESPAN } = require("../constants");
 
-// create new user
+// create new admin user
 const createNewUser = async ({ username, email, password, role, avatarUrl }) => {
   try {
     // generate hashed password
@@ -12,6 +12,30 @@ const createNewUser = async ({ username, email, password, role, avatarUrl }) => 
 
     // create user
     const newUser = new AdminUser({
+      username,
+      email,
+      password: hashedPassword,
+      role,
+      avatarUrl,
+    })
+
+    // save user
+    await newUser.save()
+
+    return { newUser }
+  } catch (error) {
+    return { error }
+  }
+}
+
+// create new client user
+const createNewClientUser = async ({ username, email, password, role, avatarUrl }) => {
+  try {
+    // generate hashed password
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    // create user
+    const newUser = new ClientUser({
       username,
       email,
       password: hashedPassword,
@@ -66,6 +90,7 @@ const isValidEmail = (value) => {
 
 module.exports = {
   createNewUser,
+  createNewClientUser,
   getUsers,
   getUserById,
   findUserByUsername,
