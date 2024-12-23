@@ -94,8 +94,15 @@ export default function TopBar({
           </div>
         </TooltipWrapper>
         {heroConfig.articles.length > 0 && heroConfig.articles.length < 5 && (
-          <TooltipWrapper message={"Define all 5 articles for block to be valid"}>
-            <p className="text-xs font-semibold h-[35px] flex items-center px-2 rounded-md bg-red-500 text-white gap-1">
+          <TooltipWrapper
+            message={"Define all 5 articles for block to be valid"}
+          >
+            <p
+              className={cn(
+                "transition-all duration-300 text-xs font-semibold h-[35px] flex items-center px-2 rounded-md bg-red-500 text-white gap-1",
+                heroConfig.enabled ? "opacity-100" : "opacity-0"
+              )}
+            >
               <IoWarning size={20} className="text-white" />
               INCOMPLETE
             </p>

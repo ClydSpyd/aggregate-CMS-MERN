@@ -7,6 +7,7 @@ import { ArticleTextEditor } from "./article-text-editor";
 import { cn } from "../../lib/utilities";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { useNotification } from "../../contexts/notification-context";
+import ArticleImagePicker from "./article-image-picker";
 
 interface EditData {
   title: boolean;
@@ -158,10 +159,9 @@ export default function ArticleView({
   return (
     <div className="grow h-full flex justify-center overflow-y-auto transition-all ease-in-out duration-500 px-4">
       <div className="w-full max-w-[1050px] h-fit flex flex-col items-center text-center pb-16">
-        <img
-          src={articleData.imgUrl}
-          alt={articleData.title + "_img"}
-          className="w-full h-[600px] object-cover object-center"
+        <ArticleImagePicker
+          articleData={articleData}
+          setArticleData={setArticleData}
         />
         <div className="w-full flex flex-col items-center">
           <EditWrapper

@@ -11,7 +11,7 @@ export default function SecondaryItem({
   isGrid,
   handleArticleUpdate,
 }: {
-  article: Article;
+  article?: Article;
   isGrid: boolean;
   handleArticleUpdate: (id: string, article: Article) => void;
 }) {
@@ -65,7 +65,7 @@ export default function SecondaryItem({
             reqCount={1}
             articles={options}
             onSubmit={(data: Article[]) =>
-              handleArticleUpdate(article._id, data[0])
+              handleArticleUpdate(article?._id ?? "", data[0])
             }
             preSelected={[article!]}
           />

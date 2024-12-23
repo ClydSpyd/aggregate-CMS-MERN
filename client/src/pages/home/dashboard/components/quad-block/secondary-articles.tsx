@@ -51,10 +51,10 @@ export default function SecondaryArticles({
         isGrid ? "grid-cols-2 grid-rows-2" : "grid-cols-1 grid-rows-4"
       )}
     >
-      {selectedArticles?.map((item) => (
+      {Array.from({ length: 4 }).map((_, i) => (
         <SecondaryItem
-          key={item._id}
-          article={item}
+          key={i}
+          article={selectedArticles?.[i]}
           handleArticleUpdate={handleArticleUpdate}
           isGrid={isGrid}
         />

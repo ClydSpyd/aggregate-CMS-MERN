@@ -25,7 +25,7 @@ export default function HeroArticleConfig() {
   return (
     <div
       className={cn(
-        "w-full flex flex-col border shadow-sm rounded-lg p-2 px-4",
+        "w-full flex flex-col border shadow-sm rounded-lg p-2 px-4 transition-all duration-300 ease-out",
         heroConfig.enabled ? "gap-2" : "gap-0"
       )}
     >
