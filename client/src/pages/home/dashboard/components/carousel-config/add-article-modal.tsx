@@ -5,7 +5,6 @@ import { cn, debounce } from "../../../../../lib/utilities";
 import InputField from "../../../../../components/utility-comps/input-field";
 import API from "../../../../../api";
 import spinner from "../../../../../assets/loaders/spinner-indigo.svg";
-import { LuFileSearch2 } from "react-icons/lu";
 import Checkbox from "../../../../../components/utility-comps/checkbox";
 import { useDashboard } from "../../../../../contexts/dash-contenxt";
 
@@ -29,6 +28,7 @@ export default function AddarticleModal({
       const { data, error } = await API.article.getFilteredArticles({
         text: input,
         tags: [],
+        author: null
       });
       if (data) {
         setFilteredArticles(

@@ -5,7 +5,6 @@ import { cn, debounce } from "../../../lib/utilities";
 import InputField from "../../../components/utility-comps/input-field";
 import spinner from "../../../assets/loaders/spinner-indigo.svg";
 import Checkbox from "../../../components/utility-comps/checkbox";
-import { set } from "date-fns";
 
 export default function ArticlePickerModal({
   open,

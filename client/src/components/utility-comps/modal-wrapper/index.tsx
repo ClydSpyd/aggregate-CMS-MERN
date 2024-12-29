@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { cn, delay } from "../../../lib/utilities";
+import { cn } from "../../../lib/utilities";
 
 interface ModalWrapperProps {
   open: boolean;

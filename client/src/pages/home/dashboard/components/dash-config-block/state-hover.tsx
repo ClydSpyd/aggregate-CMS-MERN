@@ -1,5 +1,4 @@
 import { AiFillEdit } from "react-icons/ai";
-import { FaListAlt } from "react-icons/fa";
 import { RiFileSettingsFill } from "react-icons/ri";
 import { MdDeleteForever } from "react-icons/md";
 import TooltipWrapper from "../../../../../components/utility-comps/tooltip-wrapper";
