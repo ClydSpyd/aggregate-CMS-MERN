@@ -4,12 +4,18 @@ import { ApiResponse } from "./types";
 import { InputData } from "../pages/browse/types";
 
 export const articleFunctions = {
-  createArticle: async (article: Partial<Article>): Promise<ApiResponse<Article>> => {
+  createArticle: async (
+    article: Partial<Article>,
+    userId: string
+  ): Promise<ApiResponse<Article>> => {
+    console.log({ userId });
+    const payload = {
+      ...article,
+      author: userId,
+    };
+    console.log(`Creating article:`, payload);
     try {
-      const { data, status } = await baseClient.post(
-        "/article/create",
-        article
-      );
+      const { data, status } = await baseClient.post("/article/create", payload);
       return { status, data };
     } catch (error) {
       console.error(`Error creating article:`, error);
@@ -48,10 +54,14 @@ export const articleFunctions = {
   },
   getFilteredArticles: async (filters: InputData) => {
     try {
-      const { data, status } = await baseClient.post("/article/search/filters", {
-        tags: filters.tags,
-        text: filters.text,
-      });
+      const { data, status } = await baseClient.post(
+        "/article/search/filters",
+        {
+          tags: filters.tags,
+          text: filters.text,
+          author: filters.author,
+        }
+      );
       return { status, data };
     } catch (error) {
       const err = error as AxiosError;
@@ -71,8 +81,8 @@ export const articleFunctions = {
       console.log(`Error updating article:`, err.message);
       return { error: err.message, status: 500 };
     }
-  }
-  ,deleteArticle: async (id: string) => {
+  },
+  deleteArticle: async (id: string) => {
     try {
       const { status } = await baseClient.delete(`/article/delete/${id}`);
       return { status };

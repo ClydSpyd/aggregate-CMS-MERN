@@ -10,7 +10,7 @@ router.post("/search/tags", verifyToken, async (req, res) => {
     const tags = req.body.tags;
 
     // find all articles that contain the tags
-    const articles = await Article.find({ tags: { $in: tags } });
+    const articles = await Article.find({ tags: { $in: tags } }).populate("author", { username: 1, avatarUrl: 1 });;
     if (articles.length === 0) {
       return res.status(200).json({ message: "No articles found" });
     } else {
@@ -37,8 +37,15 @@ router.post("/search/text", verifyToken, async (req, res) => {
 // GET search articles text + tags
 router.post("/search/filters", verifyToken, async (req, res) => {
   try {
-    const { text, tags } = req.body;
+    const { text, tags, author } = req.body;
     let articles = await articlesByText(text);
+    console.log(articles[0]);
+    console.log(author);
+    if(author){
+      articles = articles.filter(
+        (article) => article.author._id.toString() === author
+      );
+    }
     if (tags.length > 0) {
       articles = articles.filter((article) =>
         tags.some((tag) => article.tags.includes(tag))
@@ -56,7 +63,7 @@ router.post("/search/filters", verifyToken, async (req, res) => {
 router.get("/recent", verifyToken, async (req, res) => {
   try {
     const num = req.query.num ?? 20;
-    const articles = await Article.find().sort({ _id: -1 }).limit(num);
+    const articles = await Article.find().populate("author", { username: 1, avatarUrl: 1 }).sort({ _id: -1 }).limit(num);
     res.json(articles);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -69,7 +76,7 @@ router.get("/highlight/:string", verifyToken, async (req, res) => {
   try {
     const articles = await Article.find({
       highlight: { $in: ["primary"] },
-    });
+    }).populate("author", { username: 1, avatarUrl: 1 });
     res.json(articles);
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import BrowseContent from "./browse-content";
 import API from "../../api";
+import AppLoader from "../../components/app-loader";
 
 export default function BrowsePage() {
   const [recentArticles, setRecentArticles] = useState<Article[]|null>(null)
@@ -29,6 +30,6 @@ export default function BrowsePage() {
       />
     </div>
   ) : (
-    <h1>Ö</h1>
+    <AppLoader />
   );
 }

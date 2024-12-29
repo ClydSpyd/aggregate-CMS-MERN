@@ -30,7 +30,10 @@ const articlesByText = async (text, caption) => {
     query.$or.push({ caption: { $regex: caption, $options: "i" } });
   }
 
-  const articles = await Article.find(query);
+  const articles = await Article.find(query).populate("author", {
+    username: 1,
+    avatarUrl: 1,
+  });
   return articles;
 };
 

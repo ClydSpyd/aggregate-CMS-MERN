@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import BrowseItem from "./_components/browse-item";
 import BrowseFilters from "./_components/browse-filters";
 import { ImWarning } from "react-icons/im";
 import API from "../../api";
 import { delay } from "../../lib/utilities";
+import ArticleCard from "../../components/article-card";
 
 interface BrowseProps {
   recentArticles: Article[];
@@ -31,7 +31,9 @@ export default function BrowseContent({
     setDisplayedArticles(filteredArticles ?? recentArticles);
   }, [filteredArticles]);
 
-  const handleDelete = async (id: string) => {
+  // const handleDelete = async () => {
+  //   console.log("delete");
+    const handleDelete = async (id: string) => {
     const { status, error } = await API.article.deleteArticle(id);
     setDisplayedArticles((prev) => prev?.filter((article) => article._id !== id));
     delay(1000).then(() => refetchRecent());
@@ -56,7 +58,7 @@ export default function BrowseContent({
           <p className="text-sm text-indigo-500">{error}</p>
         </div>
       ) : (
-        <div className="overflow-y-auto grow grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 auto-rows-min gap-1">
+        <div className="flex flex-col justify-start grow">
           <div className="col-span-full">
             {filteredArticles ? (
               <p className="text-lg text-indigo-500 font-semibold text-slate-5000 mt-2">
@@ -68,17 +70,21 @@ export default function BrowseContent({
               </p>
             )}
           </div>
-          {filteredArticles?.length === 0 ? (
-            <p>No items matching filters</p>
-          ) : (
-            displayedArticles.map((article: Article) => (
-              <BrowseItem
-                key={article._id}
-                article={article}
-                handleDelete={handleDelete}
-              />
-            ))
-          )}
+          <div className="overflow-y-auto w-full flex gap-4 flex-wrap items-stretch pb-2">
+            {filteredArticles?.length === 0 ? (
+              <p>No items matching filters</p>
+            ) : (
+              displayedArticles.map((article: Article) => (
+                <ArticleCard
+                  key={article._id}
+                  item={article}
+                  handleDelete={() => handleDelete(article._id)}
+                  basicBlock
+                  permaDeath
+                />
+              ))
+            )}
+          </div>
         </div>
       )}
     </div>

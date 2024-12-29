@@ -55,7 +55,9 @@ export default function ArticleDrawer({
           onClick={handlePublished}
           className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
         >
-          <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>Published</p>
+          <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>
+            Published
+          </p>
           <Checkbox checked={published} />
         </div>
         <div className="rounded-md border bg-white p-4 pt-3 flex flex-col gap-2">
@@ -64,20 +66,34 @@ export default function ArticleDrawer({
             onClick={() => handleHighlight("primary")}
             className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
           >
-            <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>Primary carousel</p>
+            <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>
+              Primary carousel
+            </p>
             <Checkbox checked={primary} />
+          </div>
+        </div>
+        <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
+          <p className={"text-[#a0a0a0]"}>Author:</p>
+          <div className="flex items-center gap-1">
+            <p>{articleData.author.username}</p>
+            <div className="relative z-10 h-[40px] w-[40px] rounded-full border-2 border-white overflow-hidden">
+              <img
+                src={articleData.author.avatarUrl}
+                alt={articleData.author.username + "_avatar"}
+              />
+            </div>
           </div>
         </div>
         <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
           <p className={"text-[#a0a0a0]"}>Created at:</p>
           <p>{formatDate(new Date(articleData.createdAt))}</p>
         </div>
-        {articleData.createdAt !== articleData.updatedAt && (
+        {/* {articleData.createdAt !== articleData.updatedAt && (
           <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
             <p className={"text-[#a0a0a0]"}>Update at:</p>
             <p>{formatDate(new Date(articleData.updatedAt))}</p>
           </div>
-        )}
+        )} */}
         <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
           <p className="text-[#a0a0a0]">Source:</p>
           <div className="flex gap-2 items-center">

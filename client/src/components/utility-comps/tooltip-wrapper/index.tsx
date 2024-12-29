@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./tooltip.css"; // Include necessary CSS for styling
+import { cn } from "../../../lib/utilities";
 
 interface TooltipProps {
   message: string;
   delay?: number;
   side?: "top" | "right" | "bottom" | "left";
   children: React.ReactNode;
+  className?: string;
 }
 
 const TooltipWrapper: React.FC<TooltipProps> = ({
@@ -13,6 +15,7 @@ const TooltipWrapper: React.FC<TooltipProps> = ({
   delay = 300,
   side = "bottom",
   children,
+  className,
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
@@ -29,7 +32,7 @@ const TooltipWrapper: React.FC<TooltipProps> = ({
 
   return (
     <div
-      className="tooltip-wrapper"
+      className={cn("tooltip-wrapper", className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{ position: "relative", display: "inline-block" }}

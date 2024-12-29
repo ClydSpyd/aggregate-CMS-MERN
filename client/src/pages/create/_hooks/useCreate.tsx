@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { LocalFields, defaultValues } from "../types";
 import API from "../../../api";
 import { hasEmptyFields } from "../helpers";
+import { useAuth } from "../../../contexts/auth-context";
 
 export default function useCreate() {
   const { queuedItems = [], removeItemFromQueue, updateQueueItem } = useQueue();
+  const { user } = useAuth();
   const [submitData, setSubmitData] = useState<{
     msg: string | null;
     error: boolean;
@@ -47,7 +49,11 @@ export default function useCreate() {
       content: html,
       rawContent: raw,
     };
-    const { data, error } = await API.article.createArticle(payload);
+    console.log({payload});
+    const { data, error } = await API.article.createArticle(
+      payload,
+      user?._id ?? ""
+    );
     if (data) {
       setConfirmSaved(true);
     } else if (error) {

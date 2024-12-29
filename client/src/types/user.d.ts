@@ -12,7 +12,7 @@ declare interface AdminUser {
 type UserRole = "admin" | "contributor" | "readonly";
 
 declare interface ClientUser{
-    _id: string;
+    id: string;
     username: string;
     email: string;
     avatarUrl: string;

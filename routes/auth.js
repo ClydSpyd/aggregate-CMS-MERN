@@ -44,7 +44,7 @@ router.post("/signin", async (req, res) => {
         .json({
           token,
           user: {
-            id: user.id,
+            _id: user.id,
             username: user.username,
             role: user.role,
             avatarUrl: user.avatarUrl,
@@ -84,7 +84,7 @@ router.post("/verify-token", async (req, res) => {
     res
       .status(200)
       .json({
-        id: decoded.id,
+        _id: decoded.id,
         username: decoded.username,
         role: decoded.role,
         avatarUrl: decoded.avatarUrl,

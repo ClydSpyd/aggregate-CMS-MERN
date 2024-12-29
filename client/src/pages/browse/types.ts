@@ -1,5 +1,6 @@
 export interface InputData {
-    text: string;
-    tags: string[];
-    // createdOn: [string, string];
-  }
+  text: string;
+  tags: string[];
+  author: string | null;
+  // createdOn: [string, string];
+}

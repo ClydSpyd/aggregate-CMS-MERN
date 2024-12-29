@@ -43,4 +43,9 @@ declare interface Article {
   updatedAt: string;
   published: boolean;
   highlight: string[];
+  author: {
+    _id:string;
+    username: string;
+    avatarUrl: string;
+  };
 }

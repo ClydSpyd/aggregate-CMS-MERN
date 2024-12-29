@@ -14,16 +14,12 @@ require("dotenv").config();
     // Iterate over each article, update rawContent and remove starting space from tags
     for (const article of articles) {
 
-      if (!article.rawContent) {
-        article.rawContent = "DEFAULT CONTENT";
-        await article.save();
-      }
 
-      if (article.tags && article.tags.length > 0) {
-        article.tags = article.tags.map(tag => tag.trimStart());
-        await article.save();
-      }
-      
+      article.author =
+        article.id === "6757fe8437c2a2e2935882dd"
+          ? "6752d38281789dc33169addc"
+          : "6752f4a305030b6ce7aca613";
+      await article.save();
     }
 
     console.log(`${articles.length} articles were processed`);

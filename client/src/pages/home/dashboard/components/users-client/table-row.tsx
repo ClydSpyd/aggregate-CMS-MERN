@@ -10,7 +10,7 @@ export default function TableRow({ user, zIndex }: { user: ClientUser, zIndex: n
     <StaggerContainer className="h-fit">
       <div
         style={{ position: "relative", zIndex }}
-        key={user._id}
+        key={user.id}
         className="py-2 border rounded-md w-full flex justify-evenly items-center"
       >
         <div className="w-[80px] px-4 py-2">

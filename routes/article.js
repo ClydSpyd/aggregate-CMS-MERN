@@ -12,7 +12,7 @@ router.use("/", filteringRoutes);
 // GET all articles
 router.get("/all", verifyToken, async (req, res) => {
   try {
-    const articles = await Article.find();
+    const articles = await Article.find().populate("author", { username: 1, avatarUrl: 1 });
     res.json(articles);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -22,7 +22,7 @@ router.get("/all", verifyToken, async (req, res) => {
 // GET article by ID
 router.get("/id/:id", verifyToken, async (req, res) => {
   try {
-    const article = await Article.findById(req.params.id);
+    const article = await Article.findById(req.params.id).populate("author", { username: 1, avatarUrl: 1 });
     if (article) {
       res.json(article);
     } else {
@@ -37,6 +37,8 @@ router.get("/id/:id", verifyToken, async (req, res) => {
 router.post(
   "/create",
   [
+    body("author").notEmpty().withMessage("author is required"),
+    body("title").notEmpty().withMessage("title is required"),
     body("title").notEmpty().withMessage("title is required"),
     body("caption").notEmpty().withMessage("caption is required"),
     body("content").notEmpty().withMessage("content is required"),
@@ -69,6 +71,7 @@ router.post(
         source: req.body.source,
         sourceUrl: req.body.sourceUrl,
         rawContent: req.body.rawContent,
+        author: req.body.author,
       });
 
       // extract tags and save to tags collection in db

@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import InputField from "../../../components/utility-comps/input-field";
 import TagSelector from "../../../components/tag-selector";
-// import InputDate from "../../../components/input-date";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { InputData } from "../types";
 import { cn } from "../../../lib/utilities";
 import API from "../../../api";
+import AuthorSelector from "../../../components/author-selector";
 
 interface BrowseFiltersProps {
   setFilteredArticles: Dispatch<SetStateAction<Article[] | null>>;
@@ -19,6 +19,7 @@ export default function BrowseFilters({
   const [searchValues, setSearchValues] = useState<InputData>({
     text: "",
     tags: [],
+    author: null,
   });
   const [localChange, setLocalChange] = useState(false);
 
@@ -33,11 +34,16 @@ export default function BrowseFilters({
     const urlParams = new URLSearchParams(window.location.search);
     const titleParam = urlParams.get("title");
     const tagsParam = urlParams.get("tags");
-    const hasQueryParams = !!titleParam || (tagsParam && tagsParam.split(",").length > 0);
+    const authorParam = urlParams.get("author");
+    const hasQueryParams =
+      !!titleParam ||
+      (tagsParam && tagsParam.split(",").length > 0) ||
+      !!authorParam;
     if(!hasQueryParams) return;
     const payload: InputData = {
       text: titleParam || "",
       tags: tagsParam ? tagsParam.split(",") : [],
+      author: authorParam ?? null,
     };
     setSearchValues(payload);
     getFilteredArticles(payload);
@@ -46,7 +52,9 @@ export default function BrowseFilters({
 
   useEffect(() => {
     const noFilters =
-      searchValues.text === "" && searchValues.tags.length === 0;
+      searchValues.text === "" &&
+      searchValues.tags.length === 0 &&
+      !searchValues.author;
     if (noFilters) {
       setFilteredArticles(null);
       window.history.replaceState({}, "", `${window.location.pathname}`);
@@ -61,6 +69,7 @@ export default function BrowseFilters({
       const urlParams = new URLSearchParams();
       !!payload.text && urlParams.set("title", payload.text);
       payload.tags.length > 0 && urlParams.set("tags", payload.tags.join(","));
+      !!payload.author && urlParams.set("author", payload.author);
       window.history.replaceState(
         {},
         "",
@@ -69,12 +78,15 @@ export default function BrowseFilters({
     }
     else if (error) {
       setError(error);
-      setSearchValues({ text: "", tags: [] });
+      setSearchValues({ text: "", tags: [], author: null });
     };
     setLocalChange(false);
   };
 
-  const handleInputChange = (value: string, key: keyof typeof searchValues) => {
+  const handleInputChange = (
+    value: string | null,
+    key: keyof typeof searchValues
+  ) => {
     setSearchValues((prev: InputData) => ({
       ...prev,
       [key]: value,
@@ -112,6 +124,10 @@ export default function BrowseFilters({
           additionalClass="border-gray-300"
         />
       </div>
+      <AuthorSelector
+        selected={searchValues.author}
+        onChange={(val: string | null) => handleInputChange(val, "author")}
+      />
       {/* <div className="grid grid-cols-2 border p-2 pb-4 gap-2 bg-white shadow-sm pointer-events-none opacity-40">
         <p className="text-xs text-[#a0a0a0] col-span-2">Date created:</p>
         <InputDate
@@ -132,7 +148,10 @@ export default function BrowseFilters({
       <div className="grow" />
       <div
         onClick={() => getFilteredArticles(searchValues)}
-        className={cn("h-[60px] flex items-center justify-center text-white font-semibold transition-all duration-300 ease-in-out bg-indigo-500 hover:bg-indigo-600 cursor-pointer rounded-md", !localChange ? "opacity-40 pointer-events-none" : " opacity-100")}
+        className={cn(
+          "h-[60px] flex items-center justify-center text-white font-semibold transition-all duration-300 ease-in-out bg-indigo-500 hover:bg-indigo-600 cursor-pointer rounded-md",
+          !localChange ? "opacity-40 pointer-events-none" : " opacity-100"
+        )}
       >
         APPLY FILTERS
       </div>
