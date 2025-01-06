@@ -45,7 +45,7 @@ export const articleFunctions = {
   },
   getRecentArticles: async () => {
     try {
-      const { data, status } = await baseClient.get("/article/recent?num=15");
+      const { data, status } = await baseClient.get("/article/recent?num=24");
       return { status, data };
     } catch (error) {
       const err = error as AxiosError;

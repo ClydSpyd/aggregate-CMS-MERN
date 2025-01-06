@@ -65,7 +65,7 @@ export default function ArticlePage() {
               <FaChevronCircleRight
                 size={20}
                 className={cn(
-                  "bg-rwhite text-indigo-500 transition-all duration-300 ease-linear rounded-full",
+                  "bg-white text-indigo-500 transition-all duration-300 ease-linear rounded-full",
                   drawerOpen ? "rotate-180" : "rotate-0"
                 )}
               />

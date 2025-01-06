@@ -10,7 +10,8 @@ const verifyToken = require("../middleware/verify-token");
 router.use("/", filteringRoutes);
 
 // GET all articles
-router.get("/all", verifyToken, async (req, res) => {
+// router.get("/all", verifyToken, async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     const articles = await Article.find().populate("author", { username: 1, avatarUrl: 1 });
     res.json(articles);

@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Article = require("../../schema/article");
 const { getRandomArticles } = require("../route-utils/article-utils");
+const Article = require("../../schema/article");
 
 // GET homepage data
 // returns homepage data object (carouselItems, secondaryModules, tracks)
 router.get("/home", async (req, res) => {
-  console.log("GET /client/page/home");
+  console.log("ööGET /client/page/home");
     try {
       const carouselItems = await Article.find(
         {

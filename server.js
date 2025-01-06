@@ -32,6 +32,10 @@ app.use("/api/page", require('./routes/page'));
 app.use("/api/client/config", require('./routes/client/config'));
 app.use("/api/client/page", require('./routes/client/pages'));
 
+// routes for mobile app
+app.use("/api/app/page", require('./routes/app/pages'));
+app.use("/api/app/article", require('./routes/app/article'));
+
 // Serve static files from the React app's build folder
 app.use(express.static(path.join(__dirname, 'client/build')));
 
