@@ -40,16 +40,17 @@ router.post(
   [
     body("author").notEmpty().withMessage("author is required"),
     body("title").notEmpty().withMessage("title is required"),
-    body("title").notEmpty().withMessage("title is required"),
-    body("caption").notEmpty().withMessage("caption is required"),
-    body("content").notEmpty().withMessage("content is required"),
-    body("imgUrl").notEmpty().withMessage("imgUrl is required"),
-    body("tags")
-      .isArray({ min: 1 })
-      .withMessage("tags must be a non-empty array"),
-    body("source").notEmpty().withMessage("source is required"),
-    body("sourceUrl").notEmpty().withMessage("sourceUrl is required"),
-    body("rawContent").notEmpty().withMessage("rawContent is required"),
+    body("type").notEmpty().withMessage("type is required"),
+    // body("title").notEmpty().withMessage("title is required"),
+    // body("caption").notEmpty().withMessage("caption is required"),
+    // body("content").notEmpty().withMessage("content is required"),
+    // body("imgUrl").notEmpty().withMessage("imgUrl is required"),
+    // body("tags")
+    //   .isArray({ min: 1 })
+    //   .withMessage("tags must be a non-empty array"),
+    // body("source").notEmpty().withMessage("source is required"),
+    // body("sourceUrl").notEmpty().withMessage("sourceUrl is required"),
+    // body("rawContent").notEmpty().withMessage("rawContent is required"),
   ],
   verifyToken,
   async (req, res) => {
@@ -65,6 +66,7 @@ router.post(
     try {
       const newArticle = new Article({
         title: req.body.title,
+        type: req.body.type,
         caption: req.body.caption,
         content: req.body.content,
         imgUrl: req.body.imgUrl,

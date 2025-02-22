@@ -1,3 +1,4 @@
+declare type ArticleType = "standard" | "list" | "slides";
 declare interface RssSource {
   name: string;
   url: string;
@@ -29,8 +30,22 @@ declare interface FeedItem {
   articleSrc: "RSS" | "custom";
 }
 
+interface ListItem {
+  imgUrl: string;
+  title: string;
+  textContent: string;
+}
+
+interface SlideItem {
+  type: 'image' | 'video';
+  title: string;
+  trxtContent: string;
+  src: string;
+}
+
 declare interface Article {
   _id: string;
+  type: ArticleType;
   title: string;
   caption: string;
   content: string;
@@ -43,6 +58,8 @@ declare interface Article {
   updatedAt: string;
   published: boolean;
   highlight: string[];
+  listItems?: ListItem[];
+  slideItems?: SlideItem[];
   author: {
     _id:string;
     username: string;

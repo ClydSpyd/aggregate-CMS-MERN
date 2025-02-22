@@ -10,7 +10,7 @@ export default function ConfirmModal({
       <div className="w-[350px] py-4 px-6 bg-white rounded-md flex items-center justify-center flex-col gap-3 shadow-lg text-center">
         <h4 className="font-regular">Article saved to database</h4>
         <p className="text-sm text-gray-400">
-          In order to preview or edit the article, head over to the{" "}
+          In order to edit or publish the article, head over to the{" "}
           <Link onClick={handleDismiss} className="text-indigo-600 font-semibold" to={"/browse"}>
             browse
           </Link>{" "}

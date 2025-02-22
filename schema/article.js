@@ -1,7 +1,50 @@
 const mongoose = require("mongoose");
 
+const slideItemSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ['image', 'video'],
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  textContent: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  src: {
+    type: String,
+    required: true,
+  },
+});
+
+const listItemSchema = new mongoose.Schema({
+  imgUrl: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  textContent: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+});
+
 const articleSchema = new mongoose.Schema(
   {
+    type: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -9,13 +52,13 @@ const articleSchema = new mongoose.Schema(
     },
     caption: {
       type: String,
-      required: false,
+      default: "",
       trim: true,
     },
     content: {
       type: String,
-      required: true,
-    },      
+      default: "",
+    },
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "AdminUser",
@@ -23,33 +66,40 @@ const articleSchema = new mongoose.Schema(
     },
     imgUrl: {
       type: String,
-      required: true,
+      default: "",
     },
     tags: {
       type: [String],
-      required: true,
       default: [],
     },
     source: {
       type: String,
-      required: true,
+      default: "",
       trim: true,
     },
     sourceUrl: {
       type: String,
-      required: true,
+      default: "",
     },
     rawContent: {
       type: String,
-      required: true,
+      default: "",
     },
     published: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     highlight: {
       type: [String],
       default: [],
+    },
+    slideItems: {
+      type: [slideItemSchema],
+      required: false,
+    },
+    listItems: {
+      type: [listItemSchema],
+      required: false,
     },
   },
   {

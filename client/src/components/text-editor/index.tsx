@@ -30,10 +30,7 @@ export default function TextEditor({
     const editor = editorRef?.current?.getEditor(); // Access Quill instance
     const htmlContent = editor?.root.innerHTML; // Extract HTML
     const plainText = editor?.getText(); // Extract plain text
-    const delta = editor?.getContents(); // Extract Delta
-    console.log({ htmlContent, plainText, delta, editor });
     saveCallback?.(plainText ?? "", htmlContent ?? "");
-    // setDirty(false);
   };
 
   return (

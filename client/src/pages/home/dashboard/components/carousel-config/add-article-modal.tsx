@@ -122,7 +122,7 @@ export default function AddarticleModal({
                     key={index}
                     className={cn(
                       "w-full flex justify-between items-center gap-4 p-2 border rounded-md cursor-pointer hover:border-slate-400/70",
-                      article.highlight.includes("primary")
+                      article.highlight.includes("primary") || !article.published
                         ? "opacity-30 bg-slate-200 text-slate-400 pointer-events-none border-indigo-500"
                         : " text-indigo-500"
                     )}

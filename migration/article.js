@@ -11,14 +11,11 @@ require("dotenv").config();
     // Fetch all articles
     const articles = await Article.find({});
 
-    // Iterate over each article, update rawContent and remove starting space from tags
+    // Iterate over each article, update type
     for (const article of articles) {
 
 
-      article.author =
-        article.id === "6757fe8437c2a2e2935882dd"
-          ? "6752d38281789dc33169addc"
-          : "6752f4a305030b6ce7aca613";
+    article.type = "standard";
       await article.save();
     }
 

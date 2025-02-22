@@ -6,6 +6,8 @@ import { MdOutlineOpenInNew } from "react-icons/md";
 import { useState } from "react";
 import Checkbox from "../../components/utility-comps/checkbox";
 import API from "../../api";
+import { cn } from "../../lib/utilities";
+import { isPublishable } from "../create/helpers";
 
 const formatDate = (date: Date) => {
   return format(date, "do MMM yyyy");
@@ -47,20 +49,30 @@ export default function ArticleDrawer({
     });
   };
 
+  const publishable = isPublishable(articleData);
+
   return (
     <div className="h-[calc(100%-30px)] w-[370px] absolute right-4 top-4 flex flex-col no-bar-scroll-container">
       <div className="flex flex-col gap-2 grow">
         <TagSelector tags={articleData.tags} setTags={handleTags} />
         <div
           onClick={handlePublished}
-          className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group"
+          className={cn(
+            "px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative cursor-pointer group",
+            !publishable ? "pointer-events-none opacity-50" : ""
+          )}
         >
           <p className={"text-[#a0a0a0] group-hover:text-[#747474]"}>
             Published
           </p>
           <Checkbox checked={published} />
         </div>
-        <div className="rounded-md border bg-white p-4 pt-3 flex flex-col gap-2">
+        <div
+          className={cn(
+            "rounded-md border bg-white p-4 pt-3 flex flex-col gap-2",
+            !publishable ? "pointer-events-none opacity-50" : ""
+          )}
+        >
           <p className="text-xs text-[#a0a0a0]">Feature article:</p>
           <div
             onClick={() => handleHighlight("primary")}
@@ -94,25 +106,27 @@ export default function ArticleDrawer({
             <p>{formatDate(new Date(articleData.updatedAt))}</p>
           </div>
         )} */}
-        <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
-          <p className="text-[#a0a0a0]">Source:</p>
-          <div className="flex gap-2 items-center">
-            <p>{extractDomain(articleData.sourceUrl)}</p>
+        {!!articleData.sourceUrl && (
+          <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">
+            <p className="text-[#a0a0a0]">Source:</p>
+            <div className="flex gap-2 items-center">
+              <p>{extractDomain(articleData.sourceUrl)}</p>
 
-            <Link to={articleData.sourceUrl} target="_blank" rel="noreferrer">
-              <div
-                className={
-                  "h-[35px] w-[35px] flex items-center justify-center bg-white border border-white rounded-md cursor-pointer hover:bg-indigo-500 hover:border-white transition-all duration-300 group/open"
-                }
-              >
-                <MdOutlineOpenInNew
-                  size={20}
-                  className="text-indigo-600 group-hover/open:text-white"
-                />
-              </div>
-            </Link>
+              <Link to={articleData.sourceUrl} target="_blank" rel="noreferrer">
+                <div
+                  className={
+                    "h-[35px] w-[35px] flex items-center justify-center bg-white border border-white rounded-md cursor-pointer hover:bg-indigo-500 hover:border-white transition-all duration-300 group/open"
+                  }
+                >
+                  <MdOutlineOpenInNew
+                    size={20}
+                    className="text-indigo-600 group-hover/open:text-white"
+                  />
+                </div>
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
         {/* <div className="flex justify-between gap-2 px-4 h-[60px] w-full bg-white border rounded-sm relative cursor-pointe">
                 <div
                 onClick={() => setPrimary((prev) => !prev)}

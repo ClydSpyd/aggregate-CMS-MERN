@@ -42,7 +42,7 @@ export default function ArticleImagePicker({
 
   return (
     <div
-      className="w-full h-[600px] p-2 group"
+      className="w-full h-[300px] p-2 group"
       onMouseMove={() => setHoverable(true)}
     >
       <div className="w-full h-full rounded-lg overflow-hidden relative">

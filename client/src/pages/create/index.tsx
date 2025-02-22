@@ -13,6 +13,7 @@ import { CgAdd } from "react-icons/cg";
 // import spinner from "@root/assets/loaders/spinner-indigo.svg";
 import { v4 as uuidv4 } from 'uuid';
 import Queue from "./components/queue";
+import AddArticlBtn from "./components/add-article-btn";
 
 export default function CreatePage() {
   const isFirstRender = useIsFirstRender()
@@ -62,13 +63,7 @@ export default function CreatePage() {
             <h4 className="font-semibold text-sm text-indigo-600 mb-1">
               Queued items:
             </h4>
-            <div
-              onClick={handleNewArticle}
-              className="h-[30px] w-[110px] flex gap-1 items-center justify-center text-sm text-white bg-indigo-500 hover:bg-indigo-600 font-semibold rounded-[4px] cursor-pointer"
-            >
-              <CgAdd size={20} />
-              add article
-            </div>
+            <AddArticlBtn />
           </div>
           <Queue
             items={queuedItems}

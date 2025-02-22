@@ -48,6 +48,7 @@ export default function useCreate() {
       source: "web",
       content: html,
       rawContent: raw,
+      type: "standard",
     };
     console.log({payload});
     const { data, error } = await API.article.createArticle(

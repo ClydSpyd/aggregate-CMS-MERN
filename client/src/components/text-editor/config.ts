@@ -5,7 +5,6 @@ export const toolbarOptions = [
   [{ list: "ordered" }, { list: "bullet" }],
 //   [{ script: "sub" }, { script: "super" }],
   [{ indent: "-1" }, { indent: "+1" }],
-  ["blockquote", "code-block"],
   ["link", ],
   ["clean"],
 ];
