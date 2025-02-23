@@ -7,6 +7,7 @@ import { TbUsersGroup } from "react-icons/tb";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { useNotification } from "../../../contexts/notification-context";
 import { DashListitem } from "./components/dash-list-item";
+import AddArticlBtn from "../../create/components/add-article-btn";
 
 
 export default function Dashboard() {
@@ -61,14 +62,15 @@ export default function Dashboard() {
         </div>
         <div className="h-[50px] w-full">
           {/* <Listitem text="Account Settings" icon={IoSettingsOutline} /> */}
-          <div
+          {/* <div
             onClick={() => {
               showToast("Deployment triggered", "info");
             }}
             className="w-full h-full border-2 border-indigo-500 text-indigo-500 rounded-md flex items-center justify-center font-semibold cursor-pointer"
           >
             PUBLISH LATEST
-          </div>
+          </div> */}
+          <AddArticlBtn size="lg" text={"Create New Article"} />
         </div>
       </div>
       {views[view]}

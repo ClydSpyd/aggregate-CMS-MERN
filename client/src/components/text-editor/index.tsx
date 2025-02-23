@@ -14,6 +14,7 @@ export default function TextEditor({
   isError,
   border,
   btnClass,
+  noToolbar,
 }: {
   canSubmit: boolean;
   initialContent?: Value | null;
@@ -22,6 +23,7 @@ export default function TextEditor({
   isError?: boolean;
   border?: boolean;
   btnClass?: string;
+  noToolbar?: boolean;
 }) {
   const [dirty, setDirty] = useState<boolean>(false);
   const editorRef = useRef<ReactQuill | null>(null);
@@ -45,7 +47,7 @@ export default function TextEditor({
           value={initialContent ?? undefined}
           onKeyDown={() => setDirty(true)}
           ref={editorRef}
-          modules={{ toolbar: toolbarOptions }}
+          modules={{ toolbar: noToolbar ? false : toolbarOptions }}
         />
       </div>
       <div className="flex w-full items-center justify-end gap-2">

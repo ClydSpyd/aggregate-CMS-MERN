@@ -49,9 +49,10 @@ export default function ArticleContentEditor({
       )}
     </HoverWrapper>
   ) : (
-    <div className="w-full border  transition-all duration-300 border-slate-300 px-6 rounded-lg cursor-pointer relative group">
+    <div className="w-full border  transition-all duration-300 border-slate-300 px-6 rounded-lg cursor-pointer relative group my-2">
       <ArticleTextEditor
         show={true}
+        noToolbar={articleData.type === "list"}
         setShow={() => toggleEdit("content")}
         articleData={articleData}
         handleContentChange={(...rest) => {

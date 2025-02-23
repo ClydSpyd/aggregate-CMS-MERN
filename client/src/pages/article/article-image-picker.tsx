@@ -49,7 +49,7 @@ export default function ArticleImagePicker({
         <img
           src={imgSrc}
           alt={articleData.title + "_img"}
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-200 ease-out"
+          className="mx-auto w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-200 ease-out"
         />
         {loading ? (
           <AppLoader

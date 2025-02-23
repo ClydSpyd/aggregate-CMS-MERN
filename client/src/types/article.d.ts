@@ -30,7 +30,7 @@ declare interface FeedItem {
   articleSrc: "RSS" | "custom";
 }
 
-interface ListItem {
+interface ListItemData {
   imgUrl: string;
   title: string;
   textContent: string;
@@ -39,7 +39,7 @@ interface ListItem {
 interface SlideItem {
   type: 'image' | 'video';
   title: string;
-  trxtContent: string;
+  textContent: string;
   src: string;
 }
 

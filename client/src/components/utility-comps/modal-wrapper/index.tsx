@@ -6,12 +6,14 @@ interface ModalWrapperProps {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  noCloseBtn?: boolean;
 }
 
 const ModalWrapper: React.FC<ModalWrapperProps> = ({
   open,
   onClose,
   children,
+  noCloseBtn = false,
 }) => {
   const [mounted, setMounted] = useState(false);
   const appRoot = document.getElementById("root") as HTMLElement;
@@ -45,12 +47,14 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          className="absolute top-[10px] right-[10px] bg-none text-16 cursor-pointer border border-gray-100 hover:border-gray-300 h-[25px] w-[25px] rounded-md z-50"
-          onClick={onClose}
-        >
-          ✕
-        </button>
+        {!noCloseBtn && (
+          <button
+            className="absolute top-[10px] right-[10px] bg-none text-16 cursor-pointer border border-gray-100 hover:border-gray-300 h-[25px] w-[25px] rounded-md z-50"
+            onClick={onClose}
+          >
+            ✕
+          </button>
+        )}
         {children}
       </div>
     </div>,

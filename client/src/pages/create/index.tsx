@@ -9,7 +9,6 @@ import { cn } from "../../lib/utilities";
 import InputField from "../../components/utility-comps/input-field";
 import { useEffect, useState } from "react";
 import ImagePicker from "./components/image-picker";
-import { CgAdd } from "react-icons/cg";
 // import spinner from "@root/assets/loaders/spinner-indigo.svg";
 import { v4 as uuidv4 } from 'uuid';
 import Queue from "./components/queue";
@@ -39,21 +38,21 @@ export default function CreatePage() {
     setEmptyQueue(queuedItems.length === 0);
   }, [queuedItems]);
 
-  const handleNewArticle = () => {
-    const instance = queuedItems.filter(
-      (item: FeedItem) => item.name.slice(0, 11) === "NEW ARTICLE"
-    ).length;
-    const newArticle: FeedItem = {
-      name: `NEW ARTICLE ${instance + 1}`,
-      url: String(Math.ceil(Math.random() * 20000)),
-      // url: "",
-      imgUrl: "/favicon.ico",
-      articleSrc: "custom",
-      id: uuidv4(),
-    };
-    setQueuedItems((prev: FeedItem[]) => [...prev, newArticle]);
-    setSelectedArticle(newArticle);
-  }
+  // const handleNewArticle = () => {
+  //   const instance = queuedItems.filter(
+  //     (item: FeedItem) => item.name.slice(0, 11) === "NEW ARTICLE"
+  //   ).length;
+  //   const newArticle: FeedItem = {
+  //     name: `NEW ARTICLE ${instance + 1}`,
+  //     url: String(Math.ceil(Math.random() * 20000)),
+  //     // url: "",
+  //     imgUrl: "/favicon.ico",
+  //     articleSrc: "custom",
+  //     id: uuidv4(),
+  //   };
+  //   setQueuedItems((prev: FeedItem[]) => [...prev, newArticle]);
+  //   setSelectedArticle(newArticle);
+  // }
 
   return (
     queuedItems && (

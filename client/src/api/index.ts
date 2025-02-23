@@ -5,6 +5,7 @@ import { uploadFumctions } from "./uploads";
 import { authFunctions } from "./auth";
 import { configFunctions } from "./config";
 import { userFunctions } from "./user";
+import { assetsFuntions } from "./assets";
 
 const baseHeaders = {
   common: {
@@ -45,6 +46,7 @@ const API = {
   auth: authFunctions,
   config: configFunctions,
   user: userFunctions,
+  assets: assetsFuntions,
 };
 
 export default API;

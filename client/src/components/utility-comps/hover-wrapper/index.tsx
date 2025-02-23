@@ -14,7 +14,7 @@ export const HoverWrapper = ({
     <div
       onClick={onClick}
       className={cn(
-        "w-full border border-transparent transition-all duration-300 hover:border-slate-300 px-6 rounded-lg cursor-pointer relative group my-2 py-4",
+        "w-full border border-transparent transition-all duration-300 hover:border-gray-200 px-6 rounded-lg cursor-pointer relative group my-2 py-4",
         additionalClass
       )}
     >

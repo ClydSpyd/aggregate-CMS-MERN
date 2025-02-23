@@ -57,7 +57,7 @@ export default function ArticleView({
             toggleEdit={toggleEdit}
             inputClass="text-[55px] leading-[1.1] tracking-tighter font-bold text-indigo-500 my-4"
           >
-            <h1 className="text-[55px] leading-[1.1] tracking-tighter font-bold text-indigo-500 my-4">
+            <h1 className="text-[55px] leading-[1.1] tracking-tighter font-bold text-indigo-500 my-2">
               {articleData.title}
             </h1>
           </EditWrapper>
@@ -91,6 +91,7 @@ export default function ArticleView({
             <ArticleListItems
               items={articleData.listItems ?? []}
               setArticleData={setArticleData}
+              articleData={articleData}
             />
           )}
         </div>

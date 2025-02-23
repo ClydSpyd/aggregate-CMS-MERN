@@ -27,6 +27,7 @@ app.use("/api/auth", require('./routes/auth'));
 app.use("/api/utility", require('./routes/utility'));
 app.use("/api/config", require('./routes/config'));
 app.use("/api/page", require('./routes/page'));
+app.use("/api/assets", require('./routes/assets'));
 
 // client-facing routes (for main site)
 app.use("/api/client/config", require('./routes/client/config'));

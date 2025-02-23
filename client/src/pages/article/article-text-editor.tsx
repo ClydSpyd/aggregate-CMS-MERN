@@ -7,11 +7,13 @@ export const ArticleTextEditor = ({
     setShow,
     articleData,
     handleContentChange,
+    noToolbar,
   }: {
     show: boolean;
     setShow: React.Dispatch<React.SetStateAction<boolean>>;
     articleData: Article;
     handleContentChange: (raw: string, html: string) => void;
+    noToolbar?: boolean;
   }) => {
     const contRef = useRef<HTMLDivElement>(null);
     useOutsideClick(contRef, () => setShow(false));
@@ -27,6 +29,7 @@ export const ArticleTextEditor = ({
         </StickyWrapper> */}
         <div className="grow h-fit min-w-full overflow-y-auto">
           <TextEditor
+            noToolbar={noToolbar}
             canSubmit={true}
             initialContent={articleData.content}
             saveCallback={handleContentChange}

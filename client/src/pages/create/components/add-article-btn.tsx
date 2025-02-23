@@ -40,7 +40,13 @@ const articleOptions: ArticleOption[] = [
   },
 ];
 
-export default function AddArticlBtn() {
+export default function AddArticlBtn({
+  size = "sm",
+  text = "add article",
+}: {
+  size?: "sm" | "md" | "lg";
+  text?: string;
+}) {
   const [articleName, setArticleName] = useState<string>("");
   const [selectedType, setSelectedType] = useState<ArticleType>("standard");
   const [open, setOpen] = useState(false);
@@ -48,7 +54,7 @@ export default function AddArticlBtn() {
   const { user } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
-    if(!open) {
+    if (!open) {
       setSelectedType("standard");
     } else {
       inputRef.current?.focus();
@@ -77,10 +83,17 @@ export default function AddArticlBtn() {
       <div
         //   onClick={handleNewArticle}
         onClick={() => setOpen(true)}
-        className="h-[30px] w-[110px] flex gap-1 items-center justify-center text-sm text-white bg-indigo-500 hover:bg-indigo-600 font-semibold rounded-[4px] cursor-pointer"
+        className={cn(
+          "flex gap-1 items-center justify-center text-sm text-white bg-indigo-500 hover:bg-indigo-600 font-semibold rounded-[4px] cursor-pointer",
+          size === "sm"
+            ? "text-sm h-[30px] px-2"
+            : size === "md"
+            ? "text-base h-[40px] px-4"
+            : "text-base h-[50px] px-6"
+        )}
       >
-        <CgAdd size={20} />
-        add article
+        {size === "sm" && <CgAdd size={20} />}
+        {text}
       </div>
       <ModalWrapper open={open} onClose={() => setOpen(false)}>
         <div className="bg-white rounded-lg pt-10 p-6 w-[400px] flex flex-col gap-2 relative overflow-hidden">
@@ -119,11 +132,11 @@ export default function AddArticlBtn() {
           <div
             onClick={handleCreateArticle}
             className={cn(
-              "h-[50px] w-full flex gap-1 items-center justify-center text-lg text-white bg-indigo-500 hover:bg-indigo-600 font-semibold rounded-[4px] cursor-pointer",
+              "h-[50px] w-full flex gap-1 items-center justify-center text-lg text-white bg-indigo-500 hover:bg-indigo-600 rounded-[4px] cursor-pointer",
               articleName.length < 5 ? "opacity-50 pointer-events-none" : ""
             )}
           >
-            Add article
+            Submit
           </div>
         </div>
       </ModalWrapper>

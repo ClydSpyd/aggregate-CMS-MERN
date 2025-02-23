@@ -52,7 +52,7 @@ export default function EditWrapper({
   return editData[keyName] ? (
     <div
       ref={editRef}
-      className="w-full border  transition-all duration-300 border-slate-300 px-6 rounded-lg cursor-pointer relative group my-2 py-4"
+      className="w-full border  transition-all duration-300 px-6 rounded-lg cursor-pointer relative group py-4"
     >
       {" "}
       {keyName === "title" ? (
