@@ -6,6 +6,7 @@ import ArticleImagePicker from "./article-image-picker";
 import EditWrapper from "./edit-wrapper";
 import ArticleListItems from "./article-list-items";
 import ArticleContentEditor from "./article-content-editor";
+import ArticleSlideItems from "./article-slide-items";
 
 export default function ArticleView({
   articleData,
@@ -90,6 +91,13 @@ export default function ArticleView({
           {articleData.type === "list" && (
             <ArticleListItems
               items={articleData.listItems ?? []}
+              setArticleData={setArticleData}
+              articleData={articleData}
+            />
+          )}
+          {articleData.type === "slides" && (
+            <ArticleSlideItems
+              items={articleData.slideItems ?? []}
               setArticleData={setArticleData}
               articleData={articleData}
             />

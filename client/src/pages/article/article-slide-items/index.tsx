@@ -1,29 +1,37 @@
 import { Dispatch, SetStateAction } from "react";
-import ArticleListItem from "./article-list-item";
+import ArticleSlideItem from "./article-slide-item";
 import API from "../../../api";
 
-const blankItem: ListItemData = { imgUrl: "", title: "", textContent: "" };
-export default function ArticleListItems({
+const blankItem: SlideItem = {
+  type: "image",
+  imgUrl: "",
+  title: "",
+  textContent: "",
+};
+
+export default function ArticleSlideItems({
   items,
   setArticleData,
   articleData,
 }: {
-  items: ListItemData[];
+  items: SlideItem[];
   setArticleData: Dispatch<SetStateAction<Article>>;
   articleData: Article;
 }) {
   const addItem = () => {
     setArticleData((prev) => ({
       ...prev,
-      listItems: prev.listItems ? [...prev.listItems, blankItem] : [blankItem],
+      slideItems: prev.slideItems
+        ? [...prev.slideItems, blankItem]
+        : [blankItem],
     }));
   };
 
-  const updateItem = (index: number, item: ListItemData) => {
+  const updateItem = (index: number, item: SlideItem) => {
     const payload = () => {
-      const updatedItems = [...articleData.listItems!];
+      const updatedItems = [...articleData.slideItems!];
       updatedItems[index] = item;
-      return { ...articleData, listItems: updatedItems };
+      return { ...articleData, slideItems: updatedItems };
     }
     setArticleData(payload());
     API.article.updateArticle(articleData._id, payload());
@@ -31,9 +39,9 @@ export default function ArticleListItems({
 
   return !items.length ? (
     <div className="w-full flex flex-col items-center justify-center border rounded-lg p-4 py-8">
-      <h1 className="text-lg font-semibold m-0">No list items added</h1>
+      <h1 className="text-lg font-semibold m-0">No slides added</h1>
       <p className="text-slate-400 font-thin">
-        List articles cannot be published without list content
+        Slideshow articles cannot be published without list content
       </p>
       <div
         onClick={addItem}
@@ -45,7 +53,7 @@ export default function ArticleListItems({
   ) : (
     <div className="w-full flex flex-col gap-2">
       {items.map((item, idx) => (
-        <ArticleListItem
+        <ArticleSlideItem
           key={`list_item_${idx}`}
           idx={idx}
           item={item}

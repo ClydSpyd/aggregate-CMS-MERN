@@ -1,49 +1,58 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { CgAddR } from "react-icons/cg";
 import { useCallback, useEffect, useState } from "react";
 import { cn, debounce } from "../../../lib/utilities";
 import InputField from "../../../components/utility-comps/input-field";
-import { TbPhotoEdit } from "react-icons/tb";
-import TooltipWrapper from "../../../components/utility-comps/tooltip-wrapper";
 import LinkSelectorModal from "../../../components/link-selector-modal";
+import { CgAddR } from "react-icons/cg";
+import TooltipWrapper from "../../../components/utility-comps/tooltip-wrapper";
+import { TbPhotoEdit } from "react-icons/tb";
 
-export default function ArticleListItem({
+export default function ArticleSlideItem({
   item,
   updateItem,
-  idx
+  idx,
 }: {
-  item: ListItemData;
+  item: SlideItem;
   idx: number;
-  updateItem: (index: number, item: ListItemData) => void;
+  updateItem: (index: number, item: SlideItem) => void;
 }) {
-  const [itemData, setItemData] = useState<ListItemData>(item);
+  const [itemData, setItemData] = useState<SlideItem>(item);
 
   useEffect(() => {
     handleSave(itemData);
-  }
-  , [itemData]);
+  }, [itemData]);
 
   const handleUpdate = (key: keyof ListItemData, value: string) => {
     setItemData((prev) => ({
       ...prev,
       [key]: value,
     }));
-  }
+  };
 
   const handleSave = useCallback(
-    debounce((data:ListItemData) => {
+    debounce((data: SlideItem) => {
       if (Object.values(data).includes("")) return;
       console.log("saving", data);
       updateItem(idx, data);
     }, 500),
     []
   );
+  const handleLinkUrl = (
+    imgUrl: string,
+    type?: SlideType,
+    videoUrl?: string
+  ) => {
+    console.log({ imgUrl, type, videoUrl });
+    setItemData((prev: SlideItem) => ({
+      ...prev,
+      imgUrl,
+      ...(type === "video" && { videoUrl }),
+    }));
+  };
 
   return (
     <div className="w-full flex gap-2 p-4 rounded-lg border h-[250px]">
-      <LinkSelectorModal
-        selectCallback={(url: string) => handleUpdate("imgUrl", url)}
-      >
+      <LinkSelectorModal selectCallback={handleLinkUrl}>
         <div
           className={cn(
             "h-full w-[250px] flex items-center justify-center rounded-md border hover:border-indigo-500 transition-all duration-300 cursor-pointer group overflow-hidden relative"
@@ -75,12 +84,12 @@ export default function ArticleListItem({
       </LinkSelectorModal>
       <div className="h-full grow flex flex-col gap-2">
         <InputField
-          placeholder="Card Heading"
+          placeholder="Slide Heading"
           value={itemData.title}
           onChange={(val: string) => handleUpdate("title", val)}
         />
         <textarea
-          placeholder="Card Content"
+          placeholder="Slide Content"
           onChange={(e) => handleUpdate("textContent", e.target.value)}
           value={itemData.textContent}
           className="resize-none border p-2 rounded-sm w-full grow"

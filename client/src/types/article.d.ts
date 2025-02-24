@@ -36,12 +36,24 @@ interface ListItemData {
   textContent: string;
 }
 
-interface SlideItem {
-  type: 'image' | 'video';
+interface ImageSlideItem {
+  type: 'image';
   title: string;
   textContent: string;
-  src: string;
+  imgUrl: string;
 }
+
+interface VideoSlideItem {
+  type: 'video';
+  title: string;
+  textContent: string;
+  imgUrl: string;
+  videoUrl: string;
+}
+
+declare type SlideType = 'image' | 'video';
+
+declare type SlideItem = ImageSlideItem | VideoSlideItem;
 
 declare interface Article {
   _id: string;
