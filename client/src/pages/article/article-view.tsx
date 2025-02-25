@@ -14,9 +14,9 @@ export default function ArticleView({
 }: ArticleViewProps) {
   const { showToast } = useNotification();
   const [edit, setEdit] = useState<EditData>({
-    title: true,
-    caption: true,
-    content: true,
+    title: false,
+    caption: false,
+    content: false,
   });
 
   const toggleEdit = (key: keyof EditData) => {
