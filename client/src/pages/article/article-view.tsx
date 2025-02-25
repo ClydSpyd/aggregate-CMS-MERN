@@ -14,9 +14,9 @@ export default function ArticleView({
 }: ArticleViewProps) {
   const { showToast } = useNotification();
   const [edit, setEdit] = useState<EditData>({
-    title: false,
-    caption: false,
-    content: false,
+    title: true,
+    caption: true,
+    content: true,
   });
 
   const toggleEdit = (key: keyof EditData) => {
@@ -56,7 +56,7 @@ export default function ArticleView({
             saveCallback={handleInputChange}
             initialValue={articleData.title}
             toggleEdit={toggleEdit}
-            inputClass="text-[55px] leading-[1.1] tracking-tighter font-bold text-indigo-500 my-4"
+            inputClass="h-[70px] text-[55px] leading-[1.2] tracking-tighter font-bold text-indigo-500"
           >
             <h1 className="text-[55px] leading-[1.1] tracking-tighter font-bold text-indigo-500 my-2">
               {articleData.title}

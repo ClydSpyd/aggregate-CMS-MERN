@@ -23,7 +23,6 @@ export default function ArticleContentEditor({
       content: html,
       rawContent: raw,
     }));
-
     try {
       API.article.updateArticle(articleData._id, {
         content: html,
@@ -51,13 +50,13 @@ export default function ArticleContentEditor({
   ) : (
     <div className="w-full border  transition-all duration-300 border-slate-300 px-6 rounded-lg cursor-pointer relative group my-2">
       <ArticleTextEditor
+        autosave={true}
         show={true}
         noToolbar={articleData.type === "list"}
         setShow={() => toggleEdit("content")}
         articleData={articleData}
         handleContentChange={(...rest) => {
           handleContentChange(...rest);
-          toggleEdit("content");
         }}
       />
     </div>

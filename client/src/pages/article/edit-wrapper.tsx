@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { HoverWrapper } from "../../components/utility-comps/hover-wrapper";
-import { cn } from "../../lib/utilities";
+import { cn, debounce } from "../../lib/utilities";
 import useOutsideClick from "../../hooks/useOutsideClick";
 
 interface EditData {
@@ -31,10 +31,6 @@ export default function EditWrapper({
   const editRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const handleSave = () => {
-    saveCallback(inputVal, keyName);
-    toggleEdit(keyName);
-  };
 
   useOutsideClick(editRef, () => {
     if (!editData[keyName]) return;
@@ -49,35 +45,56 @@ export default function EditWrapper({
     }
   }, [editData[keyName]]);
 
+  const debounceUpdate = useCallback(
+    debounce((input:string) => {
+      saveCallback(input, keyName);
+    }, 700),
+    []
+  );
+
+  const autoResize = () => {
+    if (textAreaRef?.current) {
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+    }
+  };
+
   return editData[keyName] ? (
     <div
       ref={editRef}
-      className="w-full border  transition-all duration-300 px-6 rounded-lg cursor-pointer relative group py-4"
+      className="w-full border  transition-all duration-300 px-6 rounded-lg cursor-pointer relative group py-6"
     >
       {" "}
       {keyName === "title" ? (
         <textarea
+          onBlur={() => toggleEdit(keyName)}
           ref={textAreaRef}
-          className={cn("w-full text-center", inputClass ?? "")}
+          className={cn(
+            "h-fit resize-none w-full text-center",
+            inputClass ?? ""
+          )}
           value={inputVal}
-          onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-            setInputVal(e.target.value)
-          }
+          onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            setInputVal(e.target.value);
+            debounceUpdate(e.target.value);
+          }}
           id=""
+          onChange={autoResize}
         />
       ) : (
         <input
+          onBlur={() => toggleEdit(keyName)}
           ref={inputRef}
           className={cn("w-full text-center", inputClass ?? "")}
           type="text"
           value={inputVal}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setInputVal(e.target.value)
-          }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>{
+              setInputVal(e.target.value);
+              debounceUpdate(e.target.value);
+            }}
           id=""
         />
       )}
-      <div
+      {/* <div
         onClick={handleSave}
         className={cn(
           "absolute bottom-4 h-[40px] w-[160px] flex items-center justify-center border rounded-md cursor-pointer  bg-indigo-500 text-white hover:bg-indigo-600 hover:text-white transition-colors duration-200 pointer-events-auto z-50",
@@ -85,7 +102,7 @@ export default function EditWrapper({
         )}
       >
         SAVE
-      </div>
+      </div> */}
     </div>
   ) : (
     <HoverWrapper

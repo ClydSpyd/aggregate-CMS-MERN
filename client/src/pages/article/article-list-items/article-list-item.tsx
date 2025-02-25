@@ -6,6 +6,7 @@ import InputField from "../../../components/utility-comps/input-field";
 import { TbPhotoEdit } from "react-icons/tb";
 import TooltipWrapper from "../../../components/utility-comps/tooltip-wrapper";
 import LinkSelectorModal from "../../../components/link-selector-modal";
+import { useNotification } from "../../../contexts/notification-context";
 
 export default function ArticleListItem({
   item,
@@ -15,6 +16,7 @@ export default function ArticleListItem({
   updateItem: (item: ListItemData) => void;
 }) {
   const [itemData, setItemData] = useState<ListItemData>(item);
+  const { showToast } = useNotification();
 
   const handleUpdate = (key: keyof ListItemData, value: string) => {
     console.log("HANDLE UPDATE", key, value);
@@ -23,13 +25,12 @@ export default function ArticleListItem({
       [key]: value,
     }));
     handleSave({ ...itemData, [key]: value });
-  }
+  };
 
   const handleSave = useCallback(
-    debounce((data:ListItemData) => {
-      console.log("HANDLE SAVE", data);
+    debounce((data: ListItemData) => {
       if (Object.values(data).includes("")) return;
-      console.log("HANDLE SAVE - SAVING", data);
+      showToast("CRAIG LIKES WILLIES", "success");
       updateItem(data);
     }, 500),
     []

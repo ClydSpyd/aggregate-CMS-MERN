@@ -6,6 +6,7 @@ import LinkSelectorModal from "../../../components/link-selector-modal";
 import { CgAddR } from "react-icons/cg";
 import TooltipWrapper from "../../../components/utility-comps/tooltip-wrapper";
 import { TbPhotoEdit } from "react-icons/tb";
+import { useNotification } from "../../../contexts/notification-context";
 
 export default function ArticleSlideItem({
   item,
@@ -15,6 +16,7 @@ export default function ArticleSlideItem({
   updateItem: (item: SlideItem) => void;
 }) {
   const [itemData, setItemData] = useState<SlideItem>(item);
+  const { showToast } = useNotification();
 
   const handleUpdate = (key: keyof SlideItem, value: string) => {
     setItemData((prev) => ({
@@ -26,9 +28,8 @@ export default function ArticleSlideItem({
 
   const handleSave = useCallback(
     debounce((data: SlideItem) => {
-      console.log("HANDLE SAVE", data);
       if (Object.values(data).includes("")) return;
-      console.log("saving", data);
+      showToast("Article updated", "success");
       updateItem(data);
     }, 500),
     []
