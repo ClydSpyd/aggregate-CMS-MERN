@@ -42,12 +42,22 @@ export default function ArticleSlideItem({
     type?: SlideType,
     videoUrl?: string
   ) => {
-    console.log({ imgUrl, type, videoUrl });
-    setItemData((prev: SlideItem) => ({
-      ...prev,
-      imgUrl,
-      ...(type === "video" && { videoUrl }),
-    }));
+    setItemData((prev: SlideItem) => {
+      if (type === "video") {
+        return {
+          ...prev,
+          type,
+          imgUrl,
+          videoUrl,
+        } as VideoSlideItem;
+      } else {
+        return {
+          ...prev,
+          type,
+          imgUrl,
+        } as ImageSlideItem;
+      }
+    });
   };
 
   return (
@@ -70,7 +80,7 @@ export default function ArticleSlideItem({
                   "absolute z-20 transition-all duration-300 ease-in group-hover:opacity-100 opacity-0"
                 )}
               >
-                <TooltipWrapper message="update photo">
+                <TooltipWrapper message="update item">
                   <div className="h-[55px] w-[55px] cursor-pointer flex items-center justify-center border border-slate-400 rounded-md transition-all duration-200 bg-white text-slate-500 hover:text-indigo-500 hover:border-indigo-500">
                     <TbPhotoEdit size={35} />
                   </div>

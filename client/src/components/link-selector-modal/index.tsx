@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ModalWrapper from "../utility-comps/modal-wrapper";
 import ImgSelector from "./img-selector";
+import VideoSelector from "./video-selector";
 
 export default function LinkSelectorModal({
   selectCallback,
@@ -57,7 +58,7 @@ export default function LinkSelectorModal({
           {type === "image" ? (
             <ImgSelector selectCallback={handleUpdate} />
           ) : (
-            <p>video</p>
+            <VideoSelector selectCallback={handleUpdate} />
           )}
         </div>
       </ModalWrapper>
