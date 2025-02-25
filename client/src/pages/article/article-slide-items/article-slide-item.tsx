@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { cn, debounce } from "../../../lib/utilities";
 import InputField from "../../../components/utility-comps/input-field";
 import LinkSelectorModal from "../../../components/link-selector-modal";
@@ -10,54 +10,53 @@ import { TbPhotoEdit } from "react-icons/tb";
 export default function ArticleSlideItem({
   item,
   updateItem,
-  idx,
 }: {
   item: SlideItem;
-  idx: number;
-  updateItem: (index: number, item: SlideItem) => void;
+  updateItem: (item: SlideItem) => void;
 }) {
   const [itemData, setItemData] = useState<SlideItem>(item);
 
-  useEffect(() => {
-    handleSave(itemData);
-  }, [itemData]);
-
-  const handleUpdate = (key: keyof ListItemData, value: string) => {
+  const handleUpdate = (key: keyof SlideItem, value: string) => {
     setItemData((prev) => ({
       ...prev,
       [key]: value,
     }));
+    handleSave({ ...itemData, [key]: value });
   };
 
   const handleSave = useCallback(
     debounce((data: SlideItem) => {
+      console.log("HANDLE SAVE", data);
       if (Object.values(data).includes("")) return;
       console.log("saving", data);
-      updateItem(idx, data);
+      updateItem(data);
     }, 500),
     []
   );
+
   const handleLinkUrl = (
     imgUrl: string,
     type?: SlideType,
     videoUrl?: string
   ) => {
-    setItemData((prev: SlideItem) => {
+    const getPayload = () => {
       if (type === "video") {
         return {
-          ...prev,
+          ...itemData,
           type,
           imgUrl,
           videoUrl,
         } as VideoSlideItem;
       } else {
         return {
-          ...prev,
+          ...itemData,
           type,
           imgUrl,
         } as ImageSlideItem;
       }
-    });
+    };
+    setItemData(getPayload());
+    handleSave(getPayload());
   };
 
   return (

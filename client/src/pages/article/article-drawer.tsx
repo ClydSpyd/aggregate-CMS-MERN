@@ -21,7 +21,6 @@ const extractDomain = (url: string) => {
 };
 
 export default function ArticleDrawer({
-  handleTags,
   articleData,
 }: ArticleDrawerProps) {
   const [primary, setPrimary] = useState<boolean>(articleData.highlight.includes("primary"));
@@ -48,6 +47,12 @@ export default function ArticleDrawer({
       highlight: arr,
     });
   };
+  
+    const handleTags = (tags: string[]) => {
+      API.article.updateArticle(articleData._id, {
+        tags,
+      });
+    }
 
   const publishable = isPublishable(articleData);
 

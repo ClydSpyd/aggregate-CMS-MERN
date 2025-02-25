@@ -31,20 +31,23 @@ declare interface FeedItem {
 }
 
 interface ListItemData {
+  id: string;
   imgUrl: string;
   title: string;
   textContent: string;
 }
 
 interface ImageSlideItem {
-  type: 'image';
+  id: string;
+  type: "image";
   title: string;
   textContent: string;
   imgUrl: string;
 }
 
 interface VideoSlideItem {
-  type: 'video';
+  id: string;
+  type: "video";
   title: string;
   textContent: string;
   imgUrl: string;

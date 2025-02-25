@@ -10,13 +10,12 @@ import InputField from "../../components/utility-comps/input-field";
 import { useEffect, useState } from "react";
 import ImagePicker from "./components/image-picker";
 // import spinner from "@root/assets/loaders/spinner-indigo.svg";
-import { v4 as uuidv4 } from 'uuid';
 import Queue from "./components/queue";
 import AddArticlBtn from "./components/add-article-btn";
 
 export default function CreatePage() {
   const isFirstRender = useIsFirstRender()
-  const { queuedItems, setQueuedItems } = useQueue();
+  const { queuedItems } = useQueue();
   const [emptyQueue, setEmptyQueue] = useState(false); 
 
   const {

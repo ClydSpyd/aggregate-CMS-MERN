@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../api";
-import { cn, debounce } from "../../lib/utilities";
+import { cn } from "../../lib/utilities";
 import { FaChevronCircleRight } from "react-icons/fa";
 import ArticleDrawer from "./article-drawer";
 import ArticleView from "./article-view";
@@ -27,21 +27,6 @@ export default function ArticlePage() {
     getArticle();
   }, [articleId]);
 
-  const debouncedUpdate = useCallback(
-    debounce((id: string, val: Record<string, string | string[]>) => {
-      API.article.updateArticle(id, val);
-    }, 500),
-    []
-  );
-
-  const handleTags = (value: string[]) => {
-    setArticleData((prev: Article) => ({
-      ...prev,
-      tags: value,
-    }));
-    debouncedUpdate(articleData._id, { tags: value });
-  };
-
   return (
     <div className="h-full w-screen flex items-center justify-center overflow-hidden">
       {!articleData._id ? (
@@ -54,10 +39,7 @@ export default function ArticlePage() {
               drawerOpen ? "w-[400px]" : "w-[20px]"
             )}
           >
-            <ArticleDrawer
-              articleData={articleData}
-              handleTags={handleTags}
-            />
+            <ArticleDrawer articleData={articleData} />
             <div
               className="absolute-vert right-[-10px] cursor-pointer"
               onClick={() => setDrawrOpen(!drawerOpen)}

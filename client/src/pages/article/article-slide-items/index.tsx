@@ -1,13 +1,16 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import ArticleSlideItem from "./article-slide-item";
 import API from "../../../api";
+import { v4 as uuidv4 } from 'uuid';
+import { cn } from "../../../lib/utilities";
 
-const blankItem: SlideItem = {
+const blankItem = (id:string): SlideItem => ({
+  id,
   type: "image",
   imgUrl: "",
   title: "",
   textContent: "",
-};
+});
 
 export default function ArticleSlideItems({
   items,
@@ -18,23 +21,25 @@ export default function ArticleSlideItems({
   setArticleData: Dispatch<SetStateAction<Article>>;
   articleData: Article;
 }) {
+  const [canAddItem, setCanAddItem] = useState(true);
+  
   const addItem = () => {
+    setCanAddItem(false);
+    const newItem = blankItem(uuidv4());
     setArticleData((prev) => ({
       ...prev,
-      slideItems: prev.slideItems
-        ? [...prev.slideItems, blankItem]
-        : [blankItem],
+      slideItems: prev.slideItems ? [...prev.slideItems, newItem] : [newItem],
     }));
   };
 
-  const updateItem = (index: number, item: SlideItem) => {
-    const payload = () => {
-      const updatedItems = [...articleData.slideItems!];
-      updatedItems[index] = item;
-      return { ...articleData, slideItems: updatedItems };
-    }
-    setArticleData(payload());
-    API.article.updateArticle(articleData._id, payload());
+  const updateItem = (item: SlideItem) => {
+    const updatedItems = [...articleData.slideItems!];
+    const index = updatedItems.findIndex((i) => i.id === item.id);
+    updatedItems[index] = item;
+    API.article.updateArticle(articleData._id, {
+      slideItems: updatedItems.filter((i) => i !== null),
+    });
+    setCanAddItem(true);
   };
 
   return !items.length ? (
@@ -55,13 +60,18 @@ export default function ArticleSlideItems({
       {items.map((item, idx) => (
         <ArticleSlideItem
           key={`list_item_${idx}`}
-          idx={idx}
           item={item}
           updateItem={updateItem}
         />
       ))}
       <div className="w-[300px] mx-auto">
-        <div onClick={addItem} className="button-main !w-full !h-[50px]">
+        <div
+          onClick={addItem}
+          className={cn(
+            "button-main !w-full !h-[50px]",
+            !canAddItem ? "opacity-30 pointer-events-none" : ""
+          )}
+        >
           Add Item
         </div>
       </div>

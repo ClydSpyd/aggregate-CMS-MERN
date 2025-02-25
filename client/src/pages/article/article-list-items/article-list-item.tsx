@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { CgAddR } from "react-icons/cg";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { cn, debounce } from "../../../lib/utilities";
 import InputField from "../../../components/utility-comps/input-field";
 import { TbPhotoEdit } from "react-icons/tb";
@@ -10,31 +10,27 @@ import LinkSelectorModal from "../../../components/link-selector-modal";
 export default function ArticleListItem({
   item,
   updateItem,
-  idx
 }: {
   item: ListItemData;
-  idx: number;
-  updateItem: (index: number, item: ListItemData) => void;
+  updateItem: (item: ListItemData) => void;
 }) {
   const [itemData, setItemData] = useState<ListItemData>(item);
 
-  useEffect(() => {
-    handleSave(itemData);
-  }
-  , [itemData]);
-
   const handleUpdate = (key: keyof ListItemData, value: string) => {
+    console.log("HANDLE UPDATE", key, value);
     setItemData((prev) => ({
       ...prev,
       [key]: value,
     }));
+    handleSave({ ...itemData, [key]: value });
   }
 
   const handleSave = useCallback(
     debounce((data:ListItemData) => {
+      console.log("HANDLE SAVE", data);
       if (Object.values(data).includes("")) return;
-      console.log("saving", data);
-      updateItem(idx, data);
+      console.log("HANDLE SAVE - SAVING", data);
+      updateItem(data);
     }, 500),
     []
   );
@@ -42,6 +38,7 @@ export default function ArticleListItem({
   return (
     <div className="w-full flex gap-2 p-4 rounded-lg border h-[250px]">
       <LinkSelectorModal
+        singleType="image"
         selectCallback={(url: string) => handleUpdate("imgUrl", url)}
       >
         <div

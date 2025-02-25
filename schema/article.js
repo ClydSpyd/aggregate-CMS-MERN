@@ -3,38 +3,34 @@ const mongoose = require("mongoose");
 const slideItemSchema = new mongoose.Schema({
   type: {
     type: String,
-    enum: ['image', 'video'],
-    required: true,
+    enum: ["image", "video"],
   },
   title: {
     type: String,
-    required: true,
     trim: true,
   },
   textContent: {
     type: String,
-    required: true,
     trim: true,
   },
-  src: {
+  imgUrl: {
     type: String,
-    required: true,
+  },
+  videoUrl: {
+    type: String,
   },
 });
 
 const listItemSchema = new mongoose.Schema({
   imgUrl: {
     type: String,
-    required: true,
   },
   title: {
     type: String,
-    required: true,
     trim: true,
   },
   textContent: {
     type: String,
-    required: true,
     trim: true,
   },
 });

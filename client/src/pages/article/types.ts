@@ -1,6 +1,5 @@
 export interface ArticleDrawerProps {
   articleData: Article;
-  handleTags: (value: string[]) => void;
 }
 
 export interface ArticleViewProps {
