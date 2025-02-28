@@ -9,7 +9,7 @@
     "build-client": "npm run build --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "prod": "NODE_ENV=production nodemon server.js",
-    "deploy-build": "npm install && npm install --prefix client && npm run build --prefix client"
+    "deploy-build": "npm install && npm install --prefix client && NODE_OPTIONS='--max_old_space_size=4096' npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
