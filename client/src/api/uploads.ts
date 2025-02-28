@@ -2,14 +2,17 @@ import { AxiosError } from "axios";
 import { uploadClient } from ".";
 import { ApiResponse } from "./types";
 
-export const uploadFumctions = {
-  image: async (file: File): Promise<ApiResponse<{ url: string }>> => {
+export const uploadFunctions = {
+  image: async (
+    file: File,
+    bucketFolder?: string
+  ): Promise<ApiResponse<{ url: string }>> => {
     try {
       if (!file) throw new Error("No file provided");
       const formData = new FormData();
       formData.append("image", file);
       const { data, status } = await uploadClient.post(
-        `/upload/image`,
+        `/upload/image${bucketFolder ? `?folder=${bucketFolder}` : ""}`,
         formData
       );
       return { data, status };

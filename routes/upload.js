@@ -8,10 +8,10 @@ router.post("/image", multerInstance.single("image"), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded." });
     }
-
+    const { folder } = req.query;
     const file = req.file;
     const bucketName = process.env.S3_BUCKET_NAME;
-    const key = `uploads/${Date.now()}_${file.originalname}`;
+    const key = `${folder ?? "uploads"}/${Date.now()}_${file.originalname}`;
 
     // Set upload params
     const uploadParams = {

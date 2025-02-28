@@ -1,5 +1,6 @@
 import TabbedSection from "../../../../components/utility-comps/tabbed-section";
 import UsersAdmin from "../components/users-admin";
+import UsersAuthors from "../components/users-authors";
 import UsersClient from "../components/users-client";
 // import { useDashboard } from "../../../../contexts/dash-contenxt";
 
@@ -22,6 +23,10 @@ export default function DashUsers(){
         label: "Client Users",
         content: <UsersClient />,
       },
+      {
+        label: "Authors",
+        content: <UsersAuthors />,
+      }
     ];
 
     return (

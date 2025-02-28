@@ -3,9 +3,11 @@ import { baseClient } from ".";
 import { ApiResponse } from "./types";
 
 export const assetsFuntions = {
-  getAllImgs: async (): Promise<ApiResponse<string[]>> => {
+  getAllImgs: async (bucketPath?: string): Promise<ApiResponse<string[]>> => {
     try {
-      const { data, status } = await baseClient.get("/assets/images/uploads");
+      const { data, status } = await baseClient.get(
+        `/assets/images/${bucketPath ?? "uploads"}`
+      );
       return { status, data };
     } catch (error) {
       console.error(`Error fetching images:`, error);

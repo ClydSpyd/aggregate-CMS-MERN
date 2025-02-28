@@ -36,7 +36,8 @@ InputFieldProps) {
       onClick={hanldleContainerClick}
       className={cn(
         "cursor-text h-[60px] w-full flex items-center justify-center bg-white border rounded-sm relative",
-        additionalClass ? `${additionalClass}` : ""
+        additionalClass ? `${additionalClass}` : "",
+        isFocused ? "hover:border-gray-200" : ""
       )}
     >
       {/* hidden input to prevent autofill */}

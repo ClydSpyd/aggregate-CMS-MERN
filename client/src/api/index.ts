@@ -1,7 +1,7 @@
 import axios from "axios";
 import { feedFunctions } from "./feeds";
 import { articleFunctions } from "./article";
-import { uploadFumctions } from "./uploads";
+import { uploadFunctions } from "./uploads";
 import { authFunctions } from "./auth";
 import { configFunctions } from "./config";
 import { userFunctions } from "./user";
@@ -42,7 +42,7 @@ baseClient.interceptors.response.use(
 const API = {
   feed: feedFunctions,
   article: articleFunctions,
-  upload: uploadFumctions,
+  upload: uploadFunctions,
   auth: authFunctions,
   config: configFunctions,
   user: userFunctions,

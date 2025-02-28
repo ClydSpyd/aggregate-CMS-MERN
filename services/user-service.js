@@ -3,6 +3,7 @@ const AdminUser = require("../schema/user-admin")
 const ClientUser = require("../schema/user-client")
 const jwt = require('jsonwebtoken');
 const { TOKEN_LIFESPAN } = require("../constants");
+const userAuthor = require("../schema/user-author");
 
 // create new admin user
 const createNewUser = async ({ username, email, password, role, avatarUrl }) => {
@@ -52,9 +53,34 @@ const createNewClientUser = async ({ username, email, password, role, avatarUrl 
   }
 }
 
+// create new author user
+const createNewAuthor = async ({ name, location, avatarUrl }) => {
+  try {
+
+    // create user
+    const newUser = new userAuthor({
+      name,
+      location,
+      avatarUrl,
+    })
+
+    // save user
+    await newUser.save()
+
+    return { newUser }
+  } catch (error) {
+    return { error }
+  }
+}
+
 const getUsers = async (client) => {
   return client ? await ClientUser.find() : await AdminUser.find();
 };
+
+const getAuthors = async (client) => {
+  return await userAuthor.find();
+};
+
 const getUserById = async (userId) => {
   return await AdminUser.findOne({ _id: userId })
 }
@@ -91,11 +117,13 @@ const isValidEmail = (value) => {
 module.exports = {
   createNewUser,
   createNewClientUser,
+  createNewAuthor,
   getUsers,
   getUserById,
+  getAuthors,
   findUserByUsername,
   findUserByEmail,
   findUserByEmailWithPassword,
   isValidEmail,
   generateAccessToken,
-}
+};

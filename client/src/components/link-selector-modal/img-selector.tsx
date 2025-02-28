@@ -5,8 +5,10 @@ import { cn } from "../../lib/utilities";
 
 export default function ImgSelector({
   selectCallback,
+  bucketPath,
 }: {
   selectCallback: (imgUrl: string, type: SlideType, videoUrl?: string) => void;
+  bucketPath?: string;
 }) {
   const [imgs, setImgs] = useState<string[] | null>(null);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
@@ -15,7 +17,9 @@ export default function ImgSelector({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const fetchImgs = async () => {
-    const { data, error } = await API.assets.getAllImgs();
+    const { data, error } = await API.assets.getAllImgs(
+      bucketPath ?? undefined
+    );
     if (data) {
       setImgs(
         data.filter(
@@ -40,7 +44,7 @@ export default function ImgSelector({
     setLoading(true);
     const file = e.target.files?.[0];
     if (file) {
-      const { data, error } = await API.upload.image(file);
+      const { data, error } = await API.upload.image(file, bucketPath);
       if (data) {
         selectCallback(data.url, "image");
       } else {

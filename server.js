@@ -23,6 +23,7 @@ app.use("/api/article", require('./routes/article'));
 app.use("/api/upload", require('./routes/upload'));
 app.use("/api/user/admin", require('./routes/user-admin'));
 app.use("/api/user/client", require('./routes/user-client'));
+app.use("/api/user/author", require('./routes/user-author'));
 app.use("/api/auth", require('./routes/auth'));
 app.use("/api/utility", require('./routes/utility'));
 app.use("/api/config", require('./routes/config'));
