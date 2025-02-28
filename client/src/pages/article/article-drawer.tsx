@@ -8,6 +8,7 @@ import Checkbox from "../../components/utility-comps/checkbox";
 import API from "../../api";
 import { cn } from "../../lib/utilities";
 import { isPublishable } from "../create/helpers";
+import DisplayAuthorSelector from "../../components/author-selector/display-author-selector";
 
 const formatDate = (date: Date) => {
   return format(date, "do MMM yyyy");
@@ -56,6 +57,12 @@ export default function ArticleDrawer({
 
   const publishable = isPublishable(articleData);
 
+  const handleDisplayAuthor = (val: string) => {
+    // setSelected(val);
+    API.article.updateArticle(articleData._id, { displayAuthor: val });
+  }
+
+
   return (
     <div className="h-[calc(100%-30px)] w-[370px] absolute right-4 top-4 flex flex-col no-bar-scroll-container">
       <div className="flex flex-col gap-2 grow">
@@ -99,6 +106,15 @@ export default function ArticleDrawer({
                 alt={articleData.author.username + "_avatar"}
               />
             </div>
+          </div>
+        </div>
+        <div className="px-2 pl-4 h-[60px] w-full flex gap-2 items-center justify-between bg-white border rounded-sm relative">
+          <p className={"text-[#a0a0a0]"}>Display Author:</p>
+          <div className="grow border h-[50px] flex items-center gap-1 relative z-20">
+            <DisplayAuthorSelector
+              onChange={handleDisplayAuthor}
+              defaultSelected={articleData?.displayAuthor?._id ?? null}
+            />
           </div>
         </div>
         <div className="px-4 h-[60px] w-full flex items-center justify-between bg-white border rounded-sm relative">

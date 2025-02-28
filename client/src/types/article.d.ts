@@ -80,4 +80,9 @@ declare interface Article {
     username: string;
     avatarUrl: string;
   };
+  displayAuthor?: AuthorData;
+}
+
+declare type ArticleDBPayload = Partial<Omit<Article, 'displayAuthor'>> & {
+  displayAuthor?: string;
 }

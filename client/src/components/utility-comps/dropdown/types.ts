@@ -3,4 +3,5 @@ export interface DropwdownProps {
   selected: string | null;
   onChange: (value: string | null) => void;
   additionalClass?: string;
+  defaultIdxZero?: boolean;
 }

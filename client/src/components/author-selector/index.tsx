@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
-import Dropdown from "../utility-comps/dropdown";
+import {  useEffect, useState } from "react";
 import API from "../../api";
-import { FaUsers } from "react-icons/fa6";
+import SelectorWrapper from "./selector-wrapper";
 
-export default function AuthorSelector({
-  selected,
-  onChange,
-}: {
+interface BrowseFiltersProps {
+  onChange: (val: string) => void;
   selected: string | null;
-  onChange: (val: string | null) => void;
-}) {
+}
+
+export default function AuthorSelector({ onChange, selected }: BrowseFiltersProps) {
   const [authors, setAuthors] = useState<AdminUser[]>([]);
 
   useEffect(() => {
@@ -23,40 +21,13 @@ export default function AuthorSelector({
   }, []);
 
   return (
-    <div className="bg-white shadow-sm">
-      <div className="border p-2 flex flex-col gap-2 pb-4">
-        <p className="text-xs text-[#a0a0a0]">Author:</p>
-        <Dropdown
-          options={[
-            {
-              label: (
-                <div className="flex items-center gap-2">
-                  <div className="h-[35px] w-[35px] flex items-center justify-center rounded-full overflow-hidden bg-indigo-500">
-                    <FaUsers size={20} fill="white" />
-                  </div>
-                  <p className="text-md">All authors</p>
-                </div>
-              ),
-              value: null,
-            },
-            ...authors.map((author: AdminUser) => ({
-              label: (
-                <div className="flex items-center gap-2">
-                  <img
-                    src={author.avatarUrl}
-                    alt="avatar"
-                    className="h-[35px] w-[35px] rouneded-full overflow-hidden"
-                  />
-                  <p className="text-md">{author.username}</p>
-                </div>
-              ),
-              value: author._id,
-            })),
-          ]}
-          selected={selected}
-          onChange={onChange}
-        />
-      </div>
-    </div>
+    <SelectorWrapper<AdminUser>
+      withAllAuthors
+      options={authors}
+      displayValue="username"
+      selected={selected}
+      onChange={(val: string) => onChange(val)}
+      dropdownClass="border h-[50px]"
+    />
   );
 }

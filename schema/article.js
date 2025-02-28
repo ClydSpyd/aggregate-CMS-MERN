@@ -60,6 +60,11 @@ const articleSchema = new mongoose.Schema(
       ref: "AdminUser",
       required: true,
     },
+    displayAuthor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "AuthorUser",
+      required: false,
+    },
     imgUrl: {
       type: String,
       default: "",

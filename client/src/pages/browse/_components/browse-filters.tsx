@@ -124,10 +124,16 @@ export default function BrowseFilters({
           additionalClass="border-gray-300"
         />
       </div>
-      <AuthorSelector
-        selected={searchValues.author}
-        onChange={(val: string | null) => handleInputChange(val, "author")}
-      />
+
+      <div className="bg-white shadow-sm">
+        <div className="border p-2 flex flex-col gap-2 pb-4">
+          <p className="text-xs text-[#a0a0a0]">Author:</p>
+          <AuthorSelector
+            onChange={(val: string) => handleInputChange(val, "author")}
+            selected={searchValues.author}
+          />
+        </div>
+      </div>
       {/* <div className="grid grid-cols-2 border p-2 pb-4 gap-2 bg-white shadow-sm pointer-events-none opacity-40">
         <p className="text-xs text-[#a0a0a0] col-span-2">Date created:</p>
         <InputDate

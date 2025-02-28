@@ -68,7 +68,7 @@ export const articleFunctions = {
       return { error: err.message, status: 500 };
     }
   },
-  updateArticle: async (id: string, payload: Partial<Article>) => {
+  updateArticle: async (id: string, payload: ArticleDBPayload) => {
     try {
       const { data, status } = await baseClient.patch(
         `/article/update/${id}`,

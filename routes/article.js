@@ -13,7 +13,9 @@ router.use("/", filteringRoutes);
 // router.get("/all", verifyToken, async (req, res) => {
 router.get("/all", async (req, res) => {
   try {
-    const articles = await Article.find().populate("author", { username: 1, avatarUrl: 1 });
+    const articles = await Article.find()
+      .populate("author", { username: 1, avatarUrl: 1 })
+      .populate("displayAuthor", { name: 1, avatarUrl: 1 });
     res.json(articles);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -23,7 +25,9 @@ router.get("/all", async (req, res) => {
 // GET article by ID
 router.get("/id/:id", verifyToken, async (req, res) => {
   try {
-    const article = await Article.findById(req.params.id).populate("author", { username: 1, avatarUrl: 1 });
+    const article = await Article.findById(req.params.id)
+      .populate("author", { username: 1, avatarUrl: 1 })
+      .populate("displayAuthor", { name: 1, avatarUrl: 1 });
     if (article) {
       res.json(article);
     } else {
