@@ -84,8 +84,11 @@ export default function TableRow({
           </ContextMenuWrapper>
         </div>
         <div
+        style={{
+          backdropFilter: "blur(4px)",
+        }}
           className={cn(
-            "w-full h-full absolute top-0 left-0 bg-slate-100/60 backdrop-blur-sm flex gap-2 items-center justify-end px-12",
+            "w-full h-full absolute top-0 left-0 bg-slate-100/60 flex gap-2 items-center justify-end px-12",
             confirmDelete
               ? "scale-100 blur-none opacity-100 pointer-events-auto transition-all duration-200"
               : "scale-110 blur-md pointer-events-none opacity-0"
