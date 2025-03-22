@@ -7,6 +7,7 @@ import { cn, debounce, delay } from "../../../../../lib/utilities";
 import { FaUserPlus } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { TiDelete } from "react-icons/ti";
+import { useAdminUsers } from "../../../../../queries/user-data";
 
 const debounceInput = debounce(
     (
@@ -35,20 +36,15 @@ export default function UsersAdmin() {
   const [filteredUsers, setFilteredUsers] = useState<AdminUser[] | null>(null);
   const [searchInupt, setSearchInput] = useState<string>("");
 
+  const { data: authors, isLoading } = useAdminUsers();
+  
   useEffect(() => {
-    const fetchUsers = async () => {
-      const { data, error } = await API.user.getAllAdminUsers();
-      if (data) {
-        delay(500).then(() => {
-            setUsers(data);
-            setFilteredUsers(data);
-        });
-      } else if (error) {
-        console.error(error);
-      }
-    };
-    fetchUsers();
-  }, []);
+    if (!isLoading && authors) {
+      setUsers(authors);
+      setFilteredUsers(authors);
+    }
+  }
+  , [authors, isLoading]);
 
   return (
     <div className="w-full h-full flex flex-col">

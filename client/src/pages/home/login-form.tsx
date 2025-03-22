@@ -27,8 +27,10 @@ export default function LoginForm() {
   };
 
   const handleLogin = (e: React.FormEvent) => {
+    console.log("login form submitted");
     e.preventDefault();
     if (inputVals.username === "" || inputVals.password === "") return;
+    console.log("login form submitted with valid data");
     login(inputVals.username, inputVals.password);
   };
 

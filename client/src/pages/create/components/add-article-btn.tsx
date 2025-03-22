@@ -11,6 +11,7 @@ import { buildArticlePayload } from "../helpers";
 import { useAuth } from "../../../contexts/auth-context";
 import API from "../../../api";
 import { useNavigate } from 'react-router-dom';
+import { useRecentArticles } from "../../../queries/userArticles";
 
 
 interface ArticleOption {
@@ -52,6 +53,7 @@ export default function AddArticlBtn({
   const [open, setOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
+  const { refetch } = useRecentArticles();
   const navigate = useNavigate();
   useEffect(() => {
     if (!open) {
@@ -77,6 +79,7 @@ export default function AddArticlBtn({
     } else if (error) {
       console.log("failed to save article");
     }
+    refetch();
   };
   return (
     <>

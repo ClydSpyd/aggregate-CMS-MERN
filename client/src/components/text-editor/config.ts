@@ -1,10 +1,15 @@
-export const toolbarOptions = [
-  [{ size: ["small", false, "large", "huge"] }],
-  ["bold", "italic", "underline"],
-//   [{ header: 1 }, { header: 2 }],
-  [{ list: "ordered" }, { list: "bullet" }],
-//   [{ script: "sub" }, { script: "super" }],
-  [{ indent: "-1" }, { indent: "+1" }],
-  ["link", ],
-  ["clean"],
-];
+export const toolbarOptions = {
+  container: [
+    [{ size: ["small", false, "large", "huge"] }],
+    ["bold", "italic", "underline"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ indent: "-1" }, { indent: "+1" }],
+    ["link", "image"],
+    ["clean"],
+  ],
+  // handlers: {
+  //   image: function () {
+  //     console.log("image handler");
+  //   },
+  // },
+};

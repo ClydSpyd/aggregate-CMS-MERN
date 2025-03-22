@@ -35,10 +35,10 @@ export default function ArticleContentEditor({
   };
 
   return !edit.content ? (
-    <HoverWrapper onClick={() => toggleEdit("content")} additionalClass="my-2">
+    <HoverWrapper onClick={() => toggleEdit("content")} additionalClass="my-2 min-h-[400px]">
       {!!articleData.content.replaceAll("<p><br></p>", "").trim() ? (
         <div
-          className="text-left p-4"
+          className="text-left p-4 ql-editor"
           dangerouslySetInnerHTML={{ __html: articleData.content }}
         />
       ) : (
@@ -48,9 +48,8 @@ export default function ArticleContentEditor({
       )}
     </HoverWrapper>
   ) : (
-    <div className="w-full border  transition-all duration-300 border-slate-300 px-6 rounded-lg cursor-pointer relative group my-2">
+    <div className="w-full border min-h-[400px] transition-all duration-300 border-slate-300 px-4 rounded-lg cursor-pointer relative group my-2">
       <ArticleTextEditor
-        autosave={true}
         show={true}
         noToolbar={articleData.type === "list"}
         setShow={() => toggleEdit("content")}

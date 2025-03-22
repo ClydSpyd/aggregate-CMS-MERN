@@ -1,13 +1,13 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import AppLoader from "../../../../../components/app-loader";
-import API from "../../../../../api";
-import { cn, debounce, delay } from "../../../../../lib/utilities";
+import { cn, debounce } from "../../../../../lib/utilities";
 import { IoSearch } from "react-icons/io5";
 import { TiDelete } from "react-icons/ti";
 import TableHeader from "./table-header";
 import TableRow from "./table-row";
 import AuthorModal from "./author-modal";
 import { FaUserPlus } from "react-icons/fa";
+import { useAuthorUsers } from "../../../../../queries/user-data";
 
 const debounceInput = debounce(
     (
@@ -36,22 +36,18 @@ export default function UsersAuthors() {
   const [filteredUsers, setFilteredUsers] = useState<AuthorData[] | null>(null);
   const [searchInupt, setSearchInput] = useState<string>("");
 
+  const { data: authors, isLoading, refetch } = useAuthorUsers();
+  
   useEffect(() => {
-    const fetchUsers = async () => {
-      const { data, error } = await API.user.getAllAuthors();
-      if (data) {
-        delay(500).then(() => {
-            setUsers(data);
-            setFilteredUsers(data);
-        });
-      } else if (error) {
-        console.error(error);
-      }
-    };
-    fetchUsers();
-  }, []);
+    if (!isLoading && authors) {
+      setUsers(authors);
+      setFilteredUsers(authors);
+    }
+  }
+  , [authors, isLoading]);
 
   const handleAuthor = (user: AuthorData, action:"create"|"update"|"delete") => {
+    // refetch();
     let payload = [...users];
     switch (action) {
       case "create":
@@ -114,7 +110,7 @@ export default function UsersAuthors() {
       <div className="border rounded-lg flex flex-col justify-start grow overflow-x-auto">
         <TableHeader />
         <section className="p-1 rounded-md grow flex flex-col justify-start gap-1">
-          {!filteredUsers ? (
+          {isLoading ? (
             <AppLoader asChild spinnerOnly />
           ) : filteredUsers?.length === 0 ? (
             <div className="w-full flex items-center justify-center py-10">

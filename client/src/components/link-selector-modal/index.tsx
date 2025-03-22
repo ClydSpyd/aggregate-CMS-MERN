@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalWrapper from "../utility-comps/modal-wrapper";
 import ImgSelector from "./img-selector";
 import VideoSelector from "./video-selector";
@@ -7,13 +7,22 @@ export default function LinkSelectorModal({
   selectCallback,
   children,
   singleType,
+  closeCallback,
 }: {
   selectCallback: (imgUrl: string, type?: SlideType, videoUrl?: string) => void;
   children: React.ReactNode;
   singleType?: SlideType;
+  closeCallback?: () => void;
 }) {
   const [open, setOpen] = useState<boolean>(false);
   const [type, setType] = useState<SlideType>(singleType ?? "image");
+
+  useEffect(() => {
+    if (!open && closeCallback) {
+      closeCallback();
+    }
+  }
+  , [open]);
 
   const handleUpdate = (imgUrl: string, type: SlideType, videoUrl?: string) => {
     selectCallback(imgUrl, type, videoUrl);

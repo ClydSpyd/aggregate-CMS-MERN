@@ -3,14 +3,14 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import BrowseFilters from "./_components/browse-filters";
 import { ImWarning } from "react-icons/im";
 import API from "../../api";
-import { delay } from "../../lib/utilities";
 import ArticleCard from "../../components/article-card";
+import { useRecentArticles } from "../../queries/userArticles";
 
 interface BrowseProps {
   recentArticles: Article[];
   error: string | null;
   setError: Dispatch<SetStateAction<string | null>>;
-  refetchRecent: () => void;
+  refetchRecent: ReturnType<typeof useRecentArticles>["refetch"];
 }
 
 export default function BrowseContent({
@@ -36,7 +36,7 @@ export default function BrowseContent({
     const handleDelete = async (id: string) => {
     const { status, error } = await API.article.deleteArticle(id);
     setDisplayedArticles((prev) => prev?.filter((article) => article._id !== id));
-    delay(1000).then(() => refetchRecent());
+    // delay(1000).then(() => refetchRecent());
     if (status === 200) {
       refetchRecent();
     } else if (error) {

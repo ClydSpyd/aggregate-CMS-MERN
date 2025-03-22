@@ -45,6 +45,7 @@ export const PageConfigProvider = ({
       const { data } = await API.article.getFilteredArticles({
         text: "",
         tags: pageConfig?.tags ?? [],
+        author: null
       });
       if (data) {
         setArticles(data);

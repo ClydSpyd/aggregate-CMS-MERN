@@ -43,7 +43,7 @@ export const articleFunctions = {
       return { error: err.message, status: 500 };
     }
   },
-  getRecentArticles: async () => {
+  getRecentArticles: async (): Promise<ApiResponse<Article[]>> => {
     try {
       const { data, status } = await baseClient.get("/article/recent?num=24");
       return { status, data };

@@ -36,7 +36,7 @@ export default function TableRow({
   useOutsideClick(contRef, () => setConfirmDelete(false));
 
   return (
-    <StaggerContainer className="h-fit">
+    <StaggerContainer randomFactor={250} className="h-fit">
       <div
         ref={contRef}
         style={{ position: "relative", zIndex }}

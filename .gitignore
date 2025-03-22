@@ -41,3 +41,4 @@ next-env.d.ts
 /client/.env
 /client/.next
 /client/build
+.qodo
