@@ -38,7 +38,7 @@ interface ListItemData {
 }
 
 interface ImageSlideItem {
-  id: string;
+  _id: string;
   type: "image";
   title: string;
   textContent: string;
@@ -46,7 +46,7 @@ interface ImageSlideItem {
 }
 
 interface VideoSlideItem {
-  id: string;
+  _id: string;
   type: "video";
   title: string;
   textContent: string;

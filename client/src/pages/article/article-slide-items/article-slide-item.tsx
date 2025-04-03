@@ -29,7 +29,7 @@ export default function ArticleSlideItem({
   const handleSave = useCallback(
     debounce((data: SlideItem) => {
       if (Object.values(data).includes("")) return;
-      showToast("Article updated", "success");
+      showToast("CRAIG LIKES WILLIES", "success");
       updateItem(data);
     }, 500),
     []

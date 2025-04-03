@@ -113,6 +113,7 @@ router.patch("/update/:id", verifyToken, async (req, res) => {
 
     res.json(updatedArticle);
   } catch (error) {
+    console.error("Error updating article:", error);
     res.status(500).json({ message: error.message });
   }
 });

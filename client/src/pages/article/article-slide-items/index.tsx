@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { cn } from "../../../lib/utilities";
 
 const blankItem = (id:string): SlideItem => ({
-  id,
+  _id: id,
   type: "image",
   imgUrl: "",
   title: "",
@@ -33,11 +33,12 @@ export default function ArticleSlideItems({
   };
 
   const updateItem = (item: SlideItem) => {
+    const idx = articleData.slideItems!.findIndex((i) => i._id === item._id);
     const updatedItems = [...articleData.slideItems!];
-    const index = updatedItems.findIndex((i) => i.id === item.id);
-    updatedItems[index] = item;
-    API.article.updateArticle(articleData._id, {
-      slideItems: updatedItems.filter((i) => i !== null),
+    updatedItems[idx] = item;
+    API.article.updateArticle(articleData._id!, {
+      // @ts-ignore
+      slideItems: updatedItems.map(({ _id, ...rest }) => rest),
     });
     setCanAddItem(true);
   };
