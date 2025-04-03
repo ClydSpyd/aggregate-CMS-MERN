@@ -48,7 +48,7 @@ export default function ArticleContentEditor({
       )}
     </HoverWrapper>
   ) : (
-    <div className="w-full border min-h-[400px] transition-all duration-300 border-slate-300 px-4 rounded-lg cursor-pointer relative group my-2">
+    <div className="w-full border transition-all duration-300 px-4 rounded-lg cursor-pointer relative group my-2">
       <ArticleTextEditor
         show={true}
         noToolbar={articleData.type === "list"}

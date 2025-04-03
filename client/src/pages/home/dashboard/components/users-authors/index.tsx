@@ -107,7 +107,7 @@ export default function UsersAuthors() {
           </div>
         </AuthorModal>
       </div>
-      <div className="border rounded-lg flex flex-col justify-start grow overflow-x-auto">
+      <div className="border rounded-lg flex flex-col justify-start grow">
         <TableHeader />
         <section className="p-1 rounded-md grow flex flex-col justify-start gap-1">
           {isLoading ? (

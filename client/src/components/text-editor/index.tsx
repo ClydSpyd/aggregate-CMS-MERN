@@ -88,16 +88,11 @@ export default function TextEditor({
   });
 
   return (
-    <div
-      ref={constRef}
-      className={cn(
-        "flex grow flex-col h-full p-2 relative",
-        border ? "border" : ""
-      )}
-    >
+    <>
       <div
+      ref={constRef}
         onClick={() => editorRef.current?.focus()}
-        className="grow h-auto min-h-[400px] rounded-sm flex flex-col cursor-text"
+        className="w-full grow rounded-sm flex flex-col cursor-text"
       >
         <ReactQuill
           value={initialContent ?? undefined}
@@ -143,6 +138,6 @@ export default function TextEditor({
       <ModalWrapper open={confirmClose} onClose={() => setConfirmClose(false)}>
         <div className="w-[300px] h-[200px] bg-white rounded-lg"></div>
       </ModalWrapper>
-    </div>
+    </>
   );
 }

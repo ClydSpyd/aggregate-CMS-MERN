@@ -17,18 +17,16 @@ export const ArticleTextEditor = ({
     return (
       <div
         ref={contRef}
-        className="h-full min-h-[400px] w-full rounded-lg flex flex-col items-center justify-center pb-2"
+        className="min-h-[500px]  w-full rounded-lg flex flex-col items-center justify-center pb-2"
       >
-        <div className="h-fit min-w-full overflow-y-auto">
-          <TextEditor
-            noToolbar={noToolbar}
-            canSubmit={true}
-            initialContent={articleData.content}
-            saveCallback={handleContentChange}
-            btnClass="absolute top-2 right-4"
-            outsideClickHandler={() => setShow(false)}
-          />
-        </div>
+        <TextEditor
+          noToolbar={noToolbar}
+          canSubmit={true}
+          initialContent={articleData.content}
+          saveCallback={handleContentChange}
+          btnClass="absolute top-2 right-4"
+          outsideClickHandler={() => setShow(false)}
+        />
       </div>
     );
   };

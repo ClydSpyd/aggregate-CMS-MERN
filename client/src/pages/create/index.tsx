@@ -114,13 +114,19 @@ export default function CreatePage() {
                 </div>
               </div>
               {selectedArticle && !isFirstRender && (
-                <TextEditor
-                  border
-                  saveCallback={saveCallback}
-                  postSubmistMsg={submitData.msg}
-                  isError={submitData.error}
-                  canSubmit={formFilled}
-                />
+                <div
+                  className={cn(
+                    "flex grow flex-col p-2 relative border"
+                  )}
+                >
+                  <TextEditor
+                    border
+                    saveCallback={saveCallback}
+                    postSubmistMsg={submitData.msg}
+                    isError={submitData.error}
+                    canSubmit={formFilled}
+                  />
+                </div>
               )}
             </>
           )}

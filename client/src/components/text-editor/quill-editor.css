@@ -7,7 +7,7 @@
 .ql-container {
     flex-grow: 1;
     border: none !important;
-    height: 100%;
+    height: calc(100% - 50px);
 }
 
 .ql-toolbar {
@@ -16,6 +16,10 @@
     border-radius: 8px;
     border: none;
     color: white;
+    position: sticky;
+    top: 8px;
+    background-color: white;
+    z-index: 50;
 }
 
 .ql-toolbar * {
@@ -49,6 +53,10 @@
 .ql-picker-label.ql-active:hover {
     border: none !important;
     color: var(--purple) !important;
+}
+
+.ql-editor {
+    overflow-y: hidden;
 }
 
 .ql-editor * {
