@@ -36,7 +36,7 @@ export default function UsersAuthors() {
   const [filteredUsers, setFilteredUsers] = useState<AuthorData[] | null>(null);
   const [searchInupt, setSearchInput] = useState<string>("");
 
-  const { data: authors, isLoading, refetch } = useAuthorUsers();
+  const { data: authors, isLoading } = useAuthorUsers();
   
   useEffect(() => {
     if (!isLoading && authors) {
