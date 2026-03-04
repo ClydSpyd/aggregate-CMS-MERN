@@ -2,6 +2,13 @@
 
 CMS for creating, managing, and publishing music-related articles. Built with MERN stack to power editorial workflows for a music website, supporting rich content, lists, slides, and more.
 
+## Demo
+
+Access the live demo at [https://aggregate-cms.onrender.com/](https://aggregate-cms.onrender.com/)
+  
+> **Note:** For admin/demo credentials, contact [daveclydesdale@gmail.com](mailto:daveclydesdale@gmail.com).
+
+
 
 ## Features
 
