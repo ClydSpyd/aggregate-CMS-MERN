@@ -108,6 +108,24 @@ const articleSchema = new mongoose.Schema(
   }
 );
 
+const ArticleHistory = mongoose.model("ArticleHistory", new mongoose.Schema({}, { strict: false }), "articles_history");
+
+articleSchema.pre('findOneAndUpdate', async function (next) {
+  const docToUpdate = await this.model.findOne(this.getQuery()).lean();
+  if (docToUpdate) {
+
+    await ArticleHistory.create({
+      articleId: docToUpdate._id,
+      backup: docToUpdate,
+      versionedAt: new Date(),
+      operation: "update",
+    });
+
+    console.log(`✅ Pre-update backup stored for article: ${docToUpdate._id}`);
+  }
+  next();
+});
+
 const Article = mongoose.model("Article", articleSchema);
 
 module.exports = Article;

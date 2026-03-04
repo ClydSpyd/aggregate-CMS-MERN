@@ -99,13 +99,12 @@ router.patch("/update/:id", verifyToken, async (req, res) => {
   try {
     console.log("UPDATE ARTICLE");
     console.log(req.params);
-    // Use findByIdAndUpdate to update the article with the new payload
-    const updatedArticle = await Article.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body }, // update only the provided fields
-      { new: true, runValidators: true } // new: true returns the updated document
+    
+    const updatedArticle = await Article.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: req.body },
+      { new: true, runValidators: true }
     );
-
     // Check if the article exists
     if (!updatedArticle) {
       return res.status(404).json({ message: "Article not found" });

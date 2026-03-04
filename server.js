@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const { connectDB } = require('./db');
 require('dotenv').config();
+// require('./watcher.js');
 
 const app = express();
 app.use(cookieParser());
